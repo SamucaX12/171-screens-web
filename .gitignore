@@ -1,0 +1,33 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# next
+.next/
+out/
+
+# env — NUNCA subir secrets
+.env
+.env.local
+.env.*.local
+
+# scanner exe (sobe separado ou via SCANNER_EXE_PATH)
+public/scanner/*.exe
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# misc
+.DS_Store
+*.pem
+.vercel
+
+# typescript
+next-env.d.ts
+
+# ide
+.idea/
+.vscode/
