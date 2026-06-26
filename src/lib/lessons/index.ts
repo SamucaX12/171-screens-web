@@ -5,6 +5,7 @@ import { tier2Lessons } from "./tier2";
 import { tier2Extra } from "./tier2-extra";
 import { tier3Lessons } from "./tier3";
 import { tier3Extra } from "./tier3-extra";
+import { enrichLessons } from "../lesson-enrich";
 
 export type { Lesson, LessonSection, LessonCategory } from "./types";
 export { categories };
@@ -21,8 +22,8 @@ const t1 = withDefaultOrder([...tier1Lessons, ...tier1Extra], 0);
 const t2 = withDefaultOrder([...tier2Lessons, ...tier2Extra], 100);
 const t3 = withDefaultOrder([...tier3Lessons, ...tier3Extra], 200);
 
-export const lessons = [...t1, ...t2, ...t3].sort(
-  (a, b) => (a.order ?? 999) - (b.order ?? 999)
+export const lessons = enrichLessons(
+  [...t1, ...t2, ...t3].sort((a, b) => (a.order ?? 999) - (b.order ?? 999))
 );
 
 export function getLesson(id: string) {
@@ -48,4 +49,25 @@ export function getLessonCounts() {
     tier3: lessons.filter((l) => l.tier === "tier3").length,
     total: lessons.length,
   };
+}
+
+export type LessonSummary = {
+  id: string;
+  title: string;
+  intro: string;
+  categoryId: string;
+  tier: import("../types").CourseTier;
+  order?: number;
+};
+
+/** Lista leve pro hub — não manda conteúdo inteiro pro client */
+export function getLessonSummaries(): LessonSummary[] {
+  return lessons.map(({ id, title, intro, categoryId, tier, order }) => ({
+    id,
+    title,
+    intro,
+    categoryId,
+    tier,
+    order,
+  }));
 }

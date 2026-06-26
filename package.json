@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3007",
-    "build": "next build",
+    "dev:scanner": "next dev -p 3001",
+    "build": "node scripts/generate-lesson-svgs.mjs && next build",
+    "generate:lessons": "node scripts/generate-lesson-svgs.mjs",
     "start": "next start -p 3007",
     "lint": "next lint"
   },

@@ -6,8 +6,9 @@ const L = (
   categoryId: string,
   intro: string,
   sections: Lesson["sections"],
-  checklist: string[]
-): Lesson => ({ id, title, categoryId, tier: "tier1", intro, sections, checklist });
+  checklist: string[],
+  extra?: Pick<Lesson, "coverImage" | "introVideo">
+): Lesson => ({ id, title, categoryId, tier: "tier1", intro, sections, checklist, ...extra });
 
 export const tier1Lessons: Lesson[] = [
   L("prefetch", "Prefetch — Caça ao Xiter", "windows",
@@ -16,17 +17,19 @@ export const tier1Lessons: Lesson[] = [
       {
         kind: "intro",
         heading: "O que é a Prefetch?",
-        body: "O Windows é um sistema preguiçoso. Para abrir os programas mais rápido, ele cria um cache (memória rápida) de tudo que foi executado no PC na pasta:\n\nC:\\Windows\\Prefetch\n\nCada execução gera um arquivo .pf com nome tipo NOME.EXE-HASH.pf. O hash muda se o caminho do .exe mudar — o Windows não se importa com o nome que o xiter colocou.",
-      },
-      {
-        kind: "intro",
-        heading: "O erro clássico do xiter",
-        body: "O xiter acha que é o Mr. Robot. Baixa o Super-Mega-Ultra-Fire-Bypass-Anti-Tela.exe, renomeia pra calc.exe ou chrome.exe, roda, fecha antes da SS e jura que tá limpo.\n\nO erro dele: o Windows carimba o arquivo com o Hash de Execução e cria o .pf. O rastro fica lá por dias só esperando você passar o rodo.",
+        body: "O Windows guarda cache de tudo que foi executado na pasta:\n\nC:\\Windows\\Prefetch\n\nCada execução gera um arquivo .pf tipo NOME.EXE-HASH.pf.\n\nO xiter renomeia o cheat pra chrome.exe — o Windows carimba o hash real no nome do .pf.",
       },
       {
         kind: "modulo",
-        heading: "📚 MÓDULO 1 — Invadindo a Pasta",
-        body: "Para começar, pede a tela do elemento e manda ele fazer isso:\n\n1. Apertar Win + R\n2. Digitar prefetch e dar Enter\n3. Vai pedir permissão de administrador — manda clicar em Continuar\n\nAgora você está olhando pro cemitério de mentiras dele. Ordena por Data de Modificação (mais recente primeiro).",
+        heading: "📚 PASSO 1 — Abrir a pasta Prefetch",
+        body: "Manda o cliente fazer EXATAMENTE isso na call:\n\n1. Aperta Win + R no teclado\n2. Digita: prefetch\n3. Clica OK\n4. Clica em Continuar (pede admin)\n\nPronto — você tá na pasta Prefetch.",
+        image: "/lessons/tutorial-prefetch-winr.png",
+      },
+      {
+        kind: "modulo",
+        heading: "📚 PASSO 2 — Ordenar e procurar",
+        body: "Dentro da pasta:\n\n1. Clica na coluna **Data de modificação** (ordena do mais recente)\n2. Procura arquivos .pf com nomes estranhos:\n   • CHROME.EXE, CALC.EXE, NOTEPAD.EXE fora do normal\n   • CMD.EXE ou POWERSHELL.EXE perto do horário do jogo\n   • Arquivo .pf modificado 1 minuto antes do emulador abrir\n3. Anota o nome completo do .pf suspeito\n\nSe a pasta tiver menos de 5 arquivos num PC usado todo dia = anti-forense (limparam).",
+        image: "/lessons/tutorial-prefetch-pasta.png",
       },
       {
         kind: "tecnica",
@@ -303,43 +306,45 @@ export const tier1Lessons: Lesson[] = [
       {
         kind: "intro",
         heading: "O que é System Informer?",
-        body: "Sucessor espiritual do Process Hacker. Monitor moderno de processos, serviços, rede e drivers.\n\nNa telagem: vê o que o emulador carregou, quem injetou DLL, quem abriu handle no processo do jogo.\n\nBaixa: systeminformer.sourceforge.io — SEMPRE como admin.",
+        body: "Monitor de processos (sucessor do Process Hacker).\n\nNa telagem você usa pra:\n• Ver DLLs carregadas no emulador\n• Filtrar por path (.dll, Temp, Downloads)\n• Checar assinatura (unsigned = suspeito)\n\nBaixa no link acima desta aula. SEMPRE abre como Administrador.",
       },
       {
         kind: "modulo",
-        heading: "📚 MÓDULO 1 — Setup na SS",
-        body: "Se já tiver instalado: abre como Administrador.\n\nAbas principais:\n• Processes — lista processos e CPU/RAM\n• Services — serviços Windows\n• Network — conexões ativas por processo\n\nFiltra pelo emulador (HD-Player, BlueStacks, etc).",
+        heading: "📚 PASSO 1 — Abrir e achar o emulador",
+        body: "1. Baixa e instala o System Informer (link acima)\n2. Botão direito no ícone → Executar como administrador\n3. Aba **Processes** (Processos)\n4. No filtro/busca digita: hdplayer (ou dnplayer se for LDPlayer)\n5. Clica no processo **HD-Player.exe**",
+        image: "/lessons/tutorial-si-hdplayer.png",
+      },
+      {
+        kind: "modulo",
+        heading: "📚 PASSO 2 — Abrir Modules (lista de DLLs)",
+        body: "Com HD-Player selecionado:\n\n1. Botão direito no processo\n2. Clica em **Properties** (Propriedades)\n3. Vai na aba **Modules** (Módulos / DLLs)\n4. Agora você vê TODAS as DLLs carregadas no emulador",
       },
       {
         kind: "tecnica",
-        heading: "🕵️ 1. DLLs Não Assinadas",
-        body: "Processo do emulador → botão direito → Properties → Modules (ou Memory → Modules).\n\nDLL em C:\\Temp, C:\\Users\\...\\Downloads, sem assinatura Authenticode = material de inject.\n\nPrint módulo + caminho completo.",
+        heading: "🛠️ PASSO 3 — Filtrar DLLs suspeitas",
+        body: "Na aba Modules:\n\n1. Clica no campo **Filter** (filtro)\n2. Digita: .dll\n3. Ordena pela coluna **Path** (caminho)\n4. Procura DLLs nestes caminhos:\n   • C:\\Temp\\\n   • C:\\Users\\...\\Downloads\\\n   • C:\\Users\\...\\AppData\\Local\\Temp\\\n5. Coluna **Company** vazia ou sem Microsoft/BlueStacks = SUSPEITO\n6. Print da linha inteira (nome + path + company)",
+        image: "/lessons/tutorial-dll-system-informer.png",
         example: "HD-Player.exe carregou unknown.dll de C:\\Temp\\ — sem assinatura, 892KB. Desde quando emulador precisa de DLL random no Temp?",
       },
       {
         kind: "tecnica",
-        heading: "🕒 2. Network Tab — Phone Home",
-        body: "Aba Network mostra conexões ativas.\n\nProcesso suspeito conectando IP estranho ou porta não padrão enquanto emulador roda = auth ou external.\n\nCruza com Uso de Dados e scan strings.",
+        heading: "🕒 PASSO 4 — Network (opcional)",
+        body: "Aba **Network** no System Informer:\n\n1. Filtra pelo processo suspeito\n2. Vê se conecta IP estranho (auth/loader)\n3. Cruza com Uso de Dados do Windows\n\nLoader conectando enquanto emulador roda = phone-home.",
         example: "loader.exe conectado em 185.x.x.x porta 443 enquanto tu jura que não tem nada aberto... explica essa viagem?",
-      },
-      {
-        kind: "zuera",
-        heading: "🛠️ 3. Handles e Threads",
-        body: "Processo suspeito com handle aberto no HD-Player = external lendo memória.\n\nThreads remotas criadas em processo alheio = inject.\n\nAvançado — tier2 aprofunda. Aqui: print e documenta.",
       },
       {
         kind: "veredito",
         heading: "📚 VEREDITO — System Informer",
-        body: "DLL unsigned no emulador + caminho Temp = evidência forte.\n\nPrint Modules + Network + processo pai.\n\nSHA256 da DLL suspeita com certutil. Não bane só por DLL system32 legítima.",
+        body: "DLL unsigned no emulador + caminho Temp = evidência forte.\n\nPrint Modules + Network + processo pai.\n\nSHA256 da DLL: abre cmd e roda:\ncertutil -hashfile \"C:\\caminho\\suspeita.dll\" SHA256",
       },
     ],
     [
-      "Rodar System Informer como admin",
-      "Filtrar processo do emulador",
-      "Checar Modules — DLLs não assinadas",
-      "Aba Network se tráfego estranho",
-      "Print caminho completo da DLL suspeita",
-      "SHA256 da DLL + cruzar com Prefetch",
+      "Baixar System Informer (link acima)",
+      "Abrir como admin → Processes",
+      "Buscar HD-Player.exe (ou emulador certo)",
+      "Properties → aba Modules",
+      "Filter: .dll → ordenar por Path",
+      "Print DLL suspeita + SHA256",
     ]),
   L("die", "DIE — Detect It Easy — Autopsia do .exe", "ferramentas",
     "Antes de rodar .exe suspeito na SS, passa no DIE. Packer, entropia e assinatura revelam se é update legítimo ou loader empanado.",

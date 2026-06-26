@@ -19,19 +19,21 @@ export function InstallDownloadButton({ pin, className = "" }: { pin: string; cl
             ? "Pin não encontrado"
             : data.error === "pin_expired"
               ? "Pin expirado — pede outro pro telador"
-              : "Erro ao gerar download — tenta de novo"
+              : data.error === "exe_not_available"
+                ? "Scanner ainda não está no servidor — avisa o telador"
+                : "Erro ao baixar — tenta de novo"
         );
         return;
       }
       const blob = await res.blob();
       if (!blob.size) {
-        setError("Pacote vazio — avisa o telador");
+        setError("Arquivo vazio — avisa o telador");
         return;
       }
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `171-screens-${pin}.zip`;
+      a.download = "171-screens.exe";
       document.body.appendChild(a);
       a.click();
       a.remove();
@@ -51,7 +53,7 @@ export function InstallDownloadButton({ pin, className = "" }: { pin: string; cl
         className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber-400 to-orange-500 py-4 text-sm font-black text-black disabled:opacity-50"
       >
         {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
-        {loading ? "Gerando pacote..." : "Baixar Scanner (pin incluso)"}
+        {loading ? "Baixando..." : "⬇️ BAIXAR 171-SCREENS.EXE"}
       </button>
       {error && <p className="mt-3 text-center text-sm text-red-400">{error}</p>}
     </div>

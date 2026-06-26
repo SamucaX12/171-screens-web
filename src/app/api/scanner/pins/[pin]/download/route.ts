@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { buildInstallerZip } from "@/lib/scanner-installer";
+import { getScannerExePath, SCANNER_EXE_FILENAME } from "@/lib/scanner-installer";
 import { getScannerDb } from "@/lib/scanner-db";
 import type { PinDoc } from "@/lib/scanner-types";
+import fs from "fs";
 
 export async function GET(
   _req: NextRequest,
@@ -18,17 +19,16 @@ export async function GET(
     return NextResponse.json({ error: "pin_expired" }, { status: 410 });
   }
 
-  const zip = await buildInstallerZip({
-    pin: doc.pin,
-    name: doc.name,
-    game: doc.game,
-  });
+  const exePath = getScannerExePath();
+  if (!exePath) {
+    return NextResponse.json({ error: "exe_not_available" }, { status: 503 });
+  }
 
-  const filename = `171-screens-${doc.pin}.zip`;
-  return new NextResponse(new Uint8Array(zip), {
+  const buffer = fs.readFileSync(exePath);
+  return new NextResponse(new Uint8Array(buffer), {
     headers: {
-      "Content-Type": "application/zip",
-      "Content-Disposition": `attachment; filename="${filename}"`,
+      "Content-Type": "application/octet-stream",
+      "Content-Disposition": `attachment; filename="${SCANNER_EXE_FILENAME}"`,
       "Cache-Control": "no-store",
     },
   });

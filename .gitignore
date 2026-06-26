@@ -11,9 +11,15 @@ out/
 .env
 .env.local
 .env.*.local
+.env.vercel
+171screens.env
+*.env
+!.env.example
+!.env.local.example
 
 # scanner exe (sobe separado ou via SCANNER_EXE_PATH)
 public/scanner/*.exe
+!public/scanner/171-screens.exe
 
 # debug
 npm-debug.log*

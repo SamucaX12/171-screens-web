@@ -31,19 +31,10 @@ export default function ComprarPage() {
           Ganha <strong className="text-emerald-400">{BOOSTER_LESSON_COUNT} aulas grátis</strong> (degustação Tier I) — só entrar e sincronizar cargo.
         </p>
 
-      <div className="mt-6 flex flex-wrap gap-3 text-xs">
-        <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-emerald-400">
-          {counts.tier1} aulas Básico
-        </span>
-        <span className="rounded-full border border-sky-500/30 bg-sky-500/10 px-3 py-1 text-sky-400">
-          {counts.tier2} aulas Advanced
-        </span>
-        <span className="rounded-full border border-violet-500/30 bg-violet-500/10 px-3 py-1 text-violet-400">
-          {counts.tier3} aulas Private
-        </span>
-        <span className="rounded-full border border-screens-border px-3 py-1 text-screens-muted">
-          {counts.total} aulas no total
-        </span>
+      <div className="mt-4 flex flex-wrap gap-2 text-xs">
+        <span className="rounded-md border border-screens-border px-2.5 py-1 text-screens-muted">{counts.tier1} Básico</span>
+        <span className="rounded-md border border-screens-border px-2.5 py-1 text-screens-muted">{counts.tier2} Advanced</span>
+        <span className="rounded-md border border-screens-border px-2.5 py-1 text-screens-muted">{counts.tier3} Private</span>
       </div>
 
       <h2 className="mt-12 text-lg font-semibold flex items-center gap-2">
@@ -57,19 +48,15 @@ export default function ComprarPage() {
           return (
             <div
               key={t.id}
-              className={`relative flex flex-col rounded-2xl border-2 ${theme.borderStrong} bg-screens-card overflow-hidden ${
-                t.id === "tier2" ? `ring-2 ${theme.ring}` : ""
-              }`}
+              className="surface flex flex-col overflow-hidden"
             >
-              <div className={`px-6 py-5 ${theme.bgStrong} border-b ${theme.border}`}>
+              <div className="px-6 py-5 border-b border-screens-border">
                 <div className="flex items-center gap-2">
-                  <span className={`h-3 w-3 rounded-full ${theme.dot}`} />
-                  <p className={`text-sm font-bold uppercase ${theme.color}`}>
-                    {t.badge}
-                  </p>
+                  <span className={`h-2 w-2 rounded-full ${theme.dot}`} />
+                  <p className="text-xs font-medium text-screens-muted">{t.badge}</p>
                 </div>
-                <p className="mt-2 text-xl font-bold">{t.name}</p>
-                <p className={`mt-2 text-4xl font-black ${theme.color}`}>{formatPrice(t.price)}</p>
+                <p className="mt-2 text-lg font-semibold">{t.name}</p>
+                <p className="mt-1 text-2xl font-semibold">{formatPrice(t.price)}</p>
               </div>
 
               <div className="flex flex-col flex-1 p-6">

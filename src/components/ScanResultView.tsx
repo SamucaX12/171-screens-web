@@ -1,18 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { ScanDoc, ScanDisplayTotals } from "@/lib/scanner-types";
-import {
-  filterThreatDetections,
-  parseSiteEntry,
-  siteCategoryStyle,
-} from "@/lib/scan-threat-helpers";
+import Link from "next/link";
 import {
   Shield,
   Monitor,
-  Terminal,
-  AlertTriangle,
-  CheckCircle,
   XCircle,
   User,
   Cpu,
@@ -22,7 +14,15 @@ import {
   Wifi,
   Usb,
   HardDrive,
+  Headphones,
+  ChevronRight,
 } from "lucide-react";
+import { ScanDoc, ScanDisplayTotals } from "@/lib/scanner-types";
+import {
+  filterThreatDetections,
+  parseSiteEntry,
+  siteCategoryStyle,
+} from "@/lib/scan-threat-helpers";
 import { StatusPill } from "@/components/scanner/PinBadge";
 
 type ListEntry = string | Record<string, unknown>;
@@ -30,12 +30,14 @@ type MainTab = "overview" | "detections" | "threats" | "system" | "accounts" | "
 type DetectionTab = "critical" | "warning" | "suspicious" | "integrity";
 type SystemTab = "bam" | "bypass" | "powershell" | "prefetch" | "process" | "stream" | "recorder";
 
-const DETECTION_STYLES = {
-  critical: { card: "border-red-500/30 bg-red-500/10", title: "text-red-200", badge: "bg-red-500/20 text-red-300" },
-  warning: { card: "border-amber-500/30 bg-amber-500/10", title: "text-amber-200", badge: "bg-amber-500/20 text-amber-300" },
-  suspicious: { card: "border-orange-500/30 bg-orange-500/10", title: "text-orange-200", badge: "bg-orange-500/20 text-orange-300" },
-  integrity: { card: "border-emerald-500/30 bg-emerald-500/10", title: "text-emerald-200", badge: "bg-emerald-500/20 text-emerald-300" },
-} as const;
+const NAV: { id: MainTab; label: string; icon: typeof LayoutGrid }[] = [
+  { id: "overview", label: "Visão geral", icon: LayoutGrid },
+  { id: "detections", label: "Detecções", icon: XCircle },
+  { id: "threats", label: "Ameaças", icon: Wifi },
+  { id: "system", label: "Sistema", icon: Cpu },
+  { id: "accounts", label: "Contas", icon: User },
+  { id: "logs", label: "Logs", icon: FileText },
+];
 
 function parseListEntry(item: ListEntry): Record<string, unknown> | string {
   if (typeof item === "string") {
@@ -93,66 +95,35 @@ function isProcessActive(item: ListEntry): boolean | null {
   return null;
 }
 
-function TabBtn({
-  active,
-  onClick,
-  children,
-  count,
-}: {
-  active: boolean;
-  onClick: () => void;
-  children: React.ReactNode;
-  count?: number;
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`inline-flex items-center gap-2 rounded-xl border px-4 py-2 text-sm font-medium transition ${
-        active
-          ? "border-screens-accent bg-screens-accent/15 text-screens-accent"
-          : "border-screens-border bg-screens-card/50 text-screens-muted hover:border-white/20 hover:text-white"
-      }`}
-    >
-      {children}
-      {count !== undefined && count > 0 && (
-        <span className="rounded-full bg-black/20 px-2 py-0.5 text-xs">{count}</span>
-      )}
-    </button>
-  );
-}
+function RiskRing({ score, label }: { score: number; label: string }) {
+  const r = 54;
+  const c = 2 * Math.PI * r;
+  const offset = c - (score / 100) * c;
+  const color = score >= 70 ? "#ef4444" : score >= 40 ? "#f59e0b" : "#34d399";
 
-function Section({
-  title,
-  subtitle,
-  icon: Icon,
-  count,
-  children,
-}: {
-  title: string;
-  subtitle?: string;
-  icon: React.ElementType;
-  count?: number;
-  children: React.ReactNode;
-}) {
   return (
-    <section className="rounded-2xl border border-screens-border bg-screens-card/70">
-      <div className="flex items-center gap-3 border-b border-screens-border px-5 py-4">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-screens-accent/10">
-          <Icon className="h-4 w-4 text-screens-accent" />
-        </div>
-        <div className="min-w-0 flex-1">
-          <h3 className="text-sm font-semibold">{title}</h3>
-          {subtitle && <p className="text-xs text-screens-muted">{subtitle}</p>}
-        </div>
-        {count !== undefined && (
-          <span className="rounded-full border border-screens-border px-2.5 py-0.5 text-xs text-screens-muted">
-            {count}
-          </span>
-        )}
+    <div className="relative flex flex-col items-center">
+      <svg width="140" height="140" className="-rotate-90">
+        <circle cx="70" cy="70" r={r} fill="none" stroke="#1f1f23" strokeWidth="8" />
+        <circle
+          cx="70"
+          cy="70"
+          r={r}
+          fill="none"
+          stroke={color}
+          strokeWidth="8"
+          strokeLinecap="round"
+          strokeDasharray={c}
+          strokeDashoffset={offset}
+          className="transition-all duration-700"
+        />
+      </svg>
+      <div className="absolute inset-0 flex flex-col items-center justify-center">
+        <span className="text-3xl font-semibold tabular-nums" style={{ color }}>{score}</span>
+        <span className="text-[10px] uppercase tracking-wider text-screens-muted">risco</span>
       </div>
-      <div className="p-5">{children}</div>
-    </section>
+      <p className="mt-2 text-sm font-medium">{label}</p>
+    </div>
   );
 }
 
@@ -164,35 +135,34 @@ function DetectionCards({
 }: {
   items: ScanDoc["detections"];
   total?: number;
-  variant: keyof typeof DETECTION_STYLES;
+  variant: "critical" | "warning" | "suspicious" | "integrity";
   empty: string;
 }) {
-  const style = DETECTION_STYLES[variant];
+  const border = {
+    critical: "border-red-500/20",
+    warning: "border-amber-500/20",
+    suspicious: "border-orange-500/20",
+    integrity: "border-emerald-500/20",
+  }[variant];
+
   if (!items?.length) {
-    return (
-      <div className={`rounded-xl border border-dashed px-4 py-10 text-center text-sm ${style.card}`}>
-        {empty}
-      </div>
-    );
+    return <div className={`rounded-lg border border-dashed ${border} px-4 py-12 text-center text-sm text-screens-muted`}>{empty}</div>;
   }
   const hidden = (total ?? items.length) - items.length;
   return (
-    <div className="space-y-3">
+    <div className="space-y-2">
       {items.map((d, i) => (
-        <div key={i} className={`rounded-xl border p-4 ${style.card}`}>
-          <div className="flex flex-wrap gap-2">
-            <span className={`rounded-md px-2 py-0.5 text-[10px] font-bold uppercase ${style.badge}`}>
-              {d.severity}
-            </span>
-            <span className="rounded-md bg-black/20 px-2 py-0.5 text-[10px] text-screens-muted">{d.category}</span>
+        <div key={i} className={`rounded-lg border ${border} bg-screens-bg p-4`}>
+          <div className="flex gap-2 text-[10px] uppercase tracking-wider text-screens-muted">
+            <span>{d.severity}</span>
+            <span>·</span>
+            <span>{d.category}</span>
           </div>
-          <p className={`mt-2 font-medium ${style.title}`}>{d.title}</p>
-          <p className="mt-1 text-sm leading-relaxed text-screens-muted">{d.description}</p>
+          <p className="mt-2 font-medium text-sm">{d.title}</p>
+          <p className="mt-1 text-sm text-screens-muted leading-relaxed">{d.description}</p>
         </div>
       ))}
-      {hidden > 0 && (
-        <p className="text-center text-xs text-screens-muted">+{hidden} ocultos — total: {total}</p>
-      )}
+      {hidden > 0 && <p className="text-center text-xs text-screens-muted">+{hidden} ocultos</p>}
     </div>
   );
 }
@@ -209,35 +179,25 @@ function ListBlock({
   variant?: "default" | "bypass" | "process";
 }) {
   if (!items?.length) {
-    return (
-      <div className="rounded-xl border border-dashed border-screens-border px-4 py-10 text-center text-sm text-screens-muted">
-        {empty}
-      </div>
-    );
+    return <div className="rounded-lg border border-dashed border-screens-border px-4 py-12 text-center text-sm text-screens-muted">{empty}</div>;
   }
   const hidden = (total ?? items.length) - items.length;
   return (
-    <ul className="max-h-[480px] space-y-2 overflow-y-auto pr-1">
+    <ul className="max-h-[420px] space-y-1.5 overflow-y-auto font-mono text-[11px]">
       {items.map((item, i) => {
         const active = variant === "process" ? isProcessActive(item) : null;
-        let cls = "border-screens-border/60 bg-screens-bg text-screens-muted";
-        if (variant === "bypass") cls = "border-violet-500/35 bg-violet-500/10 text-violet-200";
-        if (active === true) cls = "border-emerald-500/35 bg-emerald-500/10 text-emerald-200";
-        if (active === false) cls = "border-red-500/35 bg-red-500/10 text-red-200";
         return (
-          <li key={i} className={`rounded-xl border px-4 py-3 font-mono text-xs leading-relaxed break-all ${cls}`}>
+          <li key={i} className="rounded-md border border-screens-border bg-screens-bg px-3 py-2.5 text-screens-muted break-all">
             {active !== null && (
-              <span className={`mr-2 rounded px-1.5 py-0.5 text-[10px] font-bold ${active ? "bg-emerald-500/20 text-emerald-300" : "bg-red-500/20 text-red-300"}`}>
-                {active ? "ON" : "OFF"}
+              <span className={`mr-2 text-[9px] font-bold uppercase ${active ? "text-emerald-400" : "text-red-400"}`}>
+                {active ? "on" : "off"}
               </span>
             )}
             {formatListItem(item)}
           </li>
         );
       })}
-      {hidden > 0 && (
-        <li className="py-2 text-center text-xs text-screens-muted">+{hidden} ocultos — total: {total}</li>
-      )}
+      {hidden > 0 && <li className="py-2 text-center text-xs text-screens-muted">+{hidden} ocultos</li>}
     </ul>
   );
 }
@@ -246,10 +206,12 @@ export function ScanResultView({
   scan,
   totals,
   pinResult,
+  pinCode,
 }: {
   scan: ScanDoc;
   totals?: ScanDisplayTotals;
   pinResult?: string;
+  pinCode?: string;
 }) {
   const sys = scan.systemInfo ?? {};
   const [mainTab, setMainTab] = useState<MainTab>("overview");
@@ -281,305 +243,311 @@ export function ScanResultView({
   const detectionTotal = counts.critical + counts.warning + counts.suspicious + counts.integrity;
   const systemTotal = counts.bam + counts.bypass + counts.powershell + counts.prefetch + counts.process + counts.recorder;
 
+  const riskScore = Math.min(
+    100,
+    Math.round(counts.critical * 12 + counts.warning * 4 + counts.suspicious * 6 - counts.integrity * 0.5)
+  );
+
+  const verdictLabel =
+    pinResult === "cheating"
+      ? "Cheat detectado"
+      : pinResult === "suspicious"
+        ? "Suspeito"
+        : pinResult === "warning"
+          ? "Warning"
+          : pinResult === "clean"
+            ? "Clean"
+            : "Análise";
+
   return (
-    <div className="page-scanner min-h-full">
-      {/* Summary bar — always visible */}
-      <div className="sticky top-0 z-10 border-b border-screens-border bg-screens-bg/95 px-5 py-4 backdrop-blur-md md:px-8">
-        <div className="flex flex-wrap items-center gap-3">
-          {pinResult && pinResult !== "none" && <StatusPill value={pinResult} />}
-          <div className="flex flex-wrap gap-2 text-xs">
-            <span className="rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-1.5 text-red-300">
-              <strong className="font-bold">{counts.critical}</strong> críticos
-            </span>
-            <span className="rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-1.5 text-amber-300">
-              <strong className="font-bold">{counts.warning}</strong> warnings
-            </span>
-            <span className="rounded-lg border border-orange-500/30 bg-orange-500/10 px-3 py-1.5 text-orange-300">
-              <strong className="font-bold">{counts.suspicious}</strong> suspeitos
-            </span>
-            <span className="rounded-lg border border-emerald-500/30 bg-emerald-500/10 px-3 py-1.5 text-emerald-300">
-              <strong className="font-bold">{counts.integrity}</strong> clean
-            </span>
-          </div>
-        </div>
+    <div className="page-scanner min-h-full flex flex-col lg:flex-row">
+      {/* Sidebar nav */}
+      <aside className="lg:w-52 shrink-0 border-b lg:border-b-0 lg:border-r border-screens-border p-4 lg:sticky lg:top-0 lg:h-screen lg:overflow-y-auto">
+        <p className="label-xs mb-3">Relatório</p>
+        <nav className="space-y-0.5">
+          {NAV.map((item) => {
+            const count =
+              item.id === "detections"
+                ? detectionTotal
+                : item.id === "threats"
+                  ? counts.threats + counts.sites
+                  : item.id === "system"
+                    ? systemTotal
+                    : item.id === "accounts"
+                      ? counts.discord + counts.steam
+                      : item.id === "logs"
+                        ? counts.admin
+                        : undefined;
+            return (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => setMainTab(item.id)}
+                className={`w-full flex items-center justify-between rounded-lg px-3 py-2 text-[13px] transition ${
+                  mainTab === item.id ? "bg-white/[0.06] text-white" : "text-screens-muted hover:bg-white/[0.03]"
+                }`}
+              >
+                <span className="flex items-center gap-2">
+                  <item.icon className="h-3.5 w-3.5 opacity-70" />
+                  {item.label}
+                </span>
+                {count !== undefined && count > 0 && (
+                  <span className="text-[10px] font-mono text-screens-muted">{count}</span>
+                )}
+              </button>
+            );
+          })}
+        </nav>
 
-        <div className="mt-4 flex flex-wrap gap-2">
-          <TabBtn active={mainTab === "overview"} onClick={() => setMainTab("overview")}>
-            <LayoutGrid className="h-4 w-4" /> Geral
-          </TabBtn>
-          <TabBtn active={mainTab === "detections"} onClick={() => setMainTab("detections")} count={detectionTotal}>
-            <XCircle className="h-4 w-4" /> Detecções
-          </TabBtn>
-          <TabBtn active={mainTab === "threats"} onClick={() => setMainTab("threats")} count={counts.threats + counts.sites}>
-            <Wifi className="h-4 w-4" /> Ameaças
-          </TabBtn>
-          <TabBtn active={mainTab === "system"} onClick={() => setMainTab("system")} count={systemTotal}>
-            <Cpu className="h-4 w-4" /> Sistema
-          </TabBtn>
-          <TabBtn active={mainTab === "accounts"} onClick={() => setMainTab("accounts")} count={counts.discord + counts.steam}>
-            <User className="h-4 w-4" /> Contas
-          </TabBtn>
-          <TabBtn active={mainTab === "logs"} onClick={() => setMainTab("logs")} count={counts.admin}>
-            <FileText className="h-4 w-4" /> Logs
-          </TabBtn>
-        </div>
-      </div>
+        {pinCode && (
+          <Link
+            href={`/dashboard/tickets?pin=${pinCode}&type=scan`}
+            className="mt-6 flex items-center gap-2 rounded-lg border border-screens-border px-3 py-2.5 text-[12px] text-screens-muted hover:text-white hover:bg-white/[0.03] transition"
+          >
+            <Headphones className="h-3.5 w-3.5" />
+            Ticket sobre este scan
+          </Link>
+        )}
+      </aside>
 
-      <div className="space-y-5 p-5 md:p-8 max-w-6xl">
-        {mainTab === "overview" && (
-          <div className="space-y-5">
-            <Section title="Informações do PC" icon={Monitor}>
-              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="flex-1 min-w-0">
+        {/* Hero verdict */}
+        <div className="border-b border-screens-border bg-screens-bg-elevated">
+          <div className="max-w-4xl mx-auto p-6 md:p-8 flex flex-col md:flex-row items-center gap-8">
+            <RiskRing score={riskScore} label={verdictLabel} />
+            <div className="flex-1 w-full">
+              <div className="flex flex-wrap items-center gap-2 mb-4">
+                {pinResult && pinResult !== "none" && <StatusPill value={pinResult} />}
+                {scan.streamModeDetected && (
+                  <span className="rounded-md border border-amber-500/30 px-2 py-0.5 text-[10px] text-amber-400 uppercase">
+                    Stream mode
+                  </span>
+                )}
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                 {[
-                  { label: "PC", value: sys.pcName ?? "—" },
-                  { label: "Usuário", value: sys.username ?? "—" },
-                  { label: "HWID", value: sys.hwid ? `${sys.hwid.slice(0, 20)}…` : "—" },
-                  { label: "IP", value: sys.ip ?? "—" },
-                ].map((f) => (
-                  <div key={f.label} className="rounded-xl border border-screens-border bg-screens-bg px-4 py-3">
-                    <p className="text-[10px] uppercase tracking-wide text-screens-muted">{f.label}</p>
-                    <p className="mt-1 truncate font-mono text-sm">{f.value}</p>
+                  { l: "Críticos", v: counts.critical, c: "text-red-400" },
+                  { l: "Warnings", v: counts.warning, c: "text-amber-400" },
+                  { l: "Suspeitos", v: counts.suspicious, c: "text-orange-400" },
+                  { l: "Clean", v: counts.integrity, c: "text-emerald-400" },
+                ].map((s) => (
+                  <div key={s.l} className="surface px-3 py-2.5 text-center">
+                    <p className={`text-xl font-semibold tabular-nums ${s.c}`}>{s.v}</p>
+                    <p className="text-[9px] text-screens-muted uppercase tracking-wider">{s.l}</p>
                   </div>
                 ))}
               </div>
-            </Section>
+            </div>
+          </div>
+        </div>
 
-            {scan.screenshotUrl && (
-              <Section title="Screenshot" subtitle="Captura durante o scan" icon={Monitor}>
-                <img
-                  src={scan.screenshotUrl}
-                  alt="Screenshot do scan"
-                  className="max-h-[400px] w-full rounded-xl border border-screens-border object-contain bg-black/20"
-                />
-              </Section>
-            )}
-
-            <div className="grid gap-5 lg:grid-cols-2">
-              <Section title="Resumo detecções" icon={AlertTriangle} count={detectionTotal}>
-                <div className="grid grid-cols-2 gap-2">
+        <div className="max-w-4xl mx-auto p-5 md:p-8 space-y-5">
+          {mainTab === "overview" && (
+            <>
+              <section className="surface p-5">
+                <h3 className="text-sm font-medium flex items-center gap-2 mb-4">
+                  <Monitor className="h-4 w-4 text-screens-muted" /> Sistema
+                </h3>
+                <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
                   {[
-                    { label: "Críticos", val: counts.critical, tone: "text-red-300", border: "border-red-500/30" },
-                    { label: "Warnings", val: counts.warning, tone: "text-amber-300", border: "border-amber-500/30" },
-                    { label: "Suspeitos", val: counts.suspicious, tone: "text-orange-300", border: "border-orange-500/30" },
-                    { label: "Clean", val: counts.integrity, tone: "text-emerald-300", border: "border-emerald-500/30" },
-                  ].map((s) => (
-                    <div key={s.label} className={`rounded-xl border bg-screens-bg px-4 py-3 ${s.border}`}>
-                      <p className="text-[10px] text-screens-muted">{s.label}</p>
-                      <p className={`text-xl font-black ${s.tone}`}>{s.val}</p>
+                    { label: "PC", value: sys.pcName ?? "—" },
+                    { label: "Usuário", value: sys.username ?? "—" },
+                    { label: "HWID", value: sys.hwid ? `${sys.hwid.slice(0, 16)}…` : "—" },
+                    { label: "IP", value: sys.ip ?? "—" },
+                  ].map((f) => (
+                    <div key={f.label} className="rounded-lg bg-screens-bg border border-screens-border px-3 py-2.5">
+                      <p className="text-[9px] uppercase text-screens-muted">{f.label}</p>
+                      <p className="mt-0.5 font-mono text-xs truncate">{f.value}</p>
                     </div>
                   ))}
                 </div>
+              </section>
+
+              {scan.screenshotUrl && (
+                <section className="surface p-5">
+                  <h3 className="text-sm font-medium mb-3">Screenshot</h3>
+                  <img
+                    src={scan.screenshotUrl}
+                    alt="Screenshot"
+                    className="w-full max-h-80 rounded-lg border border-screens-border object-contain bg-black"
+                  />
+                </section>
+              )}
+
+              <div className="grid gap-3 sm:grid-cols-2">
                 <button
                   type="button"
                   onClick={() => setMainTab("detections")}
-                  className="mt-4 w-full rounded-xl bg-screens-accent py-2.5 text-sm font-bold text-black hover:opacity-90"
+                  className="surface p-5 text-left hover:bg-screens-card-hover transition group"
                 >
-                  Ver detecções →
+                  <p className="text-sm font-medium">Detecções</p>
+                  <p className="text-2xl font-semibold mt-1">{detectionTotal}</p>
+                  <ChevronRight className="h-4 w-4 text-screens-muted mt-2 group-hover:translate-x-0.5 transition" />
                 </button>
-              </Section>
-
-              <Section title="Resumo sistema" icon={Terminal} count={systemTotal}>
-                <div className="grid grid-cols-2 gap-2">
-                  {[
-                    { label: "BAM", val: counts.bam },
-                    { label: "Bypass", val: counts.bypass },
-                    { label: "Processos", val: counts.process },
-                    { label: "Prefetch", val: counts.prefetch },
-                  ].map((s) => (
-                    <div key={s.label} className="rounded-xl border border-screens-border bg-screens-bg px-4 py-3">
-                      <p className="text-[10px] text-screens-muted">{s.label}</p>
-                      <p className="text-xl font-black">{s.val}</p>
-                    </div>
-                  ))}
-                </div>
                 <button
                   type="button"
                   onClick={() => setMainTab("system")}
-                  className="mt-4 w-full rounded-xl border border-screens-border py-2.5 text-sm font-medium hover:border-screens-accent/40"
+                  className="surface p-5 text-left hover:bg-screens-card-hover transition group"
                 >
-                  Ver sistema →
+                  <p className="text-sm font-medium">Artefatos sistema</p>
+                  <p className="text-2xl font-semibold mt-1">{systemTotal}</p>
+                  <ChevronRight className="h-4 w-4 text-screens-muted mt-2 group-hover:translate-x-0.5 transition" />
                 </button>
-              </Section>
-            </div>
-          </div>
-        )}
+              </div>
+            </>
+          )}
 
-        {mainTab === "detections" && (
-          <div className="space-y-4">
-            <div className="flex flex-wrap gap-2">
-              {(["critical", "warning", "suspicious", "integrity"] as const).map((t) => (
-                <TabBtn key={t} active={detectionTab === t} onClick={() => setDetectionTab(t)} count={counts[t === "critical" ? "critical" : t]}>
-                  {t === "critical" ? "Críticos" : t === "warning" ? "Warnings" : t === "suspicious" ? "Suspeitos" : "Clean"}
-                </TabBtn>
-              ))}
-            </div>
-            {detectionTab === "critical" && (
-              <Section title="Detecções críticas" icon={XCircle} count={counts.critical}>
-                <DetectionCards items={scan.detections} total={totals?.detections} variant="critical" empty="Nenhuma detecção crítica" />
-              </Section>
-            )}
-            {detectionTab === "warning" && (
-              <Section title="Warnings" icon={AlertTriangle} count={counts.warning}>
+          {mainTab === "detections" && (
+            <>
+              <div className="flex flex-wrap gap-1">
+                {(["critical", "warning", "suspicious", "integrity"] as const).map((t) => (
+                  <button
+                    key={t}
+                    type="button"
+                    onClick={() => setDetectionTab(t)}
+                    className={`rounded-md px-3 py-1.5 text-xs font-medium ${
+                      detectionTab === t ? "bg-white text-black" : "text-screens-muted hover:text-white"
+                    }`}
+                  >
+                    {t === "critical" ? "Críticos" : t === "warning" ? "Warnings" : t === "suspicious" ? "Suspeitos" : "Clean"}{" "}
+                    ({counts[t === "critical" ? "critical" : t]})
+                  </button>
+                ))}
+              </div>
+              {detectionTab === "critical" && (
+                <DetectionCards items={scan.detections} total={totals?.detections} variant="critical" empty="Nenhum crítico" />
+              )}
+              {detectionTab === "warning" && (
                 <DetectionCards items={scan.warnings} total={totals?.warnings} variant="warning" empty="Nenhum warning" />
-              </Section>
-            )}
-            {detectionTab === "suspicious" && (
-              <Section title="Suspeitos" icon={AlertTriangle} count={counts.suspicious}>
+              )}
+              {detectionTab === "suspicious" && (
                 <DetectionCards items={scan.suspicious} total={totals?.suspicious} variant="suspicious" empty="Nenhum suspeito" />
-              </Section>
-            )}
-            {detectionTab === "integrity" && (
-              <Section title="Clean / Integridade" icon={CheckCircle} count={counts.integrity}>
-                <DetectionCards items={scan.integrity} total={totals?.integrity} variant="integrity" empty="Nenhum item de integridade" />
-              </Section>
-            )}
-          </div>
-        )}
-
-        {mainTab === "threats" && (
-          <div className="space-y-5">
-            <Section title="Remote" subtitle="Acesso remoto e conexões suspeitas" icon={Wifi} count={remote.length}>
-              <DetectionCards items={remote} variant="critical" empty="Nenhuma detecção remote" />
-            </Section>
-            <Section title="DMA" subtitle="Hardware FPGA / PCIe" icon={HardDrive} count={dma.length}>
-              <DetectionCards items={dma} variant="critical" empty="Nenhuma detecção DMA" />
-            </Section>
-            <Section title="USB" subtitle="Dispositivos e detecções USB" icon={Usb} count={usb.length + (scan.usbList?.length ?? 0)}>
-              <DetectionCards items={usb} variant="warning" empty="Nenhuma detecção USB" />
-              {(scan.usbList?.length ?? 0) > 0 && (
-                <div className="mt-4">
-                  <p className="mb-2 text-xs font-semibold text-screens-muted">Dispositivos USB</p>
-                  <ListBlock items={scan.usbList} empty="—" />
-                </div>
               )}
-            </Section>
-            <Section title="Sites" subtitle="Histórico do navegador" icon={Globe} count={counts.sites}>
-              {!scan.browserList?.length ? (
-                <div className="rounded-xl border border-dashed border-screens-border px-4 py-10 text-center text-sm text-screens-muted">
-                  Nenhum site detectado
-                </div>
-              ) : (
-                <ul className="max-h-[480px] space-y-2 overflow-y-auto">
-                  {(scan.browserList as string[]).map((entry, i) => {
-                    const { category, url } = parseSiteEntry(String(entry));
-                    return (
-                      <li key={i} className="rounded-xl border border-screens-accent/20 bg-screens-accent/5 px-4 py-3">
-                        <span className={`inline-block rounded border px-2 py-0.5 text-[10px] font-bold uppercase ${siteCategoryStyle(category)}`}>
-                          {category}
-                        </span>
-                        <p className="mt-2 break-all font-mono text-xs text-screens-accent">{url}</p>
-                      </li>
-                    );
-                  })}
-                </ul>
+              {detectionTab === "integrity" && (
+                <DetectionCards items={scan.integrity} total={totals?.integrity} variant="integrity" empty="Nenhum clean" />
               )}
-            </Section>
-          </div>
-        )}
+            </>
+          )}
 
-        {mainTab === "system" && (
-          <div className="space-y-4">
-            <div className="flex flex-wrap gap-2">
-              {(
-                [
-                  ["bam", "BAM", counts.bam],
-                  ["bypass", "Bypass", counts.bypass],
-                  ["powershell", "PowerShell", counts.powershell],
-                  ["prefetch", "Prefetch", counts.prefetch],
-                  ["process", "Processos", counts.process],
-                  ["recorder", "Gravador", counts.recorder],
-                  ["stream", "Stream", 0],
-                ] as const
-              ).map(([key, label, count]) => (
-                <TabBtn key={key} active={systemTab === key} onClick={() => setSystemTab(key)} count={count || undefined}>
-                  {label}
-                </TabBtn>
-              ))}
+          {mainTab === "threats" && (
+            <div className="space-y-4">
+              <section className="surface p-5">
+                <h3 className="text-sm font-medium flex items-center gap-2 mb-3"><Wifi className="h-4 w-4" /> Remote</h3>
+                <DetectionCards items={remote} variant="critical" empty="Nenhum remote" />
+              </section>
+              <section className="surface p-5">
+                <h3 className="text-sm font-medium flex items-center gap-2 mb-3"><HardDrive className="h-4 w-4" /> DMA</h3>
+                <DetectionCards items={dma} variant="critical" empty="Nenhum DMA" />
+              </section>
+              <section className="surface p-5">
+                <h3 className="text-sm font-medium flex items-center gap-2 mb-3"><Usb className="h-4 w-4" /> USB</h3>
+                <DetectionCards items={usb} variant="warning" empty="Nenhum USB" />
+                {(scan.usbList?.length ?? 0) > 0 && <div className="mt-3"><ListBlock items={scan.usbList} empty="—" /></div>}
+              </section>
+              <section className="surface p-5">
+                <h3 className="text-sm font-medium flex items-center gap-2 mb-3"><Globe className="h-4 w-4" /> Sites</h3>
+                {!scan.browserList?.length ? (
+                  <p className="text-sm text-screens-muted py-6 text-center">Nenhum site</p>
+                ) : (
+                  <ul className="space-y-1.5 max-h-96 overflow-y-auto">
+                    {(scan.browserList as string[]).map((entry, i) => {
+                      const { category, url } = parseSiteEntry(String(entry));
+                      return (
+                        <li key={i} className="rounded-md border border-screens-border bg-screens-bg px-3 py-2">
+                          <span className={`text-[9px] font-bold uppercase ${siteCategoryStyle(category)}`}>{category}</span>
+                          <p className="mt-1 font-mono text-[11px] text-screens-muted break-all">{url}</p>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
+              </section>
             </div>
-            {systemTab === "bam" && (
-              <Section title="BAM" icon={Terminal} count={counts.bam}>
-                <ListBlock items={scan.bamList} total={totals?.bamList} empty="Nenhum registro BAM" />
-              </Section>
-            )}
-            {systemTab === "bypass" && (
-              <Section title="Bypass" subtitle="Arquivos unsigned" icon={Terminal} count={counts.bypass}>
-                <ListBlock items={scan.bypassList ?? scan.unsignedList} total={totals?.bypassList} empty="Nenhum bypass" variant="bypass" />
-              </Section>
-            )}
-            {systemTab === "powershell" && (
-              <Section title="PowerShell" icon={Terminal} count={counts.powershell}>
-                <ListBlock items={scan.powershellHistory} total={totals?.powershellHistory} empty="Nenhum comando" />
-              </Section>
-            )}
-            {systemTab === "prefetch" && (
-              <Section title="Prefetch" icon={Terminal} count={counts.prefetch}>
-                <ListBlock items={scan.prefetchList} total={totals?.prefetchList} empty="Nenhum prefetch" />
-              </Section>
-            )}
-            {systemTab === "process" && (
-              <Section title="Processos" icon={Terminal} count={counts.process}>
-                <ListBlock items={scan.processList} total={totals?.processList} empty="Nenhum processo" variant="process" />
-              </Section>
-            )}
-            {systemTab === "recorder" && (
-              <Section title="Gravador de tela" icon={Monitor} count={counts.recorder}>
-                <ListBlock items={scan.recordingSoftware} total={totals?.recordingSoftware} empty="Nenhum gravador" />
-              </Section>
-            )}
-            {systemTab === "stream" && (
-              <Section title="Stream Mode" icon={Monitor}>
-                <div
-                  className={`rounded-xl border px-6 py-10 text-center text-lg font-bold ${
-                    scan.streamModeDetected
-                      ? "border-amber-500/30 bg-amber-500/10 text-amber-300"
-                      : "border-emerald-500/30 bg-emerald-500/10 text-emerald-300"
-                  }`}
-                >
+          )}
+
+          {mainTab === "system" && (
+            <>
+              <div className="flex flex-wrap gap-1">
+                {(
+                  [
+                    ["bam", "BAM", counts.bam],
+                    ["bypass", "Bypass", counts.bypass],
+                    ["powershell", "PS", counts.powershell],
+                    ["prefetch", "Prefetch", counts.prefetch],
+                    ["process", "Processos", counts.process],
+                    ["recorder", "Gravador", counts.recorder],
+                    ["stream", "Stream", 0],
+                  ] as const
+                ).map(([key, label, count]) => (
+                  <button
+                    key={key}
+                    type="button"
+                    onClick={() => setSystemTab(key)}
+                    className={`rounded-md px-3 py-1.5 text-xs font-medium ${
+                      systemTab === key ? "bg-white text-black" : "text-screens-muted"
+                    }`}
+                  >
+                    {label} {count > 0 ? `(${count})` : ""}
+                  </button>
+                ))}
+              </div>
+              {systemTab === "bam" && <ListBlock items={scan.bamList} total={totals?.bamList} empty="Vazio" />}
+              {systemTab === "bypass" && (
+                <ListBlock items={scan.bypassList ?? scan.unsignedList} total={totals?.bypassList} empty="Vazio" variant="bypass" />
+              )}
+              {systemTab === "powershell" && (
+                <ListBlock items={scan.powershellHistory} total={totals?.powershellHistory} empty="Vazio" />
+              )}
+              {systemTab === "prefetch" && <ListBlock items={scan.prefetchList} total={totals?.prefetchList} empty="Vazio" />}
+              {systemTab === "process" && (
+                <ListBlock items={scan.processList} total={totals?.processList} empty="Vazio" variant="process" />
+              )}
+              {systemTab === "recorder" && (
+                <ListBlock items={scan.recordingSoftware} total={totals?.recordingSoftware} empty="Vazio" />
+              )}
+              {systemTab === "stream" && (
+                <div className={`rounded-lg border px-6 py-10 text-center font-medium ${
+                  scan.streamModeDetected ? "border-amber-500/30 text-amber-400" : "border-emerald-500/30 text-emerald-400"
+                }`}>
                   {scan.streamModeDetected ? "STREAM MODE DETECTADO" : "STREAM MODE NÃO DETECTADO"}
                 </div>
-              </Section>
-            )}
-          </div>
-        )}
-
-        {mainTab === "accounts" && (
-          <div className="grid gap-5 lg:grid-cols-2">
-            <Section title="Discord" icon={Shield} count={counts.discord}>
-              {scan.discordInfo?.accounts?.length ? (
-                <div className="space-y-2">
-                  {scan.discordInfo.accounts.map((a) => (
-                    <div key={a.id} className="rounded-xl border border-screens-border bg-screens-bg p-4">
-                      <p className="font-medium">{a.username}</p>
-                      <p className="mt-1 font-mono text-xs text-screens-muted">{a.id}</p>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <p className="text-center text-sm text-screens-muted py-6">Nenhuma conta Discord</p>
               )}
-            </Section>
-            <Section title="Steam" icon={Shield} count={counts.steam}>
-              {scan.steamList?.length ? (
-                <div className="space-y-2">
-                  {scan.steamList.map((s) => (
-                    <div key={s.steamId} className="rounded-xl border border-screens-border bg-screens-bg p-4">
-                      <p className="font-medium">{s.steamName}</p>
-                      <p className="mt-1 font-mono text-xs text-screens-muted">{s.steamId}</p>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <p className="text-center text-sm text-screens-muted py-6">Nenhuma conta Steam</p>
-              )}
-            </Section>
-          </div>
-        )}
+            </>
+          )}
 
-        {mainTab === "logs" && (
-          <Section title="Admin Logs" icon={FileText} count={counts.admin}>
-            <ListBlock items={scan.adminLogs} total={totals?.adminLogs} empty="Nenhum log" />
-          </Section>
-        )}
+          {mainTab === "accounts" && (
+            <div className="grid gap-4 lg:grid-cols-2">
+              <section className="surface p-5">
+                <h3 className="text-sm font-medium mb-3 flex items-center gap-2"><Shield className="h-4 w-4" /> Discord</h3>
+                {scan.discordInfo?.accounts?.length ? (
+                  scan.discordInfo.accounts.map((a) => (
+                    <div key={a.id} className="rounded-lg border border-screens-border bg-screens-bg p-3 mb-2">
+                      <p className="text-sm font-medium">{a.username}</p>
+                      <p className="font-mono text-[10px] text-screens-muted mt-1">{a.id}</p>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-sm text-screens-muted text-center py-4">Nenhuma conta</p>
+                )}
+              </section>
+              <section className="surface p-5">
+                <h3 className="text-sm font-medium mb-3 flex items-center gap-2"><Shield className="h-4 w-4" /> Steam</h3>
+                {scan.steamList?.length ? (
+                  scan.steamList.map((s) => (
+                    <div key={s.steamId} className="rounded-lg border border-screens-border bg-screens-bg p-3 mb-2">
+                      <p className="text-sm font-medium">{s.steamName}</p>
+                      <p className="font-mono text-[10px] text-screens-muted mt-1">{s.steamId}</p>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-sm text-screens-muted text-center py-4">Nenhuma conta</p>
+                )}
+              </section>
+            </div>
+          )}
+
+          {mainTab === "logs" && <ListBlock items={scan.adminLogs} total={totals?.adminLogs} empty="Nenhum log" />}
+        </div>
       </div>
     </div>
   );

@@ -6,12 +6,14 @@ const config: Config = {
     extend: {
       colors: {
         screens: {
-          bg: "#0a0a0b",
+          bg: "#09090b",
+          "bg-elevated": "#0c0c0e",
           card: "#111113",
-          border: "#1e1e22",
-          muted: "#8b8b95",
-          accent: "#7dd3fc",
-          "accent-dim": "#38bdf8",
+          "card-hover": "#161618",
+          border: "#1f1f23",
+          muted: "#71717a",
+          accent: "#fafafa",
+          "accent-dim": "#e4e4e7",
         },
         tier: {
           basic: "#34d399",

@@ -170,8 +170,9 @@ export const tier1Extra: Lesson[] = [
       },
       {
         kind: "tecnica",
-        heading: "🛠️ DLL List no System Informer",
-        body: "Fluxo na SS:\n1. Abre System Informer como admin\n2. Processes → HD-Player.exe\n3. Aba Modules / DLLs\n4. Ordena por path — foco C:\\Temp, C:\\Users, Downloads\n5. DLL sem assinatura Microsoft/BlueStacks = suspeita\n\nPrint da DLL + caminho + SHA256.",
+        heading: "🛠️ DLL List — Passo a passo COMPLETO",
+        body: "Tutorial completo (System Informer):\n\nPASSO 1 — Abrir\n• Baixa System Informer (link no topo da aula)\n• Executar como administrador\n\nPASSO 2 — Achar emulador\n• Aba Processes\n• Busca: hdplayer\n• Seleciona HD-Player.exe\n\nPASSO 3 — Abrir Modules\n• Botão direito → Properties\n• Aba Modules (Módulos)\n\nPASSO 4 — Filtrar DLLs\n• Campo Filter → digita: .dll\n• Ordena coluna Path\n• Procura: C:\\Temp, Downloads, AppData\\Local\\Temp\n• Company vazio = suspeito\n\nPASSO 5 — Print + SHA\n• Print da linha suspeita\n• cmd: certutil -hashfile \"caminho\\dll\" SHA256",
+        image: "/lessons/tutorial-dll-system-informer.png",
         example: "unknown.dll em C:\\Temp\\ carregada no HD-Player? Emulador não carrega DLL random de Temp. Explica ou assume.",
       },
       {

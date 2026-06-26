@@ -1,12 +1,14 @@
-Coloque o scanner aqui com o nome:
+Coloque aqui o scanner compilado com o nome exato:
 
   171-screens.exe
 
-Quando alguém gera um pin, o site monta um .zip com:
-  - 171-screens.exe (este arquivo)
-  - 171screens.json / 171screens.pin (pin + API)
-  - Iniciar-171.bat
+Como gerar (Visual Studio):
+1. Abra `Samuca AC.vcxproj`
+2. Config: Release | x64
+3. Build → Build Solution
+4. O exe sai como `x64\Release\171ScreensAC.exe`
+5. Renomeie para `171-screens.exe` e copie para esta pasta
 
-O .exe precisa ler 171screens.json ou 171screens.pin na mesma pasta ao iniciar.
+O `ScreensConfig.h` já aponta para `https://171screens.vercel.app`.
 
-Alternativa: defina SCANNER_EXE_PATH no .env apontando pro caminho absoluto do exe.
+Depois faça deploy na Vercel (push no GitHub).

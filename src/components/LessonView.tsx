@@ -1,22 +1,26 @@
 import Link from "next/link";
+import { LessonToolsBar } from "@/components/LessonToolsBar";
+import { LessonBody } from "@/components/LessonBody";
+import { SafeLessonImage } from "@/components/SafeLessonImage";
 import {
   Lock,
   CheckCircle2,
   BookOpen,
   Lightbulb,
   AlertTriangle,
-  Play,
   MessageSquareQuote,
   Target,
   ChevronLeft,
   ChevronRight,
   List,
+  HelpCircle,
 } from "lucide-react";
 import { getLesson, getCategory, lessons } from "@/lib/lessons";
 import { hasLessonAccess, isBoosterLimited } from "@/lib/tier-access";
 import { BOOSTER_LESSON_COUNT } from "@/lib/booster-lessons";
 import { TIER_THEME } from "@/lib/tier-theme";
 import type { LessonSectionKind } from "@/lib/lessons/types";
+import { getLessonVisual } from "@/lib/lesson-visuals";
 import type { SessionUser } from "@/lib/types";
 
 function embedVideo(url: string) {
@@ -25,7 +29,7 @@ function embedVideo(url: string) {
     if (id) {
       return (
         <iframe
-          className="aspect-video w-full rounded-xl border border-screens-border"
+          className="aspect-video w-full rounded-lg border border-screens-border"
           src={`https://www.youtube.com/embed/${id}`}
           title="Vídeo da aula"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -35,29 +39,26 @@ function embedVideo(url: string) {
     }
   }
   return (
-    <video controls className="w-full rounded-xl border border-screens-border" src={url}>
+    <video controls className="w-full rounded-lg border border-screens-border" src={url}>
       Seu navegador não suporta vídeo.
     </video>
   );
 }
 
-const SECTION_STYLE: Record<
-  LessonSectionKind,
-  { icon: typeof BookOpen; border: string; bg: string; label?: string; accent: string }
-> = {
-  intro: { icon: BookOpen, border: "border-screens-accent/30", bg: "bg-screens-accent/5", label: "Intro", accent: "text-screens-accent" },
-  modulo: { icon: BookOpen, border: "border-sky-500/30", bg: "bg-sky-500/5", label: "Módulo", accent: "text-sky-400" },
-  tecnica: { icon: Target, border: "border-amber-500/30", bg: "bg-amber-500/5", label: "Técnica", accent: "text-amber-400" },
-  zuera: { icon: MessageSquareQuote, border: "border-fuchsia-500/35", bg: "bg-fuchsia-500/8", label: "Zuera", accent: "text-fuchsia-400" },
-  veredito: { icon: CheckCircle2, border: "border-emerald-500/30", bg: "bg-emerald-500/5", label: "Veredito", accent: "text-emerald-400" },
-  normal: { icon: BookOpen, border: "border-screens-border/60", bg: "bg-screens-card/30", accent: "text-screens-muted" },
+const SECTION_LABEL: Record<LessonSectionKind, string> = {
+  intro: "Introdução",
+  modulo: "Passo a passo",
+  tecnica: "Técnica SS",
+  zuera: "Zuera na call",
+  veredito: "Veredito",
+  normal: "Conteúdo",
 };
 
 function detectKind(heading: string, explicit?: LessonSectionKind): LessonSectionKind {
   if (explicit) return explicit;
   const h = heading.toLowerCase();
   if (h.includes("zuera") || h.includes("🤣")) return "zuera";
-  if (h.includes("módulo") || h.includes("modulo") || h.includes("📚")) return "modulo";
+  if (h.includes("passo") || h.includes("módulo") || h.includes("modulo") || h.includes("📚")) return "modulo";
   if (h.includes("veredito") || h.includes("gran finale")) return "veredito";
   if (h.includes("técnica") || h.includes("tecnica") || h.includes("🕵") || h.includes("🛠")) return "tecnica";
   if (h.includes("bem-vindo") || h.includes("o que é")) return "intro";
@@ -68,7 +69,7 @@ export function LessonView({ lessonId, user }: { lessonId: string; user: Session
   const lesson = getLesson(lessonId);
   if (!lesson) {
     return (
-      <div className="p-10">
+      <div className="page-course p-10">
         <p className="text-screens-muted">Aula não encontrada.</p>
       </div>
     );
@@ -86,23 +87,25 @@ export function LessonView({ lessonId, user }: { lessonId: string; user: Session
   const idx = tierLessons.findIndex((l) => l.id === lessonId);
   const prev = idx > 0 ? tierLessons[idx - 1] : null;
   const next = idx < tierLessons.length - 1 ? tierLessons[idx + 1] : null;
+  const progressPct = Math.round(((idx + 1) / tierLessons.length) * 100);
+  const visual = getLessonVisual(lesson.id, lesson.title, lesson.categoryId);
 
   if (!allowed) {
     const boosterLocked = boosterMode && lesson.tier === "tier1";
     return (
-      <div className="page-course flex min-h-[60vh] flex-col items-center justify-center p-10 text-center">
-        <div className="glass-card p-12 max-w-md">
-          <Lock className={`mx-auto h-10 w-10 mb-4 ${theme.color}`} />
-          <h2 className="text-xl font-bold">
+      <div className="page-course flex min-h-[60vh] items-center justify-center p-10">
+        <div className="surface max-w-md p-10 text-center">
+          <Lock className="mx-auto h-8 w-8 text-screens-muted mb-4" />
+          <h2 className="text-lg font-semibold">
             {boosterLocked ? "Aula exclusiva do Tier I pago" : "Conteúdo bloqueado"}
           </h2>
-          <p className="mt-3 text-sm text-screens-muted">
+          <p className="mt-2 text-sm text-screens-muted">
             {boosterLocked
-              ? `Booster libera só ${BOOSTER_LESSON_COUNT} aulas de degustação. Compra o Tier I completo pra ver tudo.`
+              ? `Booster libera só ${BOOSTER_LESSON_COUNT} aulas.`
               : `${theme.short} · ${theme.name}`}
           </p>
-          <Link href="/comprar" className={`mt-8 inline-block rounded-xl px-8 py-3 text-sm font-semibold ${theme.btn}`}>
-            {boosterLocked ? "Comprar Tier I — R$ 60" : `Desbloquear — ${theme.price}`}
+          <Link href="/comprar" className="btn-primary mt-6">
+            {boosterLocked ? "Comprar Tier I" : `Desbloquear — ${theme.price}`}
           </Link>
         </div>
       </div>
@@ -110,171 +113,156 @@ export function LessonView({ lessonId, user }: { lessonId: string; user: Session
   }
 
   return (
-    <div className="page-course min-h-full flex flex-col lg:flex-row">
-      {/* Sidebar outline */}
-      <aside className="lg:w-64 shrink-0 border-b lg:border-b-0 lg:border-r border-screens-border bg-[#08080a]/60 p-4 lg:sticky lg:top-0 lg:h-screen lg:overflow-y-auto">
-        <Link
-          href="/dashboard/curso"
-          className="inline-flex items-center gap-1 text-xs text-screens-muted hover:text-screens-accent mb-4"
-        >
+    <div className="page-course min-h-full flex flex-col xl:flex-row">
+      <aside className="xl:w-60 shrink-0 border-b xl:border-b-0 xl:border-r border-screens-border p-4 xl:sticky xl:top-0 xl:h-screen xl:overflow-y-auto">
+        <Link href="/dashboard/curso" className="inline-flex items-center gap-1 text-xs text-screens-muted hover:text-white mb-4">
           <ChevronLeft className="h-3.5 w-3.5" /> Curso
         </Link>
 
-        <p className={`text-[10px] font-bold uppercase tracking-widest ${theme.color}`}>{theme.short}</p>
-        <p className="mt-1 text-sm font-semibold leading-snug line-clamp-3">{lesson.title}</p>
-        <p className="mt-2 text-[10px] text-screens-muted">
-          Aula {idx + 1}/{tierLessons.length} · {category?.label}
-        </p>
-
-        <div className="mt-5 h-1 overflow-hidden rounded-full bg-screens-bg">
-          <div className={`h-full ${theme.dot} rounded-full`} style={{ width: `${((idx + 1) / tierLessons.length) * 100}%` }} />
+        <div className="surface p-3 mb-4">
+          <p className="text-[10px] text-screens-muted">{theme.short} · {idx + 1}/{tierLessons.length}</p>
+          <p className="mt-1 text-sm font-medium leading-snug">{lesson.title}</p>
+          <div className="mt-3 h-1 overflow-hidden rounded-full bg-screens-border">
+            <div className={`h-full ${theme.dot}`} style={{ width: `${progressPct}%` }} />
+          </div>
         </div>
 
-        <p className="mt-6 flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-widest text-screens-muted">
-          <List className="h-3 w-3" /> Módulos
-        </p>
-        <nav className="mt-2 space-y-1">
-          {lesson.sections.map((sec, i) => {
-            const kind = detectKind(sec.heading, sec.kind);
-            const st = SECTION_STYLE[kind];
-            return (
-              <a
-                key={i}
-                href={`#sec-${i}`}
-                className="flex items-start gap-2 rounded-lg px-2 py-2 text-[11px] text-screens-muted hover:bg-white/5 hover:text-white transition"
-              >
-                <span className={`mt-0.5 h-1.5 w-1.5 shrink-0 rounded-full ${theme.dot}`} />
-                <span className="line-clamp-2">{sec.heading.replace(/📚|🕵️|🕒|❌|🛠️/g, "").trim()}</span>
-              </a>
-            );
-          })}
-          <a
-            href="#checklist"
-            className="flex items-center gap-2 rounded-lg px-2 py-2 text-[11px] text-emerald-400/80 hover:bg-white/5"
-          >
-            <CheckCircle2 className="h-3 w-3 shrink-0" />
+        <p className="label-xs mb-2 flex items-center gap-1"><List className="h-3 w-3" /> Índice</p>
+        <nav className="space-y-0.5">
+          {lesson.sections.map((sec, i) => (
+            <a
+              key={i}
+              href={`#sec-${i}`}
+              className="block rounded-md px-2 py-1.5 text-[11px] text-screens-muted hover:bg-white/[0.03] hover:text-white line-clamp-2"
+            >
+              {sec.heading.replace(/📚|🕵️|🕒|❌|🛠️|🤣/g, "").trim()}
+            </a>
+          ))}
+          <a href="#checklist" className="block rounded-md px-2 py-1.5 text-[11px] text-screens-muted hover:text-white">
             Checklist SS
           </a>
         </nav>
 
-        <div className="mt-6 pt-4 border-t border-screens-border/50 space-y-2">
+        <div className="mt-4 pt-4 border-t border-screens-border space-y-1">
+          <Link href="/dashboard/como-usar" className="flex items-center gap-1.5 text-[11px] text-screens-muted hover:text-white px-2 py-1">
+            <HelpCircle className="h-3 w-3" /> Guia
+          </Link>
           {prev && hasLessonAccess(user, prev) && (
-            <Link href={`/dashboard/curso/${prev.id}`} className="block text-[11px] text-screens-muted hover:text-white truncate">
+            <Link href={`/dashboard/curso/${prev.id}`} className="block text-[11px] text-screens-muted hover:text-white truncate px-2 py-1">
               ← {prev.title}
             </Link>
           )}
           {next && hasLessonAccess(user, next) && (
-            <Link href={`/dashboard/curso/${next.id}`} className={`block text-[11px] font-medium ${theme.color} hover:underline truncate`}>
+            <Link href={`/dashboard/curso/${next.id}`} className="block text-[11px] text-zinc-300 hover:text-white truncate px-2 py-1">
               {next.title} →
             </Link>
           )}
         </div>
       </aside>
 
-      {/* Content */}
-      <article className="flex-1 p-5 md:p-10 lg:p-12 max-w-3xl">
-        <header className="mb-10">
-          <div className={`inline-flex items-center gap-2 rounded-full border ${theme.border} ${theme.bg} px-3 py-1.5 mb-4`}>
-            <span className={`h-1.5 w-1.5 rounded-full ${theme.dot}`} />
-            <span className={`text-[10px] font-bold uppercase ${theme.color}`}>{category?.label}</span>
-          </div>
-          <h1 className="text-2xl md:text-3xl font-black leading-tight tracking-tight">{lesson.title}</h1>
-          <p className="mt-5 text-base text-screens-muted leading-relaxed border-l-2 border-screens-accent/40 pl-4">
-            {lesson.intro}
-          </p>
-          {lesson.introVideo && (
-            <div className="mt-8">
-              {embedVideo(lesson.introVideo)}
+      <article className="flex-1 min-w-0 pb-24 xl:pb-8">
+        <div className="p-5 md:p-8 max-w-2xl mx-auto">
+          <header className="mb-8">
+            <p className="label-xs">{category?.label}</p>
+            <h1 className="mt-2 text-2xl md:text-3xl font-semibold tracking-tight leading-tight">{lesson.title}</h1>
+            <p className="mt-3 text-sm text-screens-muted leading-relaxed">{lesson.intro}</p>
+
+            <div className="mt-5 surface p-4">
+              <p className="label-xs">Onde achar rastro</p>
+              <p className="mt-2 font-medium">{visual.where}</p>
+              <p className="mt-2 font-mono text-xs text-zinc-400 bg-screens-bg rounded-md px-3 py-2">{visual.path}</p>
+              <p className="mt-2 text-xs text-screens-muted">{visual.tool} · {visual.hint}</p>
             </div>
-          )}
-        </header>
+          </header>
 
-        <div className="space-y-6">
-          {lesson.sections.map((sec, i) => {
-            const kind = detectKind(sec.heading, sec.kind);
-            const style = SECTION_STYLE[kind];
-            const Icon = style.icon;
+          <LessonToolsBar lessonId={lesson.id} categoryId={lesson.categoryId} />
 
-            return (
-              <section
-                id={`sec-${i}`}
-                key={`${sec.heading}-${i}`}
-                className={`scroll-mt-6 rounded-2xl border p-6 md:p-7 ${style.border} ${style.bg}`}
-              >
-                <div className="flex items-start gap-3">
-                  <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border ${style.border} ${style.bg}`}>
-                    <Icon className={`h-4 w-4 ${style.accent}`} />
+          <div className="mt-8 space-y-4">
+            {lesson.sections.map((sec, i) => {
+              const kind = detectKind(sec.heading, sec.kind);
+              const label = SECTION_LABEL[kind];
+
+              return (
+                <section id={`sec-${i}`} key={`${sec.heading}-${i}`} className="scroll-mt-6 surface p-5 md:p-6">
+                  <p className="label-xs">{label} · {i + 1}/{lesson.sections.length}</p>
+                  <h2 className="mt-1 text-lg font-medium leading-snug">
+                    {sec.heading.replace(/📚|🕵️|🕒|❌|🛠️|🤣/g, "").trim()}
+                  </h2>
+
+                  <div className="mt-4">
+                    <LessonBody body={sec.body} />
                   </div>
-                  <div>
-                    {style.label && kind !== "normal" && (
-                      <p className={`text-[10px] font-bold uppercase tracking-widest mb-1 ${style.accent}`}>
-                        {style.label}
+
+                  {sec.image && (
+                    <figure className="mt-5 overflow-hidden rounded-lg border border-screens-border">
+                      <SafeLessonImage src={sec.image} alt={sec.heading} variant="content" />
+                    </figure>
+                  )}
+
+                  {sec.video && <div className="mt-4">{embedVideo(sec.video)}</div>}
+
+                  {sec.example && (
+                    <div className="mt-4 rounded-lg border border-screens-border bg-screens-bg p-4">
+                      <p className="label-xs flex items-center gap-1 mb-2">
+                        <Lightbulb className="h-3 w-3" />
+                        {kind === "zuera" ? "Fala na call" : "Exemplo na SS"}
                       </p>
-                    )}
-                    <h2 className="text-lg font-bold leading-snug">{sec.heading}</h2>
-                  </div>
-                </div>
-                <p className="mt-5 text-sm md:text-[15px] text-screens-muted leading-relaxed whitespace-pre-line">
-                  {sec.body}
-                </p>
+                      <p className={`text-sm leading-relaxed whitespace-pre-wrap ${kind === "zuera" ? "italic text-zinc-400" : "text-screens-muted"}`}>
+                        {sec.example}
+                      </p>
+                    </div>
+                  )}
+                </section>
+              );
+            })}
+          </div>
 
-                {sec.image && (
-                  <div className="mt-5 overflow-hidden rounded-xl border border-screens-border">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={sec.image} alt={sec.heading} className="w-full" />
-                  </div>
-                )}
-                {sec.video && <div className="mt-5">{embedVideo(sec.video)}</div>}
+          <section id="checklist" className="scroll-mt-6 mt-8 surface overflow-hidden">
+            <div className="border-b border-screens-border px-5 py-4">
+              <h3 className="font-medium flex items-center gap-2">
+                <CheckCircle2 className="h-4 w-4 text-screens-muted" />
+                Checklist na SS
+              </h3>
+            </div>
+            <ul className="p-4 space-y-1.5">
+              {lesson.checklist.map((item, i) => (
+                <li key={item} className="flex items-start gap-3 rounded-lg px-3 py-2.5 text-sm text-screens-muted">
+                  <span className="text-[11px] font-mono text-screens-muted w-5 shrink-0">{i + 1}</span>
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </section>
 
-                {sec.example && (
-                  <div className={`mt-5 rounded-xl border p-4 ${kind === "zuera" ? "border-fuchsia-500/25 bg-fuchsia-500/5" : "border-screens-border bg-[#08080a]"}`}>
-                    <p className={`text-[10px] font-bold uppercase tracking-wider mb-2 flex items-center gap-1 ${style.accent}`}>
-                      <Lightbulb className="h-3 w-3" />
-                      {kind === "zuera" ? "Fala isso na call" : "Exemplo"}
-                    </p>
-                    <p className={`text-sm leading-relaxed whitespace-pre-wrap ${kind === "zuera" ? "text-fuchsia-100/90 italic" : "text-emerald-200/75"}`}>
-                      {sec.example}
-                    </p>
-                  </div>
-                )}
-              </section>
-            );
-          })}
+          <div className="mt-5 flex items-start gap-2 rounded-lg border border-screens-border px-4 py-3 text-xs text-screens-muted">
+            <AlertTriangle className="h-3.5 w-3.5 shrink-0 mt-0.5" />
+            Cruza evidências antes do veredito. Print com data/hora visível.
+          </div>
+
+          <div className="mt-6 hidden xl:flex justify-between gap-4">
+            {prev && hasLessonAccess(user, prev) ? (
+              <Link href={`/dashboard/curso/${prev.id}`} className="btn-secondary">
+                <ChevronLeft className="h-4 w-4" /> Anterior
+              </Link>
+            ) : <span />}
+            {next && hasLessonAccess(user, next) && (
+              <Link href={`/dashboard/curso/${next.id}`} className="btn-primary ml-auto">
+                Próxima <ChevronRight className="h-4 w-4" />
+              </Link>
+            )}
+          </div>
         </div>
 
-        <section id="checklist" className={`scroll-mt-6 mt-10 rounded-2xl border-2 ${theme.borderStrong} ${theme.bg} p-6 md:p-7`}>
-          <h3 className="font-bold flex items-center gap-2">
-            <CheckCircle2 className={`h-5 w-5 ${theme.icon}`} />
-            Checklist na SS
-          </h3>
-          <ul className="mt-4 space-y-2.5">
-            {lesson.checklist.map((item) => (
-              <li key={item} className="flex items-start gap-3 text-sm text-screens-muted">
-                <span className={`mt-2 h-2 w-2 shrink-0 rounded-full ${theme.dot}`} />
-                {item}
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        <div className="mt-6 rounded-xl border border-amber-500/15 bg-amber-500/5 px-4 py-3 flex gap-3">
-          <AlertTriangle className="h-4 w-4 text-amber-400 shrink-0 mt-0.5" />
-          <p className="text-xs text-amber-200/70 leading-relaxed">
-            Cruza evidências antes do veredito. Print com data/hora.
-          </p>
-        </div>
-
-        <div className="mt-8 flex justify-between gap-4 lg:hidden">
-          {prev && (
-            <Link href={`/dashboard/curso/${prev.id}`} className="text-sm text-screens-muted hover:text-white truncate max-w-[45%]">
-              ← Anterior
-            </Link>
+        <div className="xl:hidden fixed bottom-0 left-[220px] right-0 z-40 border-t border-screens-border bg-screens-bg/95 backdrop-blur px-4 py-3 flex items-center justify-between">
+          {prev && hasLessonAccess(user, prev) ? (
+            <Link href={`/dashboard/curso/${prev.id}`} className="text-xs text-screens-muted">← Ant.</Link>
+          ) : (
+            <Link href="/dashboard/curso" className="text-xs text-screens-muted">Curso</Link>
           )}
-          {next && (
-            <Link href={`/dashboard/curso/${next.id}`} className={`text-sm font-medium ${theme.color} ml-auto truncate max-w-[45%]`}>
-              Próxima →
-            </Link>
-          )}
+          <span className="text-xs text-screens-muted">{progressPct}%</span>
+          {next && hasLessonAccess(user, next) ? (
+            <Link href={`/dashboard/curso/${next.id}`} className="text-xs text-white font-medium">Próx. →</Link>
+          ) : <span className="w-8" />}
         </div>
       </article>
     </div>

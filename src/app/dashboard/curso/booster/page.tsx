@@ -5,7 +5,7 @@ import { hasLessonAccess, isBoosterLimited } from "@/lib/tier-access";
 import { BOOSTER_LESSON_COUNT, BOOSTER_LESSON_IDS } from "@/lib/booster-lessons";
 import { SyncCargoButton } from "@/components/SyncCargoButton";
 import { TIER_THEME } from "@/lib/tier-theme";
-import { BookOpen, ChevronRight, Lock, Play, Sparkles, Zap } from "lucide-react";
+import { BookOpen, ChevronRight, HelpCircle, Lock, Play, Sparkles, Zap } from "lucide-react";
 
 export default async function BoosterCursoPage() {
   const user = (await getSession())!;
@@ -66,6 +66,14 @@ export default async function BoosterCursoPage() {
           <SyncCargoButton />
         </div>
       )}
+
+      <Link
+        href="/dashboard/como-usar"
+        className="mt-6 flex items-center gap-3 rounded-2xl border border-amber-500/25 bg-amber-500/5 p-4 text-sm hover:bg-amber-500/10 transition"
+      >
+        <HelpCircle className="h-5 w-5 text-amber-400 shrink-0" />
+        <span className="text-amber-200 font-semibold">Primeira vez? Guia completo com imagens →</span>
+      </Link>
 
       <section className="mt-10">
         <h2 className="text-lg font-bold flex items-center gap-2">

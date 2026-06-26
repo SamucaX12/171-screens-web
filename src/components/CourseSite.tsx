@@ -45,47 +45,33 @@ export default function CourseSite({ loggedIn = false }: { loggedIn?: boolean })
 
   return (
     <div className="min-h-screen">
-      <header className="sticky top-0 z-50 border-b border-screens-border/80 bg-screens-bg/95 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
-          <div className="flex items-center gap-3">
-            <div className="relative flex h-11 w-11 items-center justify-center rounded-xl bg-screens-accent/10 ring-1 ring-screens-accent/40">
-              <Crosshair className="h-5 w-5 text-screens-accent" />
-              <span className="absolute -right-0.5 -top-0.5 h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+      <header className="sticky top-0 z-50 border-b border-screens-border bg-screens-bg/90 backdrop-blur-md">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3.5">
+          <div className="flex items-center gap-2.5">
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-screens-border bg-screens-card">
+              <Crosshair className="h-4 w-4 text-screens-muted" />
             </div>
             <div>
-              <p className="text-sm font-bold tracking-tight">171 ScreenS</p>
-              <p className="text-[11px] text-screens-muted">Curso Emu · Scanner · by Samuca</p>
+              <p className="text-sm font-semibold">171 ScreenS</p>
+              <p className="text-[10px] text-screens-muted">Curso · Scanner</p>
             </div>
           </div>
-          <nav className="hidden items-center gap-8 text-sm text-screens-muted md:flex">
-            <a href="#conteudo" className="hover:text-white transition-colors">Curso</a>
-            <a href="#scanner" className="hover:text-white transition-colors">Scanner</a>
-            <a href="#precos" className="hover:text-white transition-colors">Preços</a>
-            <a href="#em-breve" className="hover:text-amber-300 transition-colors">Em breve</a>
+          <nav className="hidden items-center gap-6 text-sm text-screens-muted md:flex">
+            <a href="#conteudo" className="hover:text-white transition">Curso</a>
+            <a href="/como-usar" className="hover:text-white transition">Como Usar</a>
+            <a href="#scanner" className="hover:text-white transition">Scanner</a>
+            <a href="#precos" className="hover:text-white transition">Preços</a>
           </nav>
           <div className="flex items-center gap-2">
             {loggedIn ? (
-              <a
-                href="/dashboard"
-                className="inline-flex items-center gap-2 rounded-lg bg-screens-accent px-4 py-2 text-sm font-bold text-black hover:opacity-90"
-              >
+              <a href="/dashboard" className="btn-primary !py-2 !px-4 text-sm">
                 <GraduationCap className="h-4 w-4" />
                 Dashboard
               </a>
             ) : (
-              <a
-                href="/login"
-                className="hidden sm:inline-flex items-center gap-2 rounded-lg border border-screens-border px-4 py-2 text-sm font-medium hover:bg-white/5"
-              >
-                Entrar
-              </a>
+              <a href="/login" className="btn-secondary !py-2 !px-4 text-sm hidden sm:inline-flex">Entrar</a>
             )}
-            <a
-              href={DISCORD_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-lg bg-[#5865F2] px-4 py-2 text-sm font-medium hover:bg-[#4752C4]"
-            >
+            <a href={DISCORD_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-lg bg-[#5865F2] px-3 py-2 text-sm hover:bg-[#4752C4]">
               <MessageCircle className="h-4 w-4" />
               Discord
             </a>
@@ -93,101 +79,67 @@ export default function CourseSite({ loggedIn = false }: { loggedIn?: boolean })
         </div>
       </header>
 
-      {/* Hero — screen share / scanner vibe */}
-      <section className="relative overflow-hidden border-b border-screens-border scan-grid">
-        <div className="scan-crosshair pointer-events-none absolute inset-0" />
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(125,211,252,0.14)_0%,_transparent_65%)]" />
-        <div className="pointer-events-none absolute right-0 top-0 h-96 w-96 bg-amber-500/5 blur-3xl" />
-
-        <div className="relative mx-auto max-w-7xl px-4 py-20 md:py-28">
+      <section className="border-b border-screens-border">
+        <div className="mx-auto max-w-6xl px-4 py-16 md:py-24">
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
             <div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-screens-accent/30 bg-screens-accent/5 px-4 py-1.5 text-xs text-screens-accent mb-8">
-                <Sparkles className="h-3.5 w-3.5" />
-                Telagem forense + Scanner profissional
-              </div>
-              <h1 className="text-4xl font-black tracking-tight md:text-5xl lg:text-6xl leading-[1.1]">
+              <p className="label-xs mb-4">Telagem forense + Scanner</p>
+              <h1 className="text-3xl font-semibold tracking-tight md:text-5xl leading-[1.15]">
                 Aprende telagem.
                 <br />
-                <span className="text-screens-accent">Roda scan.</span>
-                <br />
-                <span className="text-amber-400/90">Domina o game.</span>
+                Roda scan.
               </h1>
-              <p className="mt-6 max-w-xl text-lg text-screens-muted leading-relaxed">
-                Curso completo do zero ao telador pro — Prefetch, Journal, Sysmon, UEFI, bypass.
-                Scanner 171 ScreenS com pins, results, strings custom e painel enterprise.
+              <p className="mt-5 max-w-lg text-screens-muted leading-relaxed">
+                Curso do zero ao telador pro. Scanner 171 ScreenS com pins, results e enterprise.
               </p>
-              <p className="mt-4 inline-flex items-center gap-2 rounded-xl border border-fuchsia-500/25 bg-fuchsia-500/10 px-4 py-2 text-sm text-fuchsia-200">
-                <Sparkles className="h-4 w-4 shrink-0" />
-                <span>
-                  <strong>Booster do servidor</strong> — {BOOSTER_LESSON_COUNT} aulas grátis (degustação Tier I)
-                </span>
+              <p className="mt-4 text-sm text-screens-muted">
+                Booster — {BOOSTER_LESSON_COUNT} aulas grátis no Tier I
               </p>
-              <div className="mt-10 flex flex-wrap gap-4">
-                <a
-                  href="/login"
-                  className="inline-flex items-center gap-2 rounded-xl bg-screens-accent px-7 py-3.5 text-sm font-bold text-screens-bg hover:bg-screens-accent-dim"
-                >
+              <div className="mt-8 flex flex-wrap gap-2">
+                <a href="/login" className="btn-primary">
                   <Zap className="h-4 w-4" />
                   Entrar no curso
                 </a>
-                <a
-                  href="#precos"
-                  className="inline-flex items-center gap-2 rounded-xl border border-amber-500/30 bg-amber-500/10 px-7 py-3.5 text-sm font-semibold text-amber-300 hover:bg-amber-500/15"
-                >
+                <a href="#precos" className="btn-secondary">
                   <Scan className="h-4 w-4" />
-                  Ver planos scanner
+                  Ver planos
+                </a>
+                <a href="/como-usar" className="btn-secondary">
+                  <BookOpen className="h-4 w-4" />
+                  Como usar
                 </a>
               </div>
             </div>
 
-            {/* Mock scanner panel */}
-            <div className="glass-card relative overflow-hidden p-6 md:p-8">
-              <div className="flex items-center justify-between border-b border-screens-border pb-4">
-                <div className="flex items-center gap-2">
-                  <Monitor className="h-4 w-4 text-screens-accent" />
-                  <span className="font-mono text-sm font-bold">171 ScreenS Scanner</span>
-                </div>
-                <span className="rounded-full bg-emerald-500/15 px-2.5 py-0.5 text-[10px] font-bold text-emerald-400 uppercase">
-                  Online
-                </span>
+            <div className="surface p-6">
+              <div className="flex items-center justify-between border-b border-screens-border pb-3">
+                <span className="font-mono text-sm">171 Scanner</span>
+                <span className="text-[10px] text-screens-muted uppercase">Online</span>
               </div>
-              <div className="mt-6 space-y-4 font-mono text-xs">
-                <div className="flex justify-between text-screens-muted">
+              <div className="mt-4 space-y-3 font-mono text-xs text-screens-muted">
+                <div className="flex justify-between">
                   <span>PIN</span>
-                  <span className="text-screens-accent tracking-widest">K7H2M9XP</span>
+                  <span className="text-zinc-300">K7H2M9XP</span>
                 </div>
-                <div className="h-2 overflow-hidden rounded-full bg-screens-bg">
-                  <div className="h-full w-3/4 rounded-full bg-gradient-to-r from-screens-accent to-cyan-400 animate-pulse" />
+                <div className="h-1 overflow-hidden rounded-full bg-screens-border">
+                  <div className="h-full w-3/4 rounded-full bg-zinc-400" />
                 </div>
-                <p className="text-screens-muted">Verificando Prefetch · Sysmon Event 10...</p>
-                <div className="grid grid-cols-3 gap-3 pt-2">
-                  {[
-                    { l: "Detections", v: "3", c: "text-red-400" },
-                    { l: "Warnings", v: "7", c: "text-amber-400" },
-                    { l: "Clean", v: "89%", c: "text-emerald-400" },
-                  ].map((x) => (
-                    <div key={x.l} className="rounded-lg border border-screens-border bg-screens-bg/60 p-3 text-center">
-                      <p className={`text-lg font-bold ${x.c}`}>{x.v}</p>
-                      <p className="text-[10px] text-screens-muted">{x.l}</p>
-                    </div>
-                  ))}
-                </div>
+                <p>Prefetch · Sysmon Event 10…</p>
               </div>
             </div>
           </div>
 
-          <div className="mt-16 grid grid-cols-2 gap-4 md:grid-cols-5">
+          <div className="mt-12 grid grid-cols-2 gap-3 md:grid-cols-5">
             {[
               { label: "Aulas", value: `${counts.total}+` },
-              { label: "Tiers curso", value: "3" },
-              { label: "Planos scanner", value: "4" },
-              { label: "Ferramentas", value: "7+" },
+              { label: "Tiers", value: "3" },
+              { label: "Scanner", value: "4" },
+              { label: "Tools", value: "7+" },
               { label: "Do zero", value: "100%" },
             ].map((s) => (
-              <div key={s.label} className="glass-card p-5 text-center md:text-left">
-                <p className="text-2xl md:text-3xl font-black text-screens-accent">{s.value}</p>
-                <p className="text-xs text-screens-muted mt-1 uppercase tracking-wide">{s.label}</p>
+              <div key={s.label} className="surface p-4">
+                <p className="text-xl font-semibold">{s.value}</p>
+                <p className="text-[11px] text-screens-muted mt-0.5">{s.label}</p>
               </div>
             ))}
           </div>
