@@ -1,0 +1,77 @@
+<svg width="800" height="450" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="450" fill="#050508"/>
+  <defs>
+    <pattern id="g" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#22d3ee" stroke-width="0.4"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="450" fill="url(#g)" opacity="0.08"/>
+  <text x="400" y="45" font-family="monospace" font-size="11" fill="#a1a1aa" text-anchor="middle">// iOS · Categoria: ANÁLISE</text>
+  <text x="400" y="72" font-family="monospace" font-size="20" font-weight="bold" fill="#fafafa" text-anchor="middle">Fluxo Completo SS iOS</text>
+
+  <!-- Steps vertical flow -->
+  <g font-family="monospace">
+    <!-- Step 1 -->
+    <rect x="60" y="100" width="320" height="48" rx="10" fill="#0a0a0f" stroke="#3f3f46"/>
+    <rect x="60" y="100" width="8" height="48" rx="4" fill="#a1a1aa"/>
+    <text x="82" y="119" font-size="9" fill="#a1a1aa">01 · TELA INICIAL</text>
+    <text x="82" y="137" font-size="11" fill="#e4e4e7">App Library + Spotlight: Cydia/Sileo/Filza</text>
+
+    <line x1="224" y1="148" x2="224" y2="158" stroke="#3f3f46" stroke-width="1.5"/>
+    <polygon points="220,158 224,165 228,158" fill="#3f3f46"/>
+
+    <!-- Step 2 -->
+    <rect x="60" y="165" width="320" height="48" rx="10" fill="#0a0a0f" stroke="#3f3f46"/>
+    <rect x="60" y="165" width="8" height="48" rx="4" fill="#a1a1aa"/>
+    <text x="82" y="184" font-size="9" fill="#a1a1aa">02 · ARMAZENAMENTO</text>
+    <text x="82" y="202" font-size="11" fill="#e4e4e7">Ajustes → Geral → rola devagar, toda a lista</text>
+
+    <line x1="224" y1="213" x2="224" y2="223" stroke="#3f3f46" stroke-width="1.5"/>
+    <polygon points="220,223 224,230 228,223" fill="#3f3f46"/>
+
+    <!-- Step 3 -->
+    <rect x="60" y="230" width="320" height="48" rx="10" fill="#0a0a0f" stroke="#3f3f46"/>
+    <rect x="60" y="230" width="8" height="48" rx="4" fill="#22d3ee"/>
+    <text x="82" y="249" font-size="9" fill="#22d3ee">03 · REDE</text>
+    <text x="82" y="267" font-size="11" fill="#e4e4e7">Wi-Fi → proxy + VPN + Perfis de CA</text>
+
+    <line x1="224" y1="278" x2="224" y2="288" stroke="#3f3f46" stroke-width="1.5"/>
+    <polygon points="220,288 224,295 228,288" fill="#3f3f46"/>
+
+    <!-- Step 4 -->
+    <rect x="60" y="295" width="320" height="48" rx="10" fill="#0a0a0f" stroke="#3f3f46"/>
+    <rect x="60" y="295" width="8" height="48" rx="4" fill="#f59e0b"/>
+    <text x="82" y="314" font-size="9" fill="#f59e0b">04 · VERSÃO DO APP</text>
+    <text x="82" y="332" font-size="11" fill="#e4e4e7">Free Fire vs App Store + tamanho + IPA</text>
+
+    <line x1="224" y1="343" x2="224" y2="353" stroke="#3f3f46" stroke-width="1.5"/>
+    <polygon points="220,353 224,360 228,353" fill="#3f3f46"/>
+
+    <!-- Step 5 -->
+    <rect x="60" y="360" width="320" height="48" rx="10" fill="#0a0a0f" stroke="#3f3f46"/>
+    <rect x="60" y="360" width="8" height="48" rx="4" fill="#a78bfa"/>
+    <text x="82" y="379" font-size="9" fill="#a78bfa">05 · BATERIA / LOGS</text>
+    <text x="82" y="397" font-size="11" fill="#e4e4e7">Últimas 24h → apps suspeitos no horário</text>
+  </g>
+
+  <!-- Right: Verdict -->
+  <rect x="430" y="100" width="320" height="308" rx="16" fill="#0a0a0f" stroke="#3f3f46"/>
+  <text x="590" y="125" font-family="monospace" font-size="12" fill="#a1a1aa" text-anchor="middle" font-weight="bold">VEREDITO</text>
+  <rect x="440" y="133" width="300" height="1" fill="#3f3f46"/>
+
+  <rect x="445" y="148" width="295" height="68" rx="8" fill="#052e16" stroke="#166534"/>
+  <text x="592" y="168" font-family="monospace" font-size="11" fill="#4ade80" text-anchor="middle" font-weight="bold">✓ LIMPO</text>
+  <text x="592" y="186" font-family="monospace" font-size="9" fill="#86efac" text-anchor="middle">• Sem jailbreak apps</text>
+  <text x="592" y="201" font-family="monospace" font-size="9" fill="#86efac" text-anchor="middle">• Proxy DHCP · VPN limpa · IPA oficial</text>
+
+  <rect x="445" y="228" width="295" height="68" rx="8" fill="#1c1000" stroke="#92400e"/>
+  <text x="592" y="248" font-family="monospace" font-size="11" fill="#f59e0b" text-anchor="middle" font-weight="bold">⚠ SUSPEITO</text>
+  <text x="592" y="266" font-family="monospace" font-size="9" fill="#fcd34d" text-anchor="middle">• 1-2 indicadores ambíguos</text>
+  <text x="592" y="281" font-family="monospace" font-size="9" fill="#fcd34d" text-anchor="middle">• Evasão parcial · app apagado</text>
+
+  <rect x="445" y="308" width="295" height="80" rx="8" fill="#1c0505" stroke="#7f1d1d"/>
+  <text x="592" y="330" font-family="monospace" font-size="11" fill="#ef4444" text-anchor="middle" font-weight="bold">✗ BANIMENTO</text>
+  <text x="592" y="350" font-family="monospace" font-size="9" fill="#fca5a5" text-anchor="middle">• Cydia/Sileo/Filza encontrado</text>
+  <text x="592" y="366" font-family="monospace" font-size="9" fill="#fca5a5" text-anchor="middle">• Brevet/iGameGod ativo</text>
+  <text x="592" y="382" font-family="monospace" font-size="9" fill="#fca5a5" text-anchor="middle">• Proxy ativo no horário da partida</text>
+</svg>

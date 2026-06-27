@@ -1,0 +1,62 @@
+<svg width="800" height="450" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="450" fill="#050508"/>
+  <defs>
+    <pattern id="g" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#34d399" stroke-width="0.4"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="450" fill="url(#g)" opacity="0.08"/>
+
+  <text x="400" y="45" font-family="monospace" font-size="11" fill="#a1a1aa" text-anchor="middle">// Android · Categoria: SISTEMA</text>
+  <text x="400" y="72" font-family="monospace" font-size="20" font-weight="bold" fill="#fafafa" text-anchor="middle">Magisk Manager — O que procurar</text>
+
+  <!-- Magisk App Mockup -->
+  <rect x="250" y="95" width="300" height="300" rx="16" fill="#18181b" stroke="#3f3f46" stroke-width="1.5"/>
+  <!-- Header -->
+  <rect x="250" y="95" width="300" height="50" rx="16" fill="#27272a"/>
+  <rect x="250" y="121" width="300" height="24" fill="#27272a"/>
+  <text x="290" y="125" font-family="monospace" font-size="13" font-weight="bold" fill="#fafafa">Magisk</text>
+  <text x="480" y="125" font-family="monospace" font-size="11" fill="#4ade80" text-anchor="end">v26.4</text>
+
+  <!-- Tabs -->
+  <rect x="255" y="150" width="88" height="28" rx="6" fill="#16a34a"/>
+  <text x="299" y="168" font-family="monospace" font-size="10" fill="white" text-anchor="middle">Módulos</text>
+  <text x="387" y="168" font-family="monospace" font-size="10" fill="#52525b" text-anchor="middle">Superusuário</text>
+  <text x="475" y="168" font-family="monospace" font-size="10" fill="#52525b" text-anchor="middle">Config</text>
+  <rect x="250" y="178" width="300" height="1" fill="#3f3f46"/>
+
+  <!-- Module items -->
+  <rect x="260" y="188" width="280" height="42" rx="8" fill="#0f0f0f" stroke="#ef4444" stroke-width="1"/>
+  <text x="275" y="206" font-family="monospace" font-size="10" fill="#ef4444">● FreeFire-SpeedMod</text>
+  <text x="275" y="222" font-family="monospace" font-size="9" fill="#71717a">Instalado: 2 dias atrás · 2.4 MB</text>
+
+  <rect x="260" y="238" width="280" height="42" rx="8" fill="#0f0f0f" stroke="#ef4444" stroke-width="1"/>
+  <text x="275" y="256" font-family="monospace" font-size="10" fill="#ef4444">● AimBot-v3-module</text>
+  <text x="275" y="272" font-family="monospace" font-size="9" fill="#71717a">Instalado: 2 dias atrás · 1.1 MB</text>
+
+  <rect x="260" y="288" width="280" height="42" rx="8" fill="#0f0f0f" stroke="#52525b"/>
+  <text x="275" y="306" font-family="monospace" font-size="10" fill="#a1a1aa">Riru Core</text>
+  <text x="275" y="322" font-family="monospace" font-size="9" fill="#71717a">Instalado: 30 dias atrás · 5.2 MB</text>
+
+  <!-- Zygisk indicator -->
+  <rect x="260" y="338" width="280" height="32" rx="8" fill="#052e16"/>
+  <text x="275" y="358" font-family="monospace" font-size="10" fill="#4ade80">Zygisk: ATIVO  |  DenyList: ATIVO</text>
+
+  <!-- Left annotations -->
+  <line x1="180" y1="209" x2="260" y2="209" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <rect x="60" y="195" width="115" height="28" rx="6" fill="#1c0505" stroke="#7f1d1d"/>
+  <text x="117" y="213" font-family="monospace" font-size="9" fill="#ef4444" text-anchor="middle">CHEAT MODULE</text>
+
+  <line x1="180" y1="259" x2="260" y2="259" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <rect x="60" y="245" width="115" height="28" rx="6" fill="#1c0505" stroke="#7f1d1d"/>
+  <text x="117" y="263" font-family="monospace" font-size="9" fill="#ef4444" text-anchor="middle">CHEAT MODULE</text>
+
+  <!-- Right annotations -->
+  <line x1="550" y1="354" x2="510" y2="354" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <rect x="555" y="340" width="180" height="28" rx="6" fill="#1c0a00" stroke="#92400e"/>
+  <text x="645" y="358" font-family="monospace" font-size="9" fill="#f59e0b" text-anchor="middle">Zygisk = injeção total</text>
+
+  <!-- Footer -->
+  <rect x="60" y="415" width="680" height="25" rx="6" fill="#0a0a0f" stroke="#166534"/>
+  <text x="400" y="431" font-family="monospace" font-size="10" fill="#4ade80" text-anchor="middle">Free Fire no DenyList = tentativa de esconder root durante o jogo</text>
+</svg>

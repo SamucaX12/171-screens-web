@@ -1,0 +1,98 @@
+<svg width="800" height="450" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="450" fill="#050508"/>
+  <rect width="800" height="450" fill="url(#grid)" opacity="0.15"/>
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#22d3ee" stroke-width="0.5"/>
+    </pattern>
+    <linearGradient id="iosg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#a1a1aa"/>
+      <stop offset="100%" style="stop-color:#71717a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Title -->
+  <text x="400" y="50" font-family="monospace" font-size="11" fill="#22d3ee" opacity="0.7" text-anchor="middle">// detecção_mobile · iOS</text>
+  <text x="400" y="80" font-family="monospace" font-size="22" font-weight="bold" fill="#fafafa" text-anchor="middle">Bypass iOS — Visão Geral</text>
+
+  <!-- Categories -->
+  <!-- Jailbreak -->
+  <rect x="60" y="120" width="160" height="90" rx="12" fill="#0d0d12" stroke="#52525b" stroke-width="1"/>
+  <text x="140" y="148" font-family="monospace" font-size="10" fill="#a1a1aa" text-anchor="middle">SISTEMA</text>
+  <text x="140" y="170" font-family="monospace" font-size="13" font-weight="bold" fill="#e4e4e7" text-anchor="middle">Jailbreak</text>
+  <text x="140" y="190" font-family="monospace" font-size="9" fill="#71717a" text-anchor="middle">Cydia · Sileo · Filza</text>
+  <text x="140" y="204" font-family="monospace" font-size="9" fill="#71717a" text-anchor="middle">Dopamine · Palera1n</text>
+
+  <!-- Memory -->
+  <rect x="240" y="120" width="160" height="90" rx="12" fill="#0d0d12" stroke="#52525b" stroke-width="1"/>
+  <text x="320" y="148" font-family="monospace" font-size="10" fill="#a1a1aa" text-anchor="middle">MEMÓRIA</text>
+  <text x="320" y="170" font-family="monospace" font-size="13" font-weight="bold" fill="#e4e4e7" text-anchor="middle">Injeção</text>
+  <text x="320" y="190" font-family="monospace" font-size="9" fill="#71717a" text-anchor="middle">Brevet · iGameGod</text>
+  <text x="320" y="204" font-family="monospace" font-size="9" fill="#71717a" text-anchor="middle">GameGem · CE iOS</text>
+
+  <!-- IPA -->
+  <rect x="420" y="120" width="160" height="90" rx="12" fill="#0d0d12" stroke="#52525b" stroke-width="1"/>
+  <text x="500" y="148" font-family="monospace" font-size="10" fill="#a1a1aa" text-anchor="middle">APP</text>
+  <text x="500" y="170" font-family="monospace" font-size="13" font-weight="bold" fill="#e4e4e7" text-anchor="middle">IPA Modificado</text>
+  <text x="500" y="190" font-family="monospace" font-size="9" fill="#71717a" text-anchor="middle">Assinatura alterada</text>
+  <text x="500" y="204" font-family="monospace" font-size="9" fill="#71717a" text-anchor="middle">Bundle ID diferente</text>
+
+  <!-- Network -->
+  <rect x="600" y="120" width="140" height="90" rx="12" fill="#0d0d12" stroke="#52525b" stroke-width="1"/>
+  <text x="670" y="148" font-family="monospace" font-size="10" fill="#a1a1aa" text-anchor="middle">REDE</text>
+  <text x="670" y="170" font-family="monospace" font-size="13" font-weight="bold" fill="#e4e4e7" text-anchor="middle">Proxy / VPN</text>
+  <text x="670" y="190" font-family="monospace" font-size="9" fill="#71717a" text-anchor="middle">Charles · Fiddler</text>
+  <text x="670" y="204" font-family="monospace" font-size="9" fill="#71717a" text-anchor="middle">SSL Kill Switch</text>
+
+  <!-- Flow -->
+  <text x="400" y="260" font-family="monospace" font-size="11" fill="#22d3ee" opacity="0.8" text-anchor="middle">FLUXO DA SS iOS</text>
+  <rect x="60" y="275" width="680" height="2" fill="url(#flowg)" opacity="0.4"/>
+  <defs>
+    <linearGradient id="flowg" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:transparent"/>
+      <stop offset="50%" style="stop-color:#22d3ee"/>
+      <stop offset="100%" style="stop-color:transparent"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Steps -->
+  <g font-family="monospace" font-size="11">
+    <rect x="60" y="290" width="100" height="40" rx="8" fill="#0a0a0f" stroke="#3f3f46"/>
+    <text x="110" y="308" fill="#a1a1aa" text-anchor="middle" font-size="9">01</text>
+    <text x="110" y="322" fill="#e4e4e7" text-anchor="middle" font-size="10">Tela Inicial</text>
+
+    <text x="175" y="315" fill="#3f3f46" text-anchor="middle">→</text>
+
+    <rect x="185" y="290" width="100" height="40" rx="8" fill="#0a0a0f" stroke="#3f3f46"/>
+    <text x="235" y="308" fill="#a1a1aa" text-anchor="middle" font-size="9">02</text>
+    <text x="235" y="322" fill="#e4e4e7" text-anchor="middle" font-size="10">Armazenamento</text>
+
+    <text x="300" y="315" fill="#3f3f46" text-anchor="middle">→</text>
+
+    <rect x="310" y="290" width="100" height="40" rx="8" fill="#0a0a0f" stroke="#3f3f46"/>
+    <text x="360" y="308" fill="#a1a1aa" text-anchor="middle" font-size="9">03</text>
+    <text x="360" y="322" fill="#e4e4e7" text-anchor="middle" font-size="10">Rede / Proxy</text>
+
+    <text x="425" y="315" fill="#3f3f46" text-anchor="middle">→</text>
+
+    <rect x="435" y="290" width="100" height="40" rx="8" fill="#0a0a0f" stroke="#3f3f46"/>
+    <text x="485" y="308" fill="#a1a1aa" text-anchor="middle" font-size="9">04</text>
+    <text x="485" y="322" fill="#e4e4e7" text-anchor="middle" font-size="10">VPN / Perfis</text>
+
+    <text x="550" y="315" fill="#3f3f46" text-anchor="middle">→</text>
+
+    <rect x="560" y="290" width="100" height="40" rx="8" fill="#0a0a0f" stroke="#3f3f46"/>
+    <text x="610" y="308" fill="#a1a1aa" text-anchor="middle" font-size="9">05</text>
+    <text x="610" y="322" fill="#e4e4e7" text-anchor="middle" font-size="10">Bateria / Logs</text>
+
+    <text x="675" y="315" fill="#3f3f46" text-anchor="middle">→</text>
+
+    <rect x="685" y="290" width="60" height="40" rx="8" fill="#052e16" stroke="#166534"/>
+    <text x="715" y="308" fill="#4ade80" text-anchor="middle" font-size="9">06</text>
+    <text x="715" y="322" fill="#4ade80" text-anchor="middle" font-size="10">Veredito</text>
+  </g>
+
+  <!-- Footer -->
+  <text x="400" y="400" font-family="monospace" font-size="10" fill="#3f3f46" text-anchor="middle">Cruze evidências antes de emitir veredito · Print com data/hora</text>
+  <text x="400" y="420" font-family="monospace" font-size="10" fill="#22d3ee" opacity="0.5" text-anchor="middle">171 ScreenS · Curso Mobile iOS</text>
+</svg>

@@ -1,0 +1,75 @@
+<svg width="800" height="450" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="450" fill="#050508"/>
+  <defs>
+    <pattern id="g" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#34d399" stroke-width="0.4"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="450" fill="url(#g)" opacity="0.08"/>
+  <text x="400" y="45" font-family="monospace" font-size="11" fill="#a1a1aa" text-anchor="middle">// Android · Categoria: ANÁLISE</text>
+  <text x="400" y="72" font-family="monospace" font-size="20" font-weight="bold" fill="#fafafa" text-anchor="middle">Fluxo Completo SS Android</text>
+
+  <g font-family="monospace">
+    <rect x="60" y="100" width="320" height="40" rx="8" fill="#0a0a0f" stroke="#3f3f46"/>
+    <rect x="60" y="100" width="6" height="40" rx="3" fill="#34d399"/>
+    <text x="80" y="117" font-size="9" fill="#34d399">01 · GAVETA DE APPS</text>
+    <text x="80" y="132" font-size="10" fill="#e4e4e7">GG · MT Manager · KernelSU · VXP</text>
+    <line x1="220" y1="140" x2="220" y2="152" stroke="#3f3f46" stroke-width="1.5"/>
+    <polygon points="216,152 220,158 224,152" fill="#3f3f46"/>
+
+    <rect x="60" y="158" width="320" height="40" rx="8" fill="#0a0a0f" stroke="#3f3f46"/>
+    <rect x="60" y="158" width="6" height="40" rx="3" fill="#34d399"/>
+    <text x="80" y="175" font-size="9" fill="#34d399">02 · CONFIG → APPS</text>
+    <text x="80" y="190" font-size="10" fill="#e4e4e7">Lista completa · Exibir sobre outros apps</text>
+    <line x1="220" y1="198" x2="220" y2="210" stroke="#3f3f46" stroke-width="1.5"/>
+    <polygon points="216,210 220,216 224,210" fill="#3f3f46"/>
+
+    <rect x="60" y="216" width="320" height="40" rx="8" fill="#0a0a0f" stroke="#3f3f46"/>
+    <rect x="60" y="216" width="6" height="40" rx="3" fill="#f59e0b"/>
+    <text x="80" y="233" font-size="9" fill="#f59e0b">03 · MAGISK / KERNELSU</text>
+    <text x="80" y="248" font-size="10" fill="#e4e4e7">Módulos · Superusuário · DenyList</text>
+    <line x1="220" y1="256" x2="220" y2="268" stroke="#3f3f46" stroke-width="1.5"/>
+    <polygon points="216,268 220,274 224,268" fill="#3f3f46"/>
+
+    <rect x="60" y="274" width="320" height="40" rx="8" fill="#0a0a0f" stroke="#3f3f46"/>
+    <rect x="60" y="274" width="6" height="40" rx="3" fill="#22d3ee"/>
+    <text x="80" y="291" font-size="9" fill="#22d3ee">04 · ARQUIVOS</text>
+    <text x="80" y="306" font-size="10" fill="#e4e4e7">/sdcard/GameGuardian/ · /sdcard/MT/</text>
+    <line x1="220" y1="314" x2="220" y2="326" stroke="#3f3f46" stroke-width="1.5"/>
+    <polygon points="216,326 220,332 224,326" fill="#3f3f46"/>
+
+    <rect x="60" y="332" width="320" height="40" rx="8" fill="#0a0a0f" stroke="#3f3f46"/>
+    <rect x="60" y="332" width="6" height="40" rx="3" fill="#a78bfa"/>
+    <text x="80" y="349" font-size="9" fill="#a78bfa">05 · APK + OBB</text>
+    <text x="80" y="364" font-size="10" fill="#e4e4e7">Versão Free Fire · tamanho OBB · data mod</text>
+    <line x1="220" y1="372" x2="220" y2="384" stroke="#3f3f46" stroke-width="1.5"/>
+    <polygon points="216,384 220,390 224,384" fill="#3f3f46"/>
+
+    <rect x="60" y="390" width="320" height="40" rx="8" fill="#0a0a0f" stroke="#3f3f46"/>
+    <rect x="60" y="390" width="6" height="40" rx="3" fill="#ec4899"/>
+    <text x="80" y="407" font-size="9" fill="#ec4899">06 · SEGUNDO ESPAÇO</text>
+    <text x="80" y="422" font-size="10" fill="#e4e4e7">Dual Space · Island · Work Profile</text>
+  </g>
+
+  <!-- Verdict right -->
+  <rect x="430" y="100" width="320" height="330" rx="16" fill="#0a0a0f" stroke="#3f3f46"/>
+  <text x="590" y="125" font-family="monospace" font-size="12" fill="#a1a1aa" text-anchor="middle" font-weight="bold">VEREDITO ANDROID</text>
+  <rect x="440" y="133" width="300" height="1" fill="#3f3f46"/>
+
+  <rect x="445" y="148" width="295" height="68" rx="8" fill="#052e16" stroke="#166534"/>
+  <text x="592" y="168" font-family="monospace" font-size="11" fill="#4ade80" text-anchor="middle" font-weight="bold">✓ LIMPO</text>
+  <text x="592" y="186" font-family="monospace" font-size="9" fill="#86efac" text-anchor="middle">• Sem root · APK Play Store</text>
+  <text x="592" y="201" font-family="monospace" font-size="9" fill="#86efac" text-anchor="middle">• Sem GG · OBB original</text>
+
+  <rect x="445" y="228" width="295" height="68" rx="8" fill="#1c1000" stroke="#92400e"/>
+  <text x="592" y="248" font-family="monospace" font-size="11" fill="#f59e0b" text-anchor="middle" font-weight="bold">⚠ SUSPEITO</text>
+  <text x="592" y="266" font-family="monospace" font-size="9" fill="#fcd34d" text-anchor="middle">• Root + DenyList pro Free Fire</text>
+  <text x="592" y="281" font-family="monospace" font-size="9" fill="#fcd34d" text-anchor="middle">• Apps apagados antes da SS</text>
+
+  <rect x="445" y="308" width="295" height="100" rx="8" fill="#1c0505" stroke="#7f1d1d"/>
+  <text x="592" y="330" font-family="monospace" font-size="11" fill="#ef4444" text-anchor="middle" font-weight="bold">✗ BANIMENTO</text>
+  <text x="592" y="350" font-family="monospace" font-size="9" fill="#fca5a5" text-anchor="middle">• GameGuardian encontrado (app/pasta)</text>
+  <text x="592" y="366" font-family="monospace" font-size="9" fill="#fca5a5" text-anchor="middle">• APK mod confirmado</text>
+  <text x="592" y="382" font-family="monospace" font-size="9" fill="#fca5a5" text-anchor="middle">• Módulo Magisk de cheat ativo</text>
+  <text x="592" y="398" font-family="monospace" font-size="9" fill="#fca5a5" text-anchor="middle">• OBB modificado na data da partida</text>
+</svg>

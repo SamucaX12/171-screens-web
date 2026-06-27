@@ -1,0 +1,49 @@
+<svg width="800" height="450" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="450" fill="#050508"/>
+  <defs>
+    <pattern id="g" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#34d399" stroke-width="0.4"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="450" fill="url(#g)" opacity="0.08"/>
+
+  <text x="400" y="45" font-family="monospace" font-size="11" fill="#a1a1aa" text-anchor="middle">// Android · GameGuardian — Rastros após remoção</text>
+  <text x="400" y="72" font-family="monospace" font-size="20" font-weight="bold" fill="#fafafa" text-anchor="middle">GameGuardian — O que procurar</text>
+
+  <!-- File path visualization -->
+  <rect x="60" y="100" width="340" height="220" rx="12" fill="#0a0a0f" stroke="#3f3f46"/>
+  <text x="80" y="122" font-family="monospace" font-size="10" fill="#34d399">📁 /sdcard/</text>
+  <text x="100" y="142" font-family="monospace" font-size="10" fill="#a1a1aa">├── Android/</text>
+  <text x="120" y="162" font-family="monospace" font-size="10" fill="#a1a1aa">│   └── data/</text>
+  <text x="140" y="182" font-family="monospace" font-size="10" fill="#ef4444">│       └── com.thefool.gameguardian/ ⚠</text>
+  <text x="100" y="202" font-family="monospace" font-size="10" fill="#ef4444">├── GameGuardian/ ⚠</text>
+  <text x="120" y="220" font-family="monospace" font-size="10" fill="#fca5a5">│   ├── gg_speedhack.gg</text>
+  <text x="120" y="238" font-family="monospace" font-size="10" fill="#fca5a5">│   ├── gg_aimbot_v2.gg</text>
+  <text x="120" y="256" font-family="monospace" font-size="10" fill="#fca5a5">│   └── dump.txt</text>
+  <text x="100" y="276" font-family="monospace" font-size="10" fill="#a1a1aa">└── Download/</text>
+  <text x="120" y="296" font-family="monospace" font-size="10" fill="#f59e0b">    └── GG_latest.apk ⚠</text>
+
+  <!-- Superuser log -->
+  <rect x="430" y="100" width="320" height="220" rx="12" fill="#0a0a0f" stroke="#3f3f46"/>
+  <text x="450" y="122" font-family="monospace" font-size="10" fill="#34d399">Magisk → Superusuário</text>
+  <rect x="440" y="130" width="300" height="1" fill="#3f3f46"/>
+
+  <rect x="445" y="140" width="295" height="44" rx="6" fill="#0f0f0f" stroke="#ef4444" stroke-width="1"/>
+  <text x="460" y="158" font-family="monospace" font-size="10" fill="#fca5a5">GameGuardian</text>
+  <text x="460" y="174" font-family="monospace" font-size="9" fill="#71717a">Acesso: ontem 19:43 · Concedido</text>
+
+  <rect x="445" y="192" width="295" height="44" rx="6" fill="#0f0f0f" stroke="#3f3f46"/>
+  <text x="460" y="210" font-family="monospace" font-size="10" fill="#a1a1aa">Termux</text>
+  <text x="460" y="226" font-family="monospace" font-size="9" fill="#71717a">Acesso: 5 dias atrás · Concedido</text>
+
+  <rect x="445" y="244" width="295" height="44" rx="6" fill="#0f0f0f" stroke="#3f3f46"/>
+  <text x="460" y="262" font-family="monospace" font-size="10" fill="#a1a1aa">MT Manager</text>
+  <text x="460" y="278" font-family="monospace" font-size="9" fill="#71717a">Acesso: 3 dias atrás · Concedido</text>
+
+  <text x="445" y="308" font-family="monospace" font-size="9" fill="#f59e0b">⚠ GG aparece mesmo após desinstalar</text>
+
+  <!-- Bottom VirtualXposed -->
+  <rect x="60" y="340" width="680" height="60" rx="12" fill="#0a0a0f" stroke="#7c3aed" stroke-width="1"/>
+  <text x="400" y="362" font-family="monospace" font-size="11" fill="#c4b5fd" text-anchor="middle" font-weight="bold">VirtualXposed / Parallel Space — GG sem root</text>
+  <text x="400" y="382" font-family="monospace" font-size="10" fill="#71717a" text-anchor="middle">Procura 'VirtualXposed', 'VXP', 'Parallel Space', 'Dual Space' na gaveta de apps</text>
+</svg>

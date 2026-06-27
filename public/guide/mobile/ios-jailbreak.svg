@@ -1,0 +1,76 @@
+<svg width="800" height="450" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="450" fill="#050508"/>
+  <defs>
+    <pattern id="g" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#22d3ee" stroke-width="0.4"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="450" fill="url(#g)" opacity="0.1"/>
+
+  <text x="400" y="45" font-family="monospace" font-size="11" fill="#a1a1aa" text-anchor="middle">// iOS · Categoria: SISTEMA</text>
+  <text x="400" y="72" font-family="monospace" font-size="20" font-weight="bold" fill="#fafafa" text-anchor="middle">Detectar Jailbreak no iOS</text>
+
+  <!-- iPhone mockup outline -->
+  <rect x="300" y="100" width="200" height="320" rx="24" fill="#0a0a0f" stroke="#3f3f46" stroke-width="2"/>
+  <rect x="315" y="115" width="170" height="290" rx="6" fill="#09090b"/>
+  <!-- Notch -->
+  <rect x="360" y="115" width="80" height="16" rx="8" fill="#0a0a0f"/>
+
+  <!-- App icons in screen -->
+  <!-- Cydia icon (yellow box) -->
+  <rect x="330" y="145" width="44" height="44" rx="10" fill="#ca8a04"/>
+  <text x="352" y="173" font-family="monospace" font-size="18" fill="white" text-anchor="middle">📦</text>
+  <text x="352" y="200" font-family="monospace" font-size="8" fill="#ef4444" text-anchor="middle" font-weight="bold">CYDIA</text>
+
+  <!-- Sileo icon (blue) -->
+  <rect x="390" y="145" width="44" height="44" rx="10" fill="#1d4ed8"/>
+  <text x="412" y="173" font-family="monospace" font-size="18" fill="white" text-anchor="middle">📱</text>
+  <text x="412" y="200" font-family="monospace" font-size="8" fill="#ef4444" text-anchor="middle" font-weight="bold">SILEO</text>
+
+  <!-- Filza icon (green) -->
+  <rect x="330" y="215" width="44" height="44" rx="10" fill="#166534"/>
+  <text x="352" y="243" font-family="monospace" font-size="18" fill="white" text-anchor="middle">📁</text>
+  <text x="352" y="270" font-family="monospace" font-size="8" fill="#ef4444" text-anchor="middle" font-weight="bold">FILZA</text>
+
+  <!-- Brevet icon -->
+  <rect x="390" y="215" width="44" height="44" rx="10" fill="#7c3aed"/>
+  <text x="412" y="243" font-family="monospace" font-size="18" fill="white" text-anchor="middle">⚡</text>
+  <text x="412" y="270" font-family="monospace" font-size="8" fill="#ef4444" text-anchor="middle" font-weight="bold">BREVET</text>
+
+  <!-- Alert arrow for Cydia -->
+  <line x1="280" y1="167" x2="330" y2="167" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <polygon points="330,163 340,167 330,171" fill="#ef4444"/>
+
+  <!-- Alert arrow for Sileo -->
+  <line x1="280" y1="220" x2="390" y2="220" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <polygon points="390,216 400,220 390,224" fill="#ef4444"/>
+
+  <!-- Left labels -->
+  <rect x="60" y="148" width="200" height="26" rx="6" fill="#1c0505" stroke="#7f1d1d"/>
+  <text x="160" y="165" font-family="monospace" font-size="10" fill="#ef4444" text-anchor="middle">⚠ JAILBREAK CONFIRMADO</text>
+
+  <rect x="60" y="204" width="200" height="26" rx="6" fill="#1c0505" stroke="#7f1d1d"/>
+  <text x="160" y="221" font-family="monospace" font-size="10" fill="#fca5a5" text-anchor="middle">Cydia / Sileo = Root ativo</text>
+
+  <!-- Storage path -->
+  <rect x="530" y="145" width="210" height="60" rx="10" fill="#0a0a0f" stroke="#3f3f46"/>
+  <text x="545" y="163" font-family="monospace" font-size="9" fill="#71717a">Ajustes → Geral →</text>
+  <text x="545" y="178" font-family="monospace" font-size="9" fill="#71717a">Armazenamento</text>
+  <text x="545" y="195" font-family="monospace" font-size="10" fill="#22d3ee">Busca: Cydia / Sileo</text>
+
+  <!-- Spotlight search -->
+  <rect x="530" y="220" width="210" height="60" rx="10" fill="#0a0a0f" stroke="#3f3f46"/>
+  <text x="545" y="238" font-family="monospace" font-size="9" fill="#71717a">Spotlight Search:</text>
+  <rect x="545" y="246" width="180" height="24" rx="6" fill="#18181b" stroke="#52525b"/>
+  <text x="558" y="262" font-family="monospace" font-size="10" fill="#a1a1aa">🔍 Cydia</text>
+
+  <!-- VPN/Device Management -->
+  <rect x="530" y="295" width="210" height="60" rx="10" fill="#0a0a0f" stroke="#3f3f46"/>
+  <text x="545" y="313" font-family="monospace" font-size="9" fill="#71717a">Ajustes → Geral →</text>
+  <text x="545" y="328" font-family="monospace" font-size="9" fill="#71717a">VPN e Gerenc. Dispositivo</text>
+  <text x="545" y="344" font-family="monospace" font-size="10" fill="#f59e0b">Perfis suspeitos = flag</text>
+
+  <!-- Footer verdict bar -->
+  <rect x="60" y="400" width="680" height="30" rx="8" fill="#0a0a0f" stroke="#166534"/>
+  <text x="400" y="420" font-family="monospace" font-size="11" fill="#4ade80" text-anchor="middle">LIMPO: sem Cydia/Sileo/Filza · SUSPEITO: evasão · BAN: app encontrado + tweak ativo</text>
+</svg>
