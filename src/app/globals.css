@@ -71,6 +71,20 @@ body {
       radial-gradient(circle at 1px 1px, rgba(251, 191, 36, 0.06) 1px, transparent 0);
     background-size: 24px 24px;
   }
+  .hex-grid {
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(34, 211, 238, 0.04) 1px, transparent 0);
+    background-size: 32px 32px;
+  }
+  .scan-overlay {
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.03) 2px,
+      rgba(0, 0, 0, 0.03) 4px
+    );
+  }
   .page-course,
   .page-scanner {
     @apply bg-screens-bg;
