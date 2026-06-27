@@ -17,16 +17,16 @@ body {
 
 @layer components {
   .surface {
-    @apply rounded-xl border border-screens-border bg-screens-card;
+    @apply rounded-xl border border-screens-border bg-screens-card/80 backdrop-blur-sm;
   }
   .surface-muted {
-    @apply rounded-xl border border-screens-border/60 bg-screens-card/50;
+    @apply rounded-xl border border-screens-border/60 bg-screens-card/50 backdrop-blur-sm;
   }
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-white px-5 py-2.5 text-sm font-semibold text-black transition hover:bg-zinc-200;
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-white to-zinc-200 px-5 py-2.5 text-sm font-semibold text-black transition hover:shadow-[0_0_24px_-4px_rgba(255,255,255,0.35)] hover:brightness-110;
   }
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-screens-border bg-transparent px-5 py-2.5 text-sm font-medium text-zinc-300 transition hover:bg-white/[0.04] hover:text-white;
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-screens-border bg-white/[0.02] px-5 py-2.5 text-sm font-medium text-zinc-300 backdrop-blur-sm transition hover:border-zinc-500 hover:bg-white/[0.06] hover:text-white;
   }
   .label-xs {
     @apply text-[11px] font-medium uppercase tracking-wider text-screens-muted;
@@ -44,21 +44,46 @@ body {
 
 @layer utilities {
   .glass-card {
-    @apply rounded-xl border border-screens-border bg-screens-card;
+    @apply rounded-xl border border-screens-border bg-screens-card/70 backdrop-blur-md;
+  }
+  .neon-card {
+    @apply rounded-2xl border border-white/[0.08] bg-gradient-to-b from-white/[0.06] to-transparent backdrop-blur-xl;
+  }
+  .neon-card-highlight {
+    @apply rounded-2xl border border-cyan-500/25 bg-gradient-to-br from-cyan-500/[0.08] via-screens-card/80 to-fuchsia-500/[0.06] backdrop-blur-xl;
+  }
+  .gradient-text {
+    @apply bg-gradient-to-r from-white via-cyan-200 to-fuchsia-300 bg-clip-text text-transparent;
+  }
+  .cyber-grid {
+    background-image:
+      linear-gradient(rgba(34, 211, 238, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(34, 211, 238, 0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  .hero-glow {
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(217, 70, 239, 0.15), transparent),
+      radial-gradient(ellipse 60% 40% at 80% 50%, rgba(34, 211, 238, 0.08), transparent);
+  }
+  .scan-grid {
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(251, 191, 36, 0.06) 1px, transparent 0);
+    background-size: 24px 24px;
   }
   .page-course,
   .page-scanner {
     @apply bg-screens-bg;
   }
   .course-glass {
-    @apply rounded-xl border border-screens-border bg-screens-card;
+    @apply rounded-xl border border-screens-border bg-screens-card/70 backdrop-blur-md;
   }
   .course-card {
-    @apply rounded-xl border border-screens-border bg-screens-card transition-colors duration-200;
+    @apply rounded-xl border border-screens-border bg-screens-card/70 backdrop-blur-sm transition-all duration-300;
   }
   .course-card:hover {
-    @apply border-zinc-600;
-    background-color: #161618;
+    @apply border-zinc-500/50 bg-screens-card-hover;
+    box-shadow: 0 0 32px -8px rgba(255, 255, 255, 0.06);
   }
   .lesson-timeline-rail {
     @apply bg-screens-border;

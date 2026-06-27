@@ -51,6 +51,24 @@ export const courseProducts: ProductItem[] = [
   },
 ];
 
+export const mobileCourseProduct: ProductItem = {
+  id: "mobile-pack",
+  name: "Curso Mobile Completo",
+  price: 80,
+  badge: "Mobile Pack",
+  description:
+    "iOS + Android + IA Mobile + Scan Mobile via passador web. Complemento perfeito pro Curso Emu.",
+  features: [
+    "Todos os módulos mobile inclusos",
+    "Scan Mobile via passador web",
+    "Cargo Mobile no Discord",
+    "Updates de bypass mobile",
+    "Suporte em grupo dedicado",
+  ],
+  accent: "text-fuchsia-400",
+  border: "border-fuchsia-500/40",
+};
+
 export const scannerProducts: ProductItem[] = [
   {
     id: "scanner-pro",

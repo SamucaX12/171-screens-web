@@ -16,6 +16,7 @@ import {
   Bot,
   Clock,
   Check,
+  Smartphone,
 } from "lucide-react";
 import {
   DISCORD_URL,
@@ -24,10 +25,11 @@ import {
   tools,
   type TierId,
 } from "@/lib/course-data";
-import { courseProducts, scannerProducts, upcomingBots } from "@/lib/products";
+import { courseProducts, mobileCourseProduct, scannerProducts, upcomingBots } from "@/lib/products";
 import { TIER_ORDER, TIER_THEME } from "@/lib/tier-theme";
 import { getLessonCounts } from "@/lib/lessons";
 import { BOOSTER_LESSON_COUNT } from "@/lib/booster-lessons";
+import MobileCourseSection from "@/components/MobileCourseSection";
 
 function formatPrice(value: number) {
   return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
@@ -38,28 +40,30 @@ const counts = getLessonCounts();
 export default function CourseSite({ loggedIn = false }: { loggedIn?: boolean }) {
   const [activeTier, setActiveTier] = useState<TierId>("tier1");
   const [expandedModule, setExpandedModule] = useState<string | null>(null);
-  const [priceTab, setPriceTab] = useState<"curso" | "scanner">("curso");
+  const [priceTab, setPriceTab] = useState<"curso" | "mobile" | "scanner">("curso");
 
   const tier = tiers.find((t) => t.id === activeTier)!;
   const theme = TIER_THEME[activeTier];
 
   return (
-    <div className="min-h-screen">
-      <header className="sticky top-0 z-50 border-b border-screens-border bg-screens-bg/90 backdrop-blur-md">
+    <div className="min-h-screen relative">
+      <div className="pointer-events-none fixed inset-0 hero-glow -z-10" />
+      <header className="sticky top-0 z-50 border-b border-screens-border/80 bg-screens-bg/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3.5">
           <div className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-screens-border bg-screens-card">
-              <Crosshair className="h-4 w-4 text-screens-muted" />
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-cyan-500/20 bg-gradient-to-br from-cyan-500/10 to-fuchsia-500/10">
+              <Crosshair className="h-4 w-4 text-cyan-300" />
             </div>
             <div>
               <p className="text-sm font-semibold">171 ScreenS</p>
-              <p className="text-[10px] text-screens-muted">Curso · Scanner</p>
+              <p className="text-[10px] text-screens-muted">Curso · Mobile · Scanner</p>
             </div>
           </div>
           <nav className="hidden items-center gap-6 text-sm text-screens-muted md:flex">
-            <a href="#conteudo" className="hover:text-white transition">Curso</a>
+            <a href="#conteudo" className="hover:text-cyan-300 transition">Curso</a>
+            <a href="#curso-mobile" className="hover:text-fuchsia-300 transition">Mobile</a>
             <a href="/como-usar" className="hover:text-white transition">Como Usar</a>
-            <a href="#scanner" className="hover:text-white transition">Scanner</a>
+            <a href="#scanner" className="hover:text-amber-300 transition">Scanner</a>
             <a href="#precos" className="hover:text-white transition">Preços</a>
           </nav>
           <div className="flex items-center gap-2">
@@ -79,18 +83,20 @@ export default function CourseSite({ loggedIn = false }: { loggedIn?: boolean })
         </div>
       </header>
 
-      <section className="border-b border-screens-border">
-        <div className="mx-auto max-w-6xl px-4 py-16 md:py-24">
+      <section className="relative border-b border-screens-border overflow-hidden">
+        <div className="pointer-events-none absolute inset-0 cyber-grid opacity-30" />
+        <div className="mx-auto max-w-6xl px-4 py-16 md:py-24 relative">
           <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
             <div>
-              <p className="label-xs mb-4">Telagem forense + Scanner</p>
-              <h1 className="text-3xl font-semibold tracking-tight md:text-5xl leading-[1.15]">
+              <p className="label-xs mb-4 text-cyan-400/80">Telagem forense + Scanner + Mobile</p>
+              <h1 className="gradient-text text-3xl font-black tracking-tight md:text-5xl leading-[1.15]">
                 Aprende telagem.
                 <br />
                 Roda scan.
               </h1>
               <p className="mt-5 max-w-lg text-screens-muted leading-relaxed">
                 Curso do zero ao telador pro. Scanner 171 ScreenS com pins, results e enterprise.
+                Agora com <span className="text-fuchsia-300">Curso Mobile</span> completo.
               </p>
               <p className="mt-4 text-sm text-screens-muted">
                 Booster — {BOOSTER_LESSON_COUNT} aulas grátis no Tier I
@@ -100,44 +106,48 @@ export default function CourseSite({ loggedIn = false }: { loggedIn?: boolean })
                   <Zap className="h-4 w-4" />
                   Entrar no curso
                 </a>
+                <a href="#curso-mobile" className="btn-secondary border-fuchsia-500/30 text-fuchsia-200 hover:border-fuchsia-400/50">
+                  <Smartphone className="h-4 w-4" />
+                  Curso Mobile
+                </a>
                 <a href="#precos" className="btn-secondary">
                   <Scan className="h-4 w-4" />
                   Ver planos
                 </a>
-                <a href="/como-usar" className="btn-secondary">
-                  <BookOpen className="h-4 w-4" />
-                  Como usar
-                </a>
               </div>
             </div>
 
-            <div className="surface p-6">
+            <div className="neon-card-highlight surface p-6 animate-float">
               <div className="flex items-center justify-between border-b border-screens-border pb-3">
-                <span className="font-mono text-sm">171 Scanner</span>
-                <span className="text-[10px] text-screens-muted uppercase">Online</span>
+                <span className="font-mono text-sm text-cyan-300">171 Scanner</span>
+                <span className="flex items-center gap-1.5 text-[10px] text-emerald-400 uppercase">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse-glow" />
+                  Online
+                </span>
               </div>
               <div className="mt-4 space-y-3 font-mono text-xs text-screens-muted">
                 <div className="flex justify-between">
                   <span>PIN</span>
-                  <span className="text-zinc-300">K7H2M9XP</span>
+                  <span className="text-cyan-200">K7H2M9XP</span>
                 </div>
                 <div className="h-1 overflow-hidden rounded-full bg-screens-border">
-                  <div className="h-full w-3/4 rounded-full bg-zinc-400" />
+                  <div className="h-full w-3/4 rounded-full bg-gradient-to-r from-cyan-500 to-fuchsia-500" />
                 </div>
                 <p>Prefetch · Sysmon Event 10…</p>
               </div>
             </div>
           </div>
 
-          <div className="mt-12 grid grid-cols-2 gap-3 md:grid-cols-5">
+          <div className="mt-12 grid grid-cols-2 gap-3 md:grid-cols-6">
             {[
               { label: "Aulas", value: `${counts.total}+` },
               { label: "Tiers", value: "3" },
+              { label: "Mobile", value: "4" },
               { label: "Scanner", value: "4" },
               { label: "Tools", value: "7+" },
               { label: "Do zero", value: "100%" },
             ].map((s) => (
-              <div key={s.label} className="surface p-4">
+              <div key={s.label} className="neon-card p-4 transition hover:border-cyan-500/20">
                 <p className="text-xl font-semibold">{s.value}</p>
                 <p className="text-[11px] text-screens-muted mt-0.5">{s.label}</p>
               </div>
@@ -266,7 +276,9 @@ export default function CourseSite({ loggedIn = false }: { loggedIn?: boolean })
         </div>
       </section>
 
-      {/* Scanner highlight */}
+      <MobileCourseSection compact />
+
+      {/* Scanner highlight — desktop (preservado) */}
       <section id="scanner" className="border-y border-screens-border bg-screens-card/20 py-20 md:py-24 scan-grid">
         <div className="mx-auto max-w-7xl px-4">
           <div className="text-center mb-14">
@@ -343,7 +355,7 @@ export default function CourseSite({ loggedIn = false }: { loggedIn?: boolean })
             <p className="mt-3 text-screens-muted">Curso e scanner são produtos separados — compra no Discord.</p>
           </div>
 
-          <div className="flex justify-center gap-3 mb-12">
+          <div className="flex flex-wrap justify-center gap-3 mb-12">
             <button
               onClick={() => setPriceTab("curso")}
               className={`flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold transition ${
@@ -353,6 +365,16 @@ export default function CourseSite({ loggedIn = false }: { loggedIn?: boolean })
               }`}
             >
               <GraduationCap className="h-4 w-4" /> Curso Emu
+            </button>
+            <button
+              onClick={() => setPriceTab("mobile")}
+              className={`flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-semibold transition ${
+                priceTab === "mobile"
+                  ? "bg-gradient-to-r from-fuchsia-600 to-violet-600 text-white shadow-[0_0_24px_-6px_rgba(217,70,239,0.5)]"
+                  : "border border-screens-border text-screens-muted hover:text-fuchsia-300"
+              }`}
+            >
+              <Smartphone className="h-4 w-4" /> Curso Mobile
             </button>
             <button
               onClick={() => setPriceTab("scanner")}
@@ -404,6 +426,41 @@ export default function CourseSite({ loggedIn = false }: { loggedIn?: boolean })
                   </div>
                 );
               })}
+            </div>
+          ) : priceTab === "mobile" ? (
+            <div className="mx-auto max-w-md">
+              <div className={`neon-card border-2 ${mobileCourseProduct.border} overflow-hidden`}>
+                <div className="border-b border-fuchsia-500/20 bg-gradient-to-br from-fuchsia-500/15 to-violet-500/10 px-8 py-8 text-center">
+                  <p className={`text-xs font-bold uppercase ${mobileCourseProduct.accent}`}>
+                    {mobileCourseProduct.badge}
+                  </p>
+                  <p className="mt-2 text-2xl font-bold">{mobileCourseProduct.name}</p>
+                  <p className={`mt-4 text-5xl font-black ${mobileCourseProduct.accent}`}>
+                    {formatPrice(mobileCourseProduct.price)}
+                  </p>
+                </div>
+                <div className="p-8">
+                  <p className="text-sm text-screens-muted leading-relaxed mb-6">
+                    {mobileCourseProduct.description}
+                  </p>
+                  <ul className="space-y-3 mb-8">
+                    {mobileCourseProduct.features.map((item) => (
+                      <li key={item} className="flex items-start gap-2 text-sm text-screens-muted">
+                        <Check className="h-4 w-4 shrink-0 mt-0.5 text-fuchsia-400" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  <a
+                    href={DISCORD_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block text-center rounded-xl bg-gradient-to-r from-fuchsia-600 to-violet-600 py-3.5 text-sm font-bold text-white hover:opacity-90"
+                  >
+                    Comprar Curso Mobile
+                  </a>
+                </div>
+              </div>
             </div>
           ) : (
             <div className="grid gap-5 sm:grid-cols-2">
@@ -484,9 +541,10 @@ export default function CourseSite({ loggedIn = false }: { loggedIn?: boolean })
       </section>
 
       <footer className="border-t border-screens-border py-8 text-center text-xs text-screens-muted">
-        <p>© 2026 171 ScreenS · Curso Emu by Samuca</p>
-        <p className="mt-2 flex justify-center gap-4">
+        <p>© 2026 171 ScreenS · Curso Emu + Mobile by Samuca</p>
+        <p className="mt-2 flex justify-center gap-4 flex-wrap">
           <a href="/login" className="text-screens-accent hover:underline">Login</a>
+          <a href="/curso-mobile" className="text-fuchsia-400 hover:underline">Curso Mobile</a>
           <a href={DISCORD_URL} className="text-screens-accent hover:underline" target="_blank" rel="noopener noreferrer">
             Discord
           </a>

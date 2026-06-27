@@ -5,6 +5,8 @@ export const DISCORD_ROLE_IDS = {
   tier2: process.env.DISCORD_ROLE_TIER2_ID ?? "1517319725988708403",
   tier3: process.env.DISCORD_ROLE_TIER3_ID ?? "1517319860835713198",
   booster: process.env.DISCORD_ROLE_BOOSTER_ID ?? "1501381055578505359",
+  ios: process.env.DISCORD_ROLE_IOS_ID ?? "1501810873621286992",
+  android: process.env.DISCORD_ROLE_ANDROID_ID ?? "1501811421271294072",
 } as const;
 
 export const DISCORD_ROLE_LABELS: Record<CourseTier, string> = {
@@ -12,6 +14,23 @@ export const DISCORD_ROLE_LABELS: Record<CourseTier, string> = {
   tier2: "Curso Advanced",
   tier3: "Curso Private",
 };
+
+export const MOBILE_ROLE_LABELS = {
+  ios: "Curso iOS",
+  android: "Curso Android",
+} as const;
+
+export function mobileAccessFromRoleIds(roleIds: string[]) {
+  return {
+    mobileIos: roleIds.includes(DISCORD_ROLE_IDS.ios),
+    mobileAndroid: roleIds.includes(DISCORD_ROLE_IDS.android),
+  };
+}
+
+export function hasAnyMobileAccess(roleIds: string[]) {
+  const { mobileIos, mobileAndroid } = mobileAccessFromRoleIds(roleIds);
+  return mobileIos || mobileAndroid;
+}
 
 export const BOOSTER_ACCESS_LABEL = "Curso Booster · Degustação";
 

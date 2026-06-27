@@ -129,6 +129,8 @@ export async function createSession(userDoc: UserDoc) {
     role: userDoc.role,
     courseTier: userDoc.courseTier ?? null,
     accessSource: userDoc.accessSource ?? null,
+    mobileIos: userDoc.mobileIos ?? false,
+    mobileAndroid: userDoc.mobileAndroid ?? false,
     scannerPlan: scanner.scannerPlan,
     enterpriseId: scanner.enterpriseId,
     banned: userDoc.banned ?? false,
@@ -177,6 +179,9 @@ export async function getSession(): Promise<SessionUser | null> {
         ? (dbUser.courseTier ?? "tier3")
         : dbUser.courseTier;
 
+    const mobileIos = role === "owner" || role === "admin" ? true : (dbUser.mobileIos ?? false);
+    const mobileAndroid = role === "owner" || role === "admin" ? true : (dbUser.mobileAndroid ?? false);
+
     const scanner = await resolveScannerAccess(user.id, role);
 
     return {
@@ -188,6 +193,8 @@ export async function getSession(): Promise<SessionUser | null> {
       role,
       courseTier: courseTier ?? null,
       accessSource: dbUser.accessSource ?? null,
+      mobileIos,
+      mobileAndroid,
       scannerPlan: scanner.scannerPlan,
       enterpriseId: scanner.enterpriseId,
       banned: dbUser.banned,

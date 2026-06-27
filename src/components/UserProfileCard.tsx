@@ -39,6 +39,14 @@ export function UserProfileCard({ user }: { user: SessionUser }) {
           <span className="text-screens-muted">Scanner</span>
           <span className="text-zinc-300">{hasScanner ? scannerLabel : "Sem key"}</span>
         </div>
+        {(user.mobileIos || user.mobileAndroid) && (
+          <div className="flex justify-between gap-2 px-2 py-1.5 rounded-md bg-screens-bg">
+            <span className="text-screens-muted">Mobile</span>
+            <span className="text-fuchsia-300 text-right">
+              {[user.mobileIos && "iOS", user.mobileAndroid && "Android"].filter(Boolean).join(" · ")}
+            </span>
+          </div>
+        )}
       </div>
 
       <button

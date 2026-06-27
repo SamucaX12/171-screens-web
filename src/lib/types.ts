@@ -15,6 +15,8 @@ export type UserDoc = {
   role: UserRole;
   courseTier: CourseTier | null;
   accessSource?: CourseAccessSource;
+  mobileIos?: boolean;
+  mobileAndroid?: boolean;
   banned: boolean;
   lastIp?: string;
   lastSeenAt?: Date;
@@ -31,6 +33,8 @@ export type SessionUser = {
   role: UserRole;
   courseTier: CourseTier | null;
   accessSource?: CourseAccessSource;
+  mobileIos?: boolean;
+  mobileAndroid?: boolean;
   scannerPlan: ScannerPlan;
   enterpriseId?: string | null;
   banned: boolean;
