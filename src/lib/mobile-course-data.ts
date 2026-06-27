@@ -40,16 +40,16 @@ export const mobileModules: MobileModule[] = [
     glow: "hover:shadow-[0_0_40px_-8px_rgba(34,211,238,0.45)]",
   },
   {
-    id: "ios",
+    id: "ios-card",
     title: "Curso iOS",
     subtitle: "Apple · iPhone & iPad",
     description:
-      "Técnicas exclusivas pra ecossistema Apple: bypass de detecção de emulador, utilitários seguros e otimização sem comprometer o sistema.",
+      "Técnicas exclusivas pra ecossistema Apple: bypass de detecção, utilitários seguros e otimização sem jailbreak pesado.",
     highlights: [
       "Bypass de detecção no iOS",
-      "Utilitários e perfis de rede",
+      "Perfis de rede e utilitários",
       "Otimização de touch e FPS",
-      "Instalação segura sem jailbreak pesado",
+      "Instalação segura sem jailbreak",
     ],
     icon: Apple,
     accent: "text-zinc-200",
@@ -58,11 +58,11 @@ export const mobileModules: MobileModule[] = [
     badge: "Apple",
   },
   {
-    id: "android",
+    id: "android-card",
     title: "Curso Android",
     subtitle: "Root · Magisk · Kernel",
     description:
-      "Root seguro, Magisk, kernels personalizados e mods de sistema. Bypass de segurança de emulador e FPS extremo no Android.",
+      "Root seguro, Magisk, kernels custom e bypass de anti-emulador. FPS extremo e controle total do dispositivo.",
     highlights: [
       "Root seguro e Magisk modules",
       "Kernels custom e undervolt",
@@ -80,7 +80,7 @@ export const mobileModules: MobileModule[] = [
     title: "IA Mobile",
     subtitle: "Automação inteligente",
     description:
-      "Introdução à automação e análise de padrões de jogo no celular. Lógica de IA pra otimização de mira e recoil de forma indetectável.",
+      "Introdução à automação e análise de padrões de jogo no celular. Lógica de IA pra otimização de mira e recoil.",
     highlights: [
       "Análise de padrões em tempo real",
       "Ajuste dinâmico de recoil/mira",
@@ -92,6 +92,180 @@ export const mobileModules: MobileModule[] = [
     border: "border-violet-500/40",
     glow: "hover:shadow-[0_0_40px_-8px_rgba(167,139,250,0.45)]",
     badge: "IA",
+  },
+];
+
+export type MobilePlatformCourse = {
+  id: string;
+  platform: "ios" | "android";
+  title: string;
+  subtitle: string;
+  description: string;
+  accent: string;
+  border: string;
+  borderStrong: string;
+  bg: string;
+  bgStrong: string;
+  dot: string;
+  icon: LucideIcon;
+  modules: {
+    id: string;
+    title: string;
+    summary: string;
+    topics: string[];
+  }[];
+};
+
+export const mobilePlatformCourses: MobilePlatformCourse[] = [
+  {
+    id: "ios",
+    platform: "ios",
+    title: "Curso iOS",
+    subtitle: "iPhone · iPad · Apple Ecosystem",
+    description:
+      "Domina o ecossistema Apple: bypass de detecção de emulador, perfis de rede, utilitários seguros e otimização de performance sem jailbreak pesado.",
+    accent: "text-zinc-100",
+    border: "border-zinc-400/30",
+    borderStrong: "border-zinc-300/50",
+    bg: "bg-zinc-400/5",
+    bgStrong: "bg-zinc-400/10",
+    dot: "bg-zinc-300",
+    icon: Apple,
+    modules: [
+      {
+        id: "ios-intro",
+        title: "Setup inicial iOS",
+        summary: "Configurar o dispositivo Apple pra gameplay e screen share seguro.",
+        topics: [
+          "Verificação de versão iOS e compatibilidade",
+          "Limpeza de logs antes da sessão",
+          "Configurações de privacidade que interferem na SS",
+          "Perfis de rede e configuração de proxy",
+          "Ativar modo desenvolvedor sem jailbreak",
+        ],
+      },
+      {
+        id: "ios-bypass",
+        title: "Bypass de Detecção iOS",
+        summary: "Como identificar e lidar com detecção de emulador no ecossistema Apple.",
+        topics: [
+          "Como o emulador é detectado no iOS",
+          "Leitura de gyroscope e acelerômetro falso",
+          "Bypass de Device ID e UDID",
+          "Perfis de configuração (MDM) e seus riscos",
+          "TestFlight e builds não assinadas — quando suspeitar",
+          "Diferença entre jogo native ARM vs emulado",
+        ],
+      },
+      {
+        id: "ios-performance",
+        title: "Performance & Otimização iOS",
+        summary: "FPS estável, input lag mínimo e configuração pra ranked.",
+        topics: [
+          "120Hz em iPhones compatíveis — como verificar",
+          "Modo alto desempenho e thermal throttling",
+          "Sensibilidade e DPI por modelo de iPhone/iPad",
+          "Reduzir lag de input no touch screen",
+          "Fechar processos em background corretamente",
+          "Modo avião parcial — rede sem interferência",
+        ],
+      },
+      {
+        id: "ios-ss",
+        title: "Screen Share no iOS",
+        summary: "Como realizar e passar pela SS em dispositivo Apple.",
+        topics: [
+          "Compartilhar tela via ReplayKit / AirPlay",
+          "O que a SS vê no iOS — limitações do sistema",
+          "Evidências que aparecem na captura Apple",
+          "Como o telador lê SS mobile iOS",
+          "Checklist pré-SS pra jogador iOS",
+        ],
+      },
+    ],
+  },
+  {
+    id: "android",
+    platform: "android",
+    title: "Curso Android",
+    subtitle: "Root · Magisk · Kernel Custom",
+    description:
+      "Root seguro com Magisk, kernels customizados, mods de sistema e bypass completo de anti-emulador. FPS extremo e controle total do dispositivo Android.",
+    accent: "text-emerald-400",
+    border: "border-emerald-500/25",
+    borderStrong: "border-emerald-500/50",
+    bg: "bg-emerald-500/5",
+    bgStrong: "bg-emerald-500/10",
+    dot: "bg-emerald-400",
+    icon: Cpu,
+    modules: [
+      {
+        id: "android-root",
+        title: "Root & Magisk",
+        summary: "Root seguro sem brick — Magisk modules e hide do sistema.",
+        topics: [
+          "O que é root e por que usamos no Android",
+          "Magisk vs KernelSU — qual usar em 2025",
+          "Instalar Magisk sem perder garantia (método fastboot)",
+          "Módulos essenciais: Zygisk, LSPosed, MagiskHide",
+          "Esconder root do jogo (MagiskHide / Shamiko)",
+          "SafetyNet e Play Integrity — como passar",
+        ],
+      },
+      {
+        id: "android-kernel",
+        title: "Kernels Custom & Undervolt",
+        summary: "Kernels modificados pra FPS alto e temperatura baixa.",
+        topics: [
+          "O que muda no kernel custom vs stock",
+          "Kernels populares: KernelSU, Sultan, CAF",
+          "Undervolt via Kernel Adiutor ou Franco",
+          "Perfil de energia: Gaming vs Balanced",
+          "Temperatura e throttling — como monitorar",
+          "Overclocking seguro de GPU no Snapdragon/Dimensity",
+        ],
+      },
+      {
+        id: "android-bypass",
+        title: "Bypass Anti-Emulador Android",
+        summary: "Como o anti-cheat detecta Android e como contornar.",
+        topics: [
+          "Detecção de emulador no Android (Build.FINGERPRINT, props)",
+          "Magisk modules pra spoof de device",
+          "props fake: modelo, fabricante, Android ID",
+          "Patcher de APK — quando é necessário",
+          "Xposed/LSPosed hooks de detecção",
+          "GMS spoof e Google Play protect bypass",
+          "Checklist pré-match anti-detecção",
+        ],
+      },
+      {
+        id: "android-mods",
+        title: "Mods de Sistema sem Brick",
+        summary: "Modificações avançadas com segurança — backup e recovery.",
+        topics: [
+          "TWRP e recovery customizado",
+          "Backup completo com TWRP antes de qualquer mod",
+          "Flashar ZIPs com segurança",
+          "Desativar services desnecessários do sistema",
+          "Bloatware removal sem quebrar o telefone",
+          "Como recuperar de soft brick",
+        ],
+      },
+      {
+        id: "android-ss",
+        title: "Screen Share Android",
+        summary: "Como o telador analisa a SS Android e o que procurar.",
+        topics: [
+          "ADB e o que expõe no Android",
+          "scrcpy — mirroring e análise do telador",
+          "O que aparece no logcat durante SS",
+          "Evidências de Magisk/root na SS",
+          "Checklist pré-SS pra jogador Android",
+          "Como o telador identifica device rooteado",
+        ],
+      },
+    ],
   },
 ];
 
