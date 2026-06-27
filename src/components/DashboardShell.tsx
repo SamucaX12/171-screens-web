@@ -23,6 +23,9 @@ import {
   Zap,
   Menu,
   X,
+  Smartphone,
+  Apple,
+  Cpu,
 } from "lucide-react";
 import { SessionUser } from "@/lib/types";
 import { UserProfileCard } from "@/components/UserProfileCard";
@@ -41,6 +44,7 @@ const mainNav = [
   { href: "/dashboard/curso", label: "Meu Curso", icon: GraduationCap },
   { href: "/dashboard/curso/tutor", label: "Tutor IA", icon: Bot },
   { href: "/dashboard/curso/booster", label: "Curso Booster", icon: Sparkles },
+  { href: "/dashboard/curso-mobile", label: "Curso Mobile", icon: Smartphone },
   { href: "/dashboard/tickets", label: "Tickets", icon: Headphones },
   { href: "/comprar", label: "Comprar", icon: ShoppingBag },
 ];
@@ -93,6 +97,9 @@ export function DashboardShell({
           !pathname.startsWith("/dashboard/curso/booster") &&
           !pathname.startsWith("/dashboard/curso/tutor"))
       );
+    }
+    if (href === "/dashboard/curso-mobile") {
+      return pathname === href || pathname.startsWith("/dashboard/curso-mobile/");
     }
     return pathname === href;
   }
@@ -165,6 +172,36 @@ export function DashboardShell({
             </p>
           )}
         </nav>
+
+        {(user.mobileIos || user.mobileAndroid || user.role === "owner" || user.role === "admin") && (
+          <>
+            <p className="label-xs px-3 pt-5 pb-2">Scan Mobile</p>
+            <nav className="space-y-0.5">
+              {(user.mobileIos || user.role === "owner" || user.role === "admin") && (
+                <Link
+                  href="/dashboard/scanner/mobile-ios"
+                  onClick={() => setMobileOpen(false)}
+                  className={`nav-item ${pathname === "/dashboard/scanner/mobile-ios" ? "nav-item-active" : ""}`}
+                >
+                  <Apple className="h-4 w-4 shrink-0 opacity-70" />
+                  <span className="flex-1">Scan iOS</span>
+                  <span className="text-[9px] rounded-md border border-zinc-500/30 bg-zinc-500/10 px-1.5 py-0.5 text-zinc-400 font-bold uppercase">iOS</span>
+                </Link>
+              )}
+              {(user.mobileAndroid || user.role === "owner" || user.role === "admin") && (
+                <Link
+                  href="/dashboard/scanner/mobile-android"
+                  onClick={() => setMobileOpen(false)}
+                  className={`nav-item ${pathname === "/dashboard/scanner/mobile-android" ? "nav-item-active" : ""}`}
+                >
+                  <Cpu className="h-4 w-4 shrink-0 opacity-70" />
+                  <span className="flex-1">Scan Android</span>
+                  <span className="text-[9px] rounded-md border border-emerald-500/30 bg-emerald-500/10 px-1.5 py-0.5 text-emerald-400 font-bold uppercase">APK</span>
+                </Link>
+              )}
+            </nav>
+          </>
+        )}
 
         <div className="mt-4 px-1">
           <a
