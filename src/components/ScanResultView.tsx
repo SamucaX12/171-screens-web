@@ -474,7 +474,7 @@ export function ScanResultView({
                         <span className="h-2.5 w-2.5 rounded-full bg-emerald-500/60" />
                       </div>
                       <span className="flex-1 text-center font-mono text-[10px] text-screens-muted">
-                        171-screens-capture — {new Date().toLocaleDateString("pt-BR")}
+                        dss-capture — {new Date().toLocaleDateString("pt-BR")}
                       </span>
                       <div className="flex items-center gap-1 text-[9px] text-emerald-400 font-mono">
                         <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
@@ -492,7 +492,7 @@ export function ScanResultView({
                     {/* Corner watermark */}
                     <div className="absolute bottom-3 right-3 rounded-lg border border-cyan-500/30 bg-screens-bg/80 backdrop-blur-sm px-3 py-1.5">
                       <p className="font-mono text-[9px] text-cyan-400/80 font-bold tracking-wider">
-                        171 ScreenS · {pinCode ?? "SCAN"}
+                        Deep Screen Share · {pinCode ?? "SCAN"}
                       </p>
                     </div>
 

@@ -6,6 +6,7 @@ import {
   Circle,
   Crown,
   GraduationCap,
+  Network,
   Search,
   Shield,
   UserCog,
@@ -238,6 +239,12 @@ export function AdminPanel() {
                           <Circle className={`h-2 w-2 fill-current ${u.online ? "text-emerald-400" : "text-screens-muted/50"}`} />
                           {u.online ? "Online" : formatLastSeen(u.lastSeenAt)}
                         </span>
+                        {u.lastIp && (
+                          <span className="inline-flex items-center gap-1 font-mono text-cyan-400/80">
+                            <Network className="h-2.5 w-2.5" />
+                            {u.lastIp}
+                          </span>
+                        )}
                       </div>
                     </div>
                   </div>

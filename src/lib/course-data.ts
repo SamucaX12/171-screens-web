@@ -1,4 +1,4 @@
-export const DISCORD_URL = "https://discord.gg/35Aw934hNh";
+export const DISCORD_URL = "https://discord.gg/CXkyv3QF9X";
 export const SCANNER_URL = "http://localhost:3001";
 
 export type TierId = "tier1" | "tier2" | "tier3";
@@ -108,7 +108,7 @@ export const tiers: TierPlan[] = [
       "Acesso vitalício ao Tier 1",
       "Módulos em vídeo + material escrito",
       "Grupo de dúvidas no Discord",
-      "Certificado 171 ScreenS (Básico)",
+      "Certificado Deep Screen Share (Básico)",
     ],
     modules: [
       {
@@ -201,7 +201,7 @@ export const tiers: TierPlan[] = [
           "Boot lento pós-driver",
           "Serviços parados (SysMain, PcaSvc, EventLog)",
           "Lag ao abrir emulador",
-          "Correlacionar com resultado do 171 ScreenS",
+          "Correlacionar com resultado do Deep Screen Share",
         ],
       },
       {
@@ -246,7 +246,7 @@ export const tiers: TierPlan[] = [
         title: "Como Analisar Completo (Fluxo)",
         summary: "Passo a passo do iniciante — do scan ao veredito.",
         topics: [
-          "1. Rodar 171 ScreenS e ler o painel",
+          "1. Rodar Deep Screen Share e ler o painel",
           "2. Prefetch + Journal + Temp",
           "3. Sysmon / Event Viewer se disponível",
           "4. DIE + SHA no .exe suspeito",
@@ -269,7 +269,7 @@ export const tiers: TierPlan[] = [
       "Tudo do Tier 1 incluso",
       "Módulos avançados + labs práticos",
       "Casos reais de telagem (anonimizados)",
-      "Certificado 171 ScreenS (Avançado)",
+      "Certificado Deep Screen Share (Avançado)",
     ],
     modules: [
       {
@@ -302,7 +302,7 @@ export const tiers: TierPlan[] = [
         topics: [
           "Secure Boot ON vs OFF",
           "Partição EFI e bootloaders extras",
-          "Sinais de bootkit no scan 171 ScreenS",
+          "Sinais de bootkit no scan Deep Screen Share",
           "Quando escalar para análise de hardware",
         ],
       },
@@ -314,7 +314,7 @@ export const tiers: TierPlan[] = [
           "Software de acesso remoto instalado",
           "Conexões TCP suspeitas (1337, 5555)",
           "Remote + emulador = red flag em competitive",
-          "Área REMOTE no painel 171 ScreenS",
+          "Área REMOTE no painel Deep Screen Share",
         ],
       },
       {
@@ -347,7 +347,7 @@ export const tiers: TierPlan[] = [
           "Placas FPGA / DMA no PCIe",
           "Arduino/Teensy — colorbot hardware",
           "USB history e dispositivos programáveis",
-          "Áreas DMA/USB no painel 171 ScreenS",
+          "Áreas DMA/USB no painel Deep Screen Share",
         ],
       },
       {
@@ -358,7 +358,7 @@ export const tiers: TierPlan[] = [
           "Estrutura: Resumo → Evidências → Veredito",
           "Prints organizados por categoria",
           "O que NÃO afirmar sem prova",
-          "Template 171 ScreenS para staff",
+          "Template Deep Screen Share para staff",
         ],
       },
     ],
@@ -403,7 +403,7 @@ export const tiers: TierPlan[] = [
       },
       {
         id: "privado-scanner",
-        title: "171 ScreenS Pro Internals",
+        title: "Deep Screen Share Pro Internals",
         summary: "Como extrair o máximo do scanner na telagem.",
         topics: [
           "Ler result com áreas REMOTE/DMA/USB",

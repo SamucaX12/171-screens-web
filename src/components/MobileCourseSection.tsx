@@ -137,13 +137,13 @@ export default function MobileCourseSection({ compact = false }: { compact?: boo
             Novo · Ecossistema Mobile
           </div>
           <h2 className="text-3xl font-black tracking-tight md:text-5xl">
-            <span className="bg-gradient-to-r from-fuchsia-300 via-violet-300 to-cyan-300 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-green-300 via-teal-200 to-lime-300 bg-clip-text text-transparent">
               Curso Mobile
             </span>
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-screens-muted leading-relaxed">
             iOS, Android, IA Mobile e scan via passador web.
-            Mesma metodologia 171 ScreenS — agora no bolso.
+            Mesma metodologia Deep Screen Share — agora no bolso.
           </p>
         </div>
 
@@ -335,7 +335,7 @@ export default function MobileCourseSection({ compact = false }: { compact?: boo
               <div className="mt-4 rounded-xl border border-dashed border-cyan-500/25 bg-black/30 p-4 font-mono text-[10px] text-cyan-300/80">
                 <p className="text-cyan-400/60">// replay proxy flow</p>
                 <p className="mt-1">
-                  [Celular] → <span className="text-fuchsia-400">passador.171screens</span> →
+                  [Celular] → <span className="text-teal-400">passador.deepscreenshare</span> →
                   [Análise] → [Result]
                 </p>
               </div>
@@ -347,7 +347,7 @@ export default function MobileCourseSection({ compact = false }: { compact?: boo
         <div className="mx-auto max-w-lg">
           <div className="rounded-2xl border-2 border-fuchsia-500/40 overflow-hidden">
             <div className="border-b border-fuchsia-500/25 bg-gradient-to-br from-fuchsia-500/20 to-violet-500/10 px-8 py-8 text-center">
-              <p className="text-[10px] font-bold uppercase tracking-widest text-fuchsia-400 mb-1">
+              <p className="text-[10px] font-bold uppercase tracking-widest text-teal-400 mb-1">
                 {mobileCoursePricing.badge}
               </p>
               <h3 className="text-xl font-bold">{mobileCoursePricing.name}</h3>
@@ -363,7 +363,7 @@ export default function MobileCourseSection({ compact = false }: { compact?: boo
               <ul className="space-y-3 mb-8">
                 {mobileCoursePricing.features.map((f) => (
                   <li key={f} className="flex items-center gap-2 text-sm text-screens-muted">
-                    <Check className="h-4 w-4 shrink-0 text-fuchsia-400" />
+                    <Check className="h-4 w-4 shrink-0 text-teal-400" />
                     {f}
                   </li>
                 ))}

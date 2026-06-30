@@ -7,6 +7,8 @@ export function getScannerExePath(): string | null {
   if (envPath && fs.existsSync(envPath)) return envPath;
 
   const candidates = [
+    path.join(process.cwd(), "public", "scanner", "dss-scanner.exe"),
+    path.join(process.cwd(), "scanner", "dss-scanner.exe"),
     path.join(process.cwd(), "public", "scanner", "171-screens.exe"),
     path.join(process.cwd(), "scanner", "171-screens.exe"),
   ];
@@ -26,4 +28,4 @@ export function buildInstallUrl(pin: string) {
   return `${getAppUrl()}/install/${pin}`;
 }
 
-export const SCANNER_EXE_FILENAME = "171-screens.exe";
+export const SCANNER_EXE_FILENAME = "dss-scanner.exe";

@@ -39,7 +39,7 @@ export default function ScannerEnterprisePage() {
   const [enterprise, setEnterprise] = useState<EnterpriseDoc | null>(null);
   const [strings, setStrings] = useState<CustomPattern[]>([]);
   const [imgui, setImgui] = useState({
-    scannerName: "171 ScreenS",
+    scannerName: "DSS Scanner",
     primaryColor: "#7dd3fc",
     spinnerColor1: "#bae6fd",
     spinnerColor2: "#7dd3fc",
@@ -62,7 +62,7 @@ export default function ScannerEnterprisePage() {
       const patterns = cfg.customPatterns ?? [];
       setStrings(patterns.filter((p: CustomPattern) => !p.process));
       setImgui({
-        scannerName: cfg.scannerName ?? data.enterprise.name ?? "171 ScreenS",
+        scannerName: cfg.scannerName ?? data.enterprise.name ?? "DSS Scanner",
         primaryColor: cfg.primaryColor ?? "#7dd3fc",
         spinnerColor1: cfg.spinnerColor1 ?? "#bae6fd",
         spinnerColor2: cfg.spinnerColor2 ?? "#7dd3fc",

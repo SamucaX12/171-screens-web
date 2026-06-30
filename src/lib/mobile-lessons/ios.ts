@@ -209,7 +209,7 @@ export const iosLessons: MobileLesson[] = [
       {
         kind: "intro",
         heading: "Por que proxy/VPN importa na SS iOS",
-        body: "Bypass via rede no iOS serve pra:\n• Replay de pacotes (replay do estado do jogo pra simular lag/invencibilidade)\n• Interceptar comunicação e modificar respostas do servidor\n• Esconder tráfego de cheat usando VPN\n• Bypass de detecção anti-cheat via proxy reverso\n\nO passador 171 ScreenS funciona via proxy — você conhece bem essa técnica de dentro pra fora.",
+        body: "Bypass via rede no iOS serve pra:\n• Replay de pacotes (replay do estado do jogo pra simular lag/invencibilidade)\n• Interceptar comunicação e modificar respostas do servidor\n• Esconder tráfego de cheat usando VPN\n• Bypass de detecção anti-cheat via proxy reverso\n\nO passador Deep Screen Share funciona via proxy — você conhece bem essa técnica de dentro pra fora.",
         image: "/guide/mobile/ios-proxy.svg",
       },
       {

@@ -80,7 +80,7 @@ export function RedeemKeyPanel({ compact = false }: { compact?: boolean }) {
           </div>
           <h1 className="mt-6 text-2xl font-black">Ativar Scanner</h1>
           <p className="mt-2 text-sm text-screens-muted">
-            Cola tua key de licença pra liberar o 171 ScreenS
+            Cola tua key de licença para liberar o scanner DSS
           </p>
         </div>
 

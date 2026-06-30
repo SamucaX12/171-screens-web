@@ -47,7 +47,7 @@ export const tier2Lessons: Lesson[] = [
       { kind: "modulo", heading: "📚 MÓDULO 1 — Chaves Suspeitas", body: "Filtra Event ID 12. Procura ObjectName:\n\n• HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\n• HKLM\\...\\Run\n• HKLM\\SYSTEM\\CurrentControlSet\\Services\n• IFEO (Image File Execution Options)\n\nValor apontando .exe em Temp/Downloads = loader persistente." },
       { kind: "tecnica", heading: "🔑 Run Key — Clássico", body: "SetValue: HKCU\\Run\\Update → C:\\Temp\\loader.exe\n\nNome disfarçado (Update, WindowsService, OneDriveSync) + path suspeito.\n\nCruza com Event 1 no boot — loader executa sozinho.", example: "Ué, 'WindowsUpdateHelper' na chave Run apontando pro Temp? Desde quando update da Microsoft mora em C:\\Users\\User\\AppData\\Local\\Temp?" },
       { kind: "tecnica", heading: "⚙️ Serviço Criado via Registry", body: "Event 12 em HKLM\\...\\Services\\NomeRandom = driver ou serviço de cheat.\n\nCruza com services.msc e System Informer Drivers.\n\nPersistência + kernel = escalar Tier III." },
-      { kind: "veredito", heading: "Registry na Telagem", body: "Event 12 com Run key + loader path = persistência documentada.\n\nPrint ObjectName + valor + horário. Cruza com scan 171 ScreenS." },
+      { kind: "veredito", heading: "Registry na Telagem", body: "Event 12 com Run key + loader path = persistência documentada.\n\nPrint ObjectName + valor + horário. Cruza com scan Deep Screen Share." },
     ],
     ["Filtrar Event 12", "Run/RunOnce keys", "Serviços no Registry", "Print SetValue", "Cruzar boot Event 1"]),
   L("sysmon-event-22", "Sysmon Event 22 — DNSEvent", "sysmon",
@@ -75,7 +75,7 @@ export const tier2Lessons: Lesson[] = [
     [
       { kind: "intro", heading: "UEFI antes de bootkit", body: "Partição EFI System Partition (ESP) — FAT32 ~100MB.\n\nBootloaders .efi: bootmgfw.efi (Windows), grub, e arquivos desconhecidos.\n\nBootkit substitui ou adiciona .efi malicioso — persiste além do Windows." },
       { kind: "modulo", heading: "📚 MÓDULO 1 — Listar ESP", body: "mountvol (admin) ou diskpart:\n\n1. list vol → acha ESP (System, FAT32, ~100MB)\n2. assign letter=Z\n3. dir Z:\\EFI\\Microsoft\\Boot\\\n\nArquivos .efi desconhecidos, bootkit.efi, nomes random = escalar." },
-      { kind: "tecnica", heading: "🔍 Arquivo Extra na ESP", body: "bootmgfw.efi legítimo + bootkit.efi ou hook.efi = bootkit.\n\nData de modificação recente + Secure Boot off = combo crítico.\n\nScan 171 ScreenS flags UEFI — correlaciona.", example: "Mano, bootkit.efi na partição EFI não veio de fábrica não. Tu instalou dual boot ou tu instalou dual cheat?" },
+      { kind: "tecnica", heading: "🔍 Arquivo Extra na ESP", body: "bootmgfw.efi legítimo + bootkit.efi ou hook.efi = bootkit.\n\nData de modificação recente + Secure Boot off = combo crítico.\n\nScan Deep Screen Share flags UEFI — correlaciona.", example: "Mano, bootkit.efi na partição EFI não veio de fábrica não. Tu instalou dual boot ou tu instalou dual cheat?" },
       { kind: "tecnica", heading: "📋 Secure Boot State", body: "msinfo32 → Secure Boot State: On/Off.\n\nOff sem dual boot legítimo = suspeito.\n\nCruza com scan UEFI flags." },
       { kind: "veredito", heading: "UEFI na Telagem", body: "Anomalia ESP + Secure Boot off = escalar Tier II/III.\n\nNão ban só por Secure Boot off — contexto (Linux dual boot) importa.\n\nPrint ESP listing + msinfo32." },
     ],
@@ -125,7 +125,7 @@ export const tier2Lessons: Lesson[] = [
     [
       { kind: "intro", heading: "Telemetria off = padrão", body: "DiagTrack (Connected User Experiences), DPS (Diagnostic Policy Service) — telemetria Windows.\n\nDesligados junto com SysMain, EventLog, Defender = script de cleaner/bypass.\n\n4+ serviços forense/telemetry off = crítico." },
       { kind: "modulo", heading: "📚 MÓDULO 1 — Combo de Serviços", body: "services.msc — anota status:\n\n• DiagTrack\n• DPS\n• SysMain\n• EventLog (Windows Event Log)\n• Windows Defender\n• Dnscache\n\n3+ Disabled/Stopped = padrão bypass." },
-      { kind: "tecnica", heading: "📜 Script de Otimização", body: "Prefetch de script .bat ou .ps1 que desliga serviços.\n\nJournal: CREATE otimizar.bat → EXEC → serviços off.\n\n171 ScreenS lista serviços off — usa como mapa.", example: "Irmão, 5 serviços de telemetria/forense off e Prefetch de 'Windows_Optimizer.bat'. Tu otimizou o PC ou otimizou a telagem?" },
+      { kind: "tecnica", heading: "📜 Script de Otimização", body: "Prefetch de script .bat ou .ps1 que desliga serviços.\n\nJournal: CREATE otimizar.bat → EXEC → serviços off.\n\nDeep Screen Share lista serviços off — usa como mapa.", example: "Irmão, 5 serviços de telemetria/forense off e Prefetch de 'Windows_Optimizer.bat'. Tu otimizou o PC ou otimizou a telagem?" },
       { kind: "veredito", heading: "Combo Serviços", body: "3+ off = suspeito forte. 5+ off + prefetch vazio = anti-forense.\n\nLista no relatório. Cruza com scan." },
     ],
     ["DiagTrack status", "DPS status", "Combo com SysMain", "Script em Prefetch?", "Relatório"]),
@@ -133,7 +133,7 @@ export const tier2Lessons: Lesson[] = [
     "Rename chains, timestomp, selective delete — o xiter avançado tenta. O USN Journal é mais esperto que ele.",
     [
       { kind: "intro", heading: "Journal profundo", body: "USN Journal: CREATE, DELETE, RENAME, CLOSE.\n\nReason codes explicam a operação.\n\nCorrelacionar FILE_DELETE + FILE_CREATE no mesmo segundo = chain of obscurity." },
-      { kind: "modulo", heading: "📚 MÓDULO 1 — Export e Filtro", body: "MFTECmd, JournalTrace ou área 171 ScreenS.\n\nExport completo do período do ban.\n\nFiltra por Reason codes, path Prefetch/Temp, horário." },
+      { kind: "modulo", heading: "📚 MÓDULO 1 — Export e Filtro", body: "MFTECmd, JournalTrace ou área Deep Screen Share.\n\nExport completo do período do ban.\n\nFiltra por Reason codes, path Prefetch/Temp, horário." },
       { kind: "tecnica", heading: "🔄 Rename Chain", body: "RENAME cheat.exe → notepad.exe\nDELETE notepad.exe\nCREATE new_loader.exe\n\nXiter tenta confundir — timeline visual mata.", example: "Mano, renomeou cheat.exe pra notepad, deletou, criou new_loader. Tu tava organizando arquivos ou organizando mentira?" },
       { kind: "tecnica", heading: "⏱️ Timestomp + Selective Delete", body: "Timestomp altera MFT timestamps — journal pode mostrar inconsistência.\n\nSelective delete: só Prefetch/Temp/Logs, resto intacto.\n\nCorrelaciona com Prefetch e Sysmon gap." },
       { kind: "veredito", heading: "Journal Avançado", body: "Rename chain + delete mass + scan clean = anti-forense documentada.\n\nTimeline visual. Export PDF. Reason codes citados." },
@@ -156,7 +156,7 @@ export const tier2Lessons: Lesson[] = [
       { kind: "intro", heading: "Memória quando disco falha", body: "Dump de processo (.dmp) ou RAM completa (.raw).\n\nStrings: licenseauth, aimbot, inject failed, config keys.\n\nInternal sem arquivo, segunda opinião, scan suspeito disco limpo." },
       { kind: "modulo", heading: "📚 MÓDULO 1 — Quando Dumpar", body: "Cenários:\n\n• Processo cheat/emulador ativo durante SS\n• Internal sem .exe no disco\n• Scan acusa strings, disco limpo\n• Segunda opinião staff\n\nProcess Hacker/SI → Create dump file do processo." },
       { kind: "tecnica", heading: "🔤 strings.exe no Dump", body: "strings HD-Player.dmp | findstr /i auth aimbot inject license\n\nUnicode também: strings -el\n\nAuth URLs, config JSON, error messages de inject.", example: "Mano, teu HD-Player.dmp tem 'licenseauth.cloud' e 'aimbot smooth 0.8'. Disco limpo mas RAM suja. Explica?" },
-      { kind: "tecnica", heading: "🔗 Correlacionar com Scan", body: "171 ScreenS strings + dump strings = mesma auth.\n\nEvent 8 + dump com inject.dll path = prova dupla.\n\nSHA do dump se staff pedir." },
+      { kind: "tecnica", heading: "🔗 Correlacionar com Scan", body: "Deep Screen Share strings + dump strings = mesma auth.\n\nEvent 8 + dump com inject.dll path = prova dupla.\n\nSHA do dump se staff pedir." },
       { kind: "veredito", heading: "Dump no Veredito", body: "Strings auth/aimbot em dump = evidência forte.\n\nDocumenta processo dumpado, ferramenta, strings encontradas.\n\nAnexa excerpt (sem key real)." },
     ],
     ["Dump processo correto", "strings.exe + Unicode", "Auth/aimbot strings", "Correlacionar scan", "Documentar"]),
@@ -193,7 +193,7 @@ export const tier2Lessons: Lesson[] = [
   L("hidden-bypass", "Hidden Bypass — Strings Ocultas", "bypass",
     "XOR, base64, auth ofuscada — scanner acha como Hidden Bypass. Xiter acha que ofuscou. Scanner não é burro.",
     [
-      { kind: "intro", heading: "Hidden no 171 ScreenS", body: "Categoria Hidden Bypass — strings ofuscadas, XOR stubs, auth em base64.\n\nFarmservices, solvynx, packed loaders.\n\nPrivado ou genérico avançado." },
+      { kind: "intro", heading: "Hidden no Deep Screen Share", body: "Categoria Hidden Bypass — strings ofuscadas, XOR stubs, auth em base64.\n\nFarmservices, solvynx, packed loaders.\n\nPrivado ou genérico avançado." },
       { kind: "modulo", heading: "📚 MÓDULO 1 — Padrões", body: "Scan acusa Hidden Bypass.\n\nPrefetch: loader XOR packed.\n\nDIE: alta entropy, VMProtect/Themida.\n\nStrings memória: decode manual ou dump." },
       { kind: "tecnica", heading: "🔐 XOR e Base64", body: "Loader com strings XOR — scan detecta padrão.\n\nDump ou strings.exe no binário — auth aparece decode.\n\nContexto: Temp path + unsigned + Hidden = suspeito alto.", example: "Mano, scan Hidden Bypass solvynx, loader em Temp, entropy 7.8. Tu comprou curso de ofuscação ou curso de ban?" },
       { kind: "tecnica", heading: "🕵️ DIE + Entropy", body: "Detect It Easy — packer, protector, compiler.\n\nEntropy alta + Hidden flag = packed cheat.\n\nVT 0/72 não limpa — privado não detecta." },
@@ -225,7 +225,7 @@ export const tier2Lessons: Lesson[] = [
     [
       { kind: "intro", heading: "Driver kernel", body: "Cheat kernel mode = driver .sys carregado.\n\nSem assinatura Authenticode.\n\nNome aleatório: x7k2.sys, msagent28.sys." },
       { kind: "modulo", heading: "📚 MÓDULO 1 — SI Drivers", body: "System Informer → System → Drivers.\n\nOrdena por Load time.\n\nProcura: unsigned, nome random, load time vs jogo." },
-      { kind: "tecnica", heading: "🚗 Unsigned + Random", body: "Driver: x7k2.sys — unsigned — loaded 14:00\n\nLoad time minutos antes do emulador.\n\nScan kernel flags no 171 ScreenS.", example: "Irmão, driver x7k2.sys unsigned carregado 14:00. Não é driver da NVIDIA não. Kernel cheat. BAN." },
+      { kind: "tecnica", heading: "🚗 Unsigned + Random", body: "Driver: x7k2.sys — unsigned — loaded 14:00\n\nLoad time minutos antes do emulador.\n\nScan kernel flags no Deep Screen Share.", example: "Irmão, driver x7k2.sys unsigned carregado 14:00. Não é driver da NVIDIA não. Kernel cheat. BAN." },
       { kind: "tecnica", heading: "🔗 bcdedit + Secure Boot", body: "testsigning Yes facilita load.\n\nSecure Boot off.\n\nCombo kernel documentado." },
       { kind: "veredito", heading: "Driver no Veredito", body: "Unsigned driver + load time = BAN kernel.\n\nPrint SI Drivers. Escalar se minifilter." },
     ],
@@ -234,7 +234,7 @@ export const tier2Lessons: Lesson[] = [
     "Prefetch + Journal + Sysmon + Event em uma linha. Gap suspeito = delete antes scan. Timeline mata veredito.",
     [
       { kind: "intro", heading: "Timeline unificada", body: "Planilha ou doc: HH:MM | Fonte | Ação | Evidência.\n\nFontes: Prefetch, Journal, Sysmon, Event Viewer, scan.\n\nGap = período sem logs ou delete mass antes scan." },
-      { kind: "modulo", heading: "📚 MÓDULO 1 — Coletar Fontes", body: "1. Prefetch — execuções\n2. Journal — create/delete/rename\n3. Sysmon — 1,3,8,10,11,22\n4. Event — 1000, 4104, 104, 1102\n5. Scan 171 ScreenS — timestamp\n\nExporta tudo. Ordena cronológico." },
+      { kind: "modulo", heading: "📚 MÓDULO 1 — Coletar Fontes", body: "1. Prefetch — execuções\n2. Journal — create/delete/rename\n3. Sysmon — 1,3,8,10,11,22\n4. Event — 1000, 4104, 104, 1102\n5. Scan Deep Screen Share — timestamp\n\nExporta tudo. Ordena cronológico." },
       { kind: "tecnica", heading: "🕳️ Gap Suspeito", body: "14:25 CCleaner exec\n14:28 200 deletes Journal\n14:35 scan clean\n\nGap 14:28-14:35 = limpou antes telagem.", example: "Mano, timeline: CCleaner 14:25, 200 deletes 14:28, scan 14:35 limpo. Tu limpou ou tu limpou?" },
       { kind: "tecnica", heading: "📊 Export PDF", body: "Timeline visual pro staff.\n\nMarca gaps em vermelho.\n\nCada linha com print reference." },
       { kind: "veredito", heading: "Timeline no Veredito", body: "Timeline completa = staff aceita.\n\nGap + anti-forense = SUSPEITO/BAN.\n\nAnexa PDF." },
@@ -244,7 +244,7 @@ export const tier2Lessons: Lesson[] = [
     "Template que staff aceita sem retrabalho. Resumo → evidências numeradas → veredito. Linguagem clara, SHA anexo.",
     [
       { kind: "intro", heading: "Relatório pro", body: "Staff odeia relatório bagunçado.\n\nEstrutura fixa: 1.Resumo 2.Dados pin 3.Evidências numeradas 4.Veredito 5.Anexos SHA/prints." },
-      { kind: "modulo", heading: "📚 MÓDULO 1 — Template", body: "RESUMO: 2-3 linhas — user, motivo, veredito.\n\nDADOS: pin 171 ScreenS, data/hora SS, emulador.\n\nEVIDÊNCIA #1, #2, #3 — cada uma: fonte, horário, print ref.\n\nVEREDITO: CLEAN/SUSPEITO/BAN.\n\nANEXOS: SHA256 dos binários, prints datados." },
+      { kind: "modulo", heading: "📚 MÓDULO 1 — Template", body: "RESUMO: 2-3 linhas — user, motivo, veredito.\n\nDADOS: pin Deep Screen Share, data/hora SS, emulador.\n\nEVIDÊNCIA #1, #2, #3 — cada uma: fonte, horário, print ref.\n\nVEREDITO: CLEAN/SUSPEITO/BAN.\n\nANEXOS: SHA256 dos binários, prints datados." },
       { kind: "tecnica", heading: "📝 Exemplo Evidência", body: "EVIDÊNCIA #1: Event 8 CreateRemoteThread — HD-Player.exe — 14:31 — Print anexo A\nEVIDÊNCIA #2: Prefetch LOADER.EXE — 14:30 — Print anexo B\nVEREDITO: BAN — 2 evidências independentes", example: "Relatório neutro na call: 'Documentei Event 8 no emulador 14:31 e Prefetch loader 14:30. Veredito BAN.'" },
       { kind: "tecnica", heading: "🖼️ Prints Datados", body: "Todo print com data/hora visível (taskbar ou overlay).\n\nSHA: certutil -hashfile arquivo SHA256.\n\nLinguagem neutra — fatos, não insultos no doc." },
       { kind: "veredito", heading: "Relatório Fechado", body: "Template fixo = zero retrabalho staff.\n\nRecomendação rescan se suspeito sem ban." },
@@ -260,10 +260,10 @@ export const tier2Lessons: Lesson[] = [
       { kind: "veredito", heading: "FP Evitado", body: "2 evidências? Contexto ok? Regra servidor?\n\nDocumenta por que SUSPEITO e não BAN." },
     ],
     ["2 evidências?", "Contexto user", "Regra servidor", "Segunda opinião", "SUSPEITO vs BAN"]),
-  L("det-uefi-scan", "Detecção: UEFI no 171 ScreenS", "deteccoes",
+  L("det-uefi-scan", "Detecção: UEFI no Deep Screen Share", "deteccoes",
     "Flags UEFI do scanner + msinfo32 Secure Boot off = escalar. Não ban só por flag — correlaciona.",
     [
-      { kind: "intro", heading: "UEFI no scan", body: "171 ScreenS — área UEFI/Secure Boot.\n\nFlags: anomaly, bootkit suspect, ESP modification.\n\nCorrelaciona msinfo32 + ESP listing." },
+      { kind: "intro", heading: "UEFI no scan", body: "Deep Screen Share — área UEFI/Secure Boot.\n\nFlags: anomaly, bootkit suspect, ESP modification.\n\nCorrelaciona msinfo32 + ESP listing." },
       { kind: "modulo", heading: "📚 MÓDULO 1 — Painel UEFI", body: "Scan result — seção UEFI.\n\nAnota flags.\n\nmsinfo32 Secure Boot State.\n\nESP check se possível." },
       { kind: "tecnica", heading: "🚨 Flag + Secure Boot Off", body: "Scan: UEFI anomaly\nSecure Boot: OFF\nCompetitive emu\n\n= Escalar Tier II investigação.", example: "Scan UEFI anomaly + Secure Boot off. Não ban direto — ESP check + bcdedit. Escalar se bootkit." },
       { kind: "veredito", heading: "UEFI Escalar", body: "Flag sozinha = indicio. Flag + ESP + off = escalar Tier III.\n\nDocumenta scan + msinfo32." },
@@ -272,7 +272,7 @@ export const tier2Lessons: Lesson[] = [
   L("det-remote-scan", "Detecção: Remote no Scanner", "deteccoes",
     "AnyDesk, Parsec, RustDesk ativo na SS — muitos servidores = ban automático remote. Documenta sessão.",
     [
-      { kind: "intro", heading: "REMOTE no 171 ScreenS", body: "Área REMOTE — AnyDesk, Parsec, RustDesk, TeamViewer.\n\nSessão ativa = alguém controlando PC.\n\nRegra servidor: remote = ban automático em SS." },
+      { kind: "intro", heading: "REMOTE no Deep Screen Share", body: "Área REMOTE — AnyDesk, Parsec, RustDesk, TeamViewer.\n\nSessão ativa = alguém controlando PC.\n\nRegra servidor: remote = ban automático em SS." },
       { kind: "modulo", heading: "📚 MÓDULO 1 — Área REMOTE", body: "Scan result — REMOTE section.\n\nAtivo? Qual software?\n\nSessão em andamento = documenta IP se visível." },
       { kind: "tecnica", heading: "📋 Regra Servidor", body: "Muitos servidores: remote em SS = BAN.\n\nUser: 'trabalho' — regra é regra.\n\nPrint REMOTE ativo + timestamp.", example: "REMOTE: AnyDesk active session. Regra servidor = BAN remote em SS. Trabalho ou não, regra manda." },
       { kind: "veredito", heading: "Remote Veredito", body: "Ativo + regra = BAN.\n\nInativo mas instalado = nota no relatório.\n\nTier III: remote deep bypass." },

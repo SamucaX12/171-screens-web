@@ -8,7 +8,7 @@ export default function GuiClient() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [gui, setGui] = useState({
-    scannerName: "171 ScreenS",
+    scannerName: "DSS Scanner",
     primaryColor: "#7dd3fc",
     spinnerColor1: "#bae6fd",
     spinnerColor2: "#7dd3fc",

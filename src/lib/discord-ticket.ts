@@ -78,7 +78,7 @@ export async function createDiscordTicketChannel(opts: {
           color: 0x5865f2,
           title: `Ticket #${opts.ticketNumber} · ${TICKET_TYPES[opts.type].label}`,
           description: `**${opts.subject}**\n\n${opts.body.slice(0, 1500)}${pinLine}`,
-          footer: { text: "Aberto pelo site 171 ScreenS" },
+          footer: { text: "Aberto pelo site Deep Screen Share" },
         },
       ],
     }),

@@ -3,7 +3,7 @@ import { GraduationCap, LogIn } from "lucide-react";
 import { ComoUsarGuide } from "@/components/ComoUsarGuide";
 
 export const metadata = {
-  title: "Como Usar · 171 ScreenS",
+  title: "Como Usar · Deep Screen Share",
   description: "Guia passo a passo do curso e download do app",
 };
 
@@ -17,7 +17,7 @@ export default function PublicComoUsarPage() {
               <GraduationCap className="h-5 w-5 text-screens-accent" />
             </div>
             <div>
-              <p className="text-sm font-bold">171 ScreenS</p>
+              <p className="text-sm font-bold">Deep Screen Share</p>
               <p className="text-[10px] text-screens-muted">Guia do curso</p>
             </div>
           </Link>

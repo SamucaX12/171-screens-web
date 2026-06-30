@@ -134,7 +134,7 @@ export const tier2Extra: Lesson[] = [
     [
       { kind: "intro", heading: "Minifilter", body: "File system minifilter driver — intercepta I/O.\n\nCheat kernel esconde arquivos, bloqueia read.\n\nSI System → Drivers — unsigned, x7filter.sys." },
       { kind: "modulo", heading: "📚 MÓDULO 1 — Driver List", body: "System Informer → System → Drivers.\n\nFiltra minifilter, file system.\n\nUnsigned + nome random + load time jogo." },
-      { kind: "tecnica", heading: "🚗 x7filter.sys", body: "Driver: x7filter.sys — unsigned — loaded 13:00\n\nMinifilter intercepta.\n\nScan kernel flags 171 ScreenS.", example: "Mano, x7filter.sys unsigned minifilter 13:00. Tu filtra arquivo ou tu filtra telador?" },
+      { kind: "tecnica", heading: "🚗 x7filter.sys", body: "Driver: x7filter.sys — unsigned — loaded 13:00\n\nMinifilter intercepta.\n\nScan kernel flags Deep Screen Share.", example: "Mano, x7filter.sys unsigned minifilter 13:00. Tu filtra arquivo ou tu filtra telador?" },
       { kind: "tecnica", heading: "🔗 Load Time", body: "Load minutes before emulador.\n\nCruza bcdedit testsigning.\n\nEscalar Tier III." },
       { kind: "veredito", heading: "Minifilter BAN", body: "Unsigned minifilter = kernel cheat.\n\nPrint SI. BAN se confirmado." },
     ],

@@ -27,7 +27,7 @@ export default async function InstallPage({ params }: { params: Promise<{ pin: s
             <Monitor className="h-8 w-8 text-amber-400" />
           </div>
           <p className="mt-6 text-[10px] font-bold uppercase tracking-[0.35em] text-amber-300/80">
-            171 ScreenS
+            Deep Screen Share
           </p>
           <h1 className="mt-2 text-3xl font-black tracking-tight">Baixar o Scanner</h1>
           <p className="mt-3 text-sm text-zinc-400">
@@ -38,7 +38,7 @@ export default async function InstallPage({ params }: { params: Promise<{ pin: s
         <div className="mt-8 relative aspect-video w-full overflow-hidden rounded-2xl border border-amber-500/20">
           <Image
             src="/guide/como-usar-04-download.png"
-            alt="Como baixar e usar o app 171 ScreenS"
+            alt="Como baixar e usar o app Deep Screen Share"
             fill
             className="object-cover"
             priority
@@ -63,7 +63,7 @@ export default async function InstallPage({ params }: { params: Promise<{ pin: s
                 <ol className="space-y-4 text-sm text-zinc-400">
                   <li className="flex items-start gap-3">
                     <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-amber-500/20 text-xs font-bold text-amber-300">1</span>
-                    <span>Baixa o <strong className="text-white">171-screens.exe</strong> (botão acima)</span>
+                    <span>Baixa o <strong className="text-white">dss-scanner.exe</strong> (botão acima)</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-amber-500/20 text-xs font-bold text-amber-300">2</span>
@@ -79,7 +79,7 @@ export default async function InstallPage({ params }: { params: Promise<{ pin: s
               {!hasExe && (
                 <p className="mt-4 rounded-xl border border-amber-500/20 bg-amber-500/5 p-3 text-[11px] text-amber-200/80">
                   O .exe ainda não está no servidor. O telador precisa colocar{" "}
-                  <code className="text-amber-300">171-screens.exe</code> em{" "}
+                  <code className="text-amber-300">dss-scanner.exe</code> em{" "}
                   <code className="text-amber-300">public/scanner/</code> e fazer deploy na Vercel.
                 </p>
               )}

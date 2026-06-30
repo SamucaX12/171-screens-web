@@ -22,7 +22,7 @@ export const tier1Extra: Lesson[] = [
       {
         kind: "modulo",
         heading: "📚 MÓDULO 1 — Onde Morre a Mentira",
-        body: "Shimcache vive no registry:\n\nHKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache\n\nNa prática tu não abre isso no bloco de notas. Usa parser ou área do 171 ScreenS se tiver.\n\nFluxo na SS:\n1. Exporta Shimcache do período da denúncia\n2. Ordena por Last Modified / Execution Time\n3. Procura .exe de Temp, Downloads, AppData com horário perto do jogo",
+        body: "Shimcache vive no registry:\n\nHKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\AppCompatCache\n\nNa prática tu não abre isso no bloco de notas. Usa parser ou área do Deep Screen Share se tiver.\n\nFluxo na SS:\n1. Exporta Shimcache do período da denúncia\n2. Ordena por Last Modified / Execution Time\n3. Procura .exe de Temp, Downloads, AppData com horário perto do jogo",
       },
       {
         kind: "tecnica",
@@ -49,7 +49,7 @@ export const tier1Extra: Lesson[] = [
       },
     ],
     [
-      "Exportar Shimcache (AppCompatCacheParser ou 171 ScreenS)",
+      "Exportar Shimcache (AppCompatCacheParser ou Deep Screen Share)",
       "Ordenar por data — foco no período da denúncia",
       "Procurar .exe de Temp/Downloads/AppData",
       "Cruzar com BAM e Prefetch",
@@ -252,7 +252,7 @@ export const tier1Extra: Lesson[] = [
       {
         kind: "modulo",
         heading: "📚 MÓDULO 1 — Comandos que Denunciam",
-        body: "Padrões na Prefetch / logs:\n\ncertutil -urlcache -split -f http://...\ncertutil -decode payload.b64 cheat.exe\n\nPrefetch: CERTUTIL.EXE + CMD.EXE no mesmo minuto.\n\nJournal: CREATE em Temp/Downloads do arquivo baixado.\n\n171 ScreenS ou MFTECmd mostra a cadeia.",
+        body: "Padrões na Prefetch / logs:\n\ncertutil -urlcache -split -f http://...\ncertutil -decode payload.b64 cheat.exe\n\nPrefetch: CERTUTIL.EXE + CMD.EXE no mesmo minuto.\n\nJournal: CREATE em Temp/Downloads do arquivo baixado.\n\nDeep Screen Share ou MFTECmd mostra a cadeia.",
       },
       {
         kind: "tecnica",
@@ -574,7 +574,7 @@ export const tier1Extra: Lesson[] = [
       {
         kind: "modulo",
         heading: "📚 MÓDULO 1 — Parse SRUM",
-        body: "SRUM vive em registry (ESE database):\n\nHKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\SRUM\\Extensions\n\nUsa SrumECmd (Zimmerman) ou área 171 ScreenS.\n\nExport CSV → filtra período denúncia → ordena por bytes ou app desconhecido.",
+        body: "SRUM vive em registry (ESE database):\n\nHKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\SRUM\\Extensions\n\nUsa SrumECmd (Zimmerman) ou área Deep Screen Share.\n\nExport CSV → filtra período denúncia → ordena por bytes ou app desconhecido.",
       },
       {
         kind: "tecnica",
@@ -601,7 +601,7 @@ export const tier1Extra: Lesson[] = [
       },
     ],
     [
-      "Export SRUM (SrumECmd ou 171 ScreenS)",
+      "Export SRUM (SrumECmd ou Deep Screen Share)",
       "Filtrar intervalo da denúncia/partida",
       "Listar apps desconhecidos com tráfego alto",
       "Anotar path + bytes + timestamps",

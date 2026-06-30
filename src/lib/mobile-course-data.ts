@@ -278,7 +278,7 @@ export const mobileScanFeature = {
     {
       step: "01",
       title: "Conecta o celular",
-      desc: "Configura proxy Wi‑Fi ou perfil VPN leve apontando pro passador 171 ScreenS.",
+      desc: "Configura proxy Wi‑Fi ou perfil VPN leve apontando pro passador Deep Screen Share.",
     },
     {
       step: "02",
@@ -304,7 +304,7 @@ export const mobileCoursePricing = {
   price: 80,
   badge: "Mobile Pack",
   description:
-    "iOS + Android + IA Mobile + acesso ao Scan Mobile via site. Complemento perfeito pro Curso Emu desktop.",
+    "iOS + Android + IA Mobile + acesso ao Scan Mobile via site. Complemento perfeito pro Curso Deep desktop.",
   features: [
     "Todos os módulos mobile inclusos",
     "Scan Mobile via passador web",

@@ -5,7 +5,7 @@ import { MobileScanClient } from "@/components/scanner/MobileScanClient";
 import Link from "next/link";
 import { Cpu, Lock } from "lucide-react";
 
-export const metadata = { title: "Scan Android · 171 ScreenS" };
+export const metadata = { title: "Scan Android · Deep Screen Share" };
 
 export default async function ScanAndroidPage() {
   const session = await getSession();

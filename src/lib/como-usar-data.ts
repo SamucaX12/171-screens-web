@@ -16,7 +16,7 @@ export const GUIDE_STEPS: GuideStep[] = [
     id: "login",
     step: 1,
     title: "Entrar com Discord",
-    subtitle: "Sem Google — só Discord do servidor 171 ScreenS",
+    subtitle: "Sem Google — só Discord do servidor Deep Screen Share",
     image: "/guide/como-usar-01-login.png",
     bullets: [
       "Abre o site e clica em **Entrar** ou **Dashboard**",
@@ -75,7 +75,7 @@ export const GUIDE_STEPS: GuideStep[] = [
     image: "/guide/como-usar-04-download.png",
     bullets: [
       "Telador cria um **pin** e manda o link: `seusite.com/install/XXXXXX`",
-      "Clica em **Baixar 171-screens.exe**",
+      "Clica em **Baixar dss-scanner.exe**",
       "Abre o programa no PC",
       "Digita o **PIN de 8 caracteres** que aparece na página",
       "Clica **INICIAR SCAN** — telador vê ao vivo",

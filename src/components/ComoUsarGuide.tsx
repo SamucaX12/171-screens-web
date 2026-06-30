@@ -51,7 +51,7 @@ export function ComoUsarGuide({ compact = false }: { compact?: boolean }) {
             <h1 className="mt-1 text-2xl font-semibold">Como baixar o app</h1>
             <p className="mt-2 text-sm text-screens-muted max-w-lg">
               Link <code className="rounded bg-screens-bg px-1.5 py-0.5 text-xs">/install/SEUPIN</code> →
-              baixa o <strong className="text-zinc-300">171-screens.exe</strong> → digita o PIN → INICIAR SCAN
+              baixa o <strong className="text-zinc-300">dss-scanner.exe</strong> → digita o PIN → INICIAR SCAN
             </p>
             <div className="mt-4 flex flex-wrap gap-2 justify-center lg:justify-start">
               <a href={DISCORD_URL} target="_blank" rel="noopener noreferrer" className="btn-primary">

@@ -17,7 +17,7 @@ const EXPLICIT: Record<string, LessonVisual> = {
   "system-informer-intro": { where: "DLLs no emulador", path: "SI → HD-Player → Properties → Modules", tool: "System Informer", hint: "Filter: .dll · Temp" },
   die: { where: "Autopsia .exe", path: "Arrasta suspeito pro DIE", tool: "DIE", hint: "Packer + entropia" },
   "event-viewer": { where: "Event Viewer", path: "Win+R → eventvwr", tool: "Event Viewer", hint: "Application + System" },
-  "fluxo-completo": { where: "Fluxo SS", path: "Pin → Prefetch → Temp → Veredito", tool: "171 ScreenS", hint: "Ordem sagrada" },
+  "fluxo-completo": { where: "Fluxo SS", path: "Pin → Prefetch → Temp → Veredito", tool: "Deep Screen Share", hint: "Ordem sagrada" },
   "det-loader-temp": { where: "Loader Temp", path: "Win+R → %temp%", tool: "Explorer", hint: ".exe recente" },
   "det-prefetch-vazio": { where: "Prefetch vazio", path: "Win+R → prefetch", tool: "Explorer", hint: "<5 .pf = suspeito" },
   "det-dll-sem-assinatura": { where: "DLL unsigned", path: "SI → emulador → Modules", tool: "System Informer", hint: "Company vazio" },

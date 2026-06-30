@@ -28,7 +28,7 @@ export const tier3Extra: Lesson[] = [
       {
         kind: "tecnica",
         heading: "🕵️ Área DMA + contexto mesa",
-        body: "171 ScreenS área DMA acusa anomalia + scan clean + gameplay perfeito = combo fuser.\n\nPede descrição do setup. Pede foto/vídeo da mesa se regra servidor permitir.\n\nCâmera na mesa mata mentira.",
+        body: "Deep Screen Share área DMA acusa anomalia + scan clean + gameplay perfeito = combo fuser.\n\nPede descrição do setup. Pede foto/vídeo da mesa se regra servidor permitir.\n\nCâmera na mesa mata mentira.",
       },
       {
         kind: "zuera",
@@ -231,7 +231,7 @@ export const tier3Extra: Lesson[] = [
     ],
     ["Relatório original completo", "Novos artefatos user", "Comparar SHA/paths", "Re-scan se necessário", "Documentar veredito final", "Aprendizado se errou"]),
   L(24, "enterprise-strings", "Enterprise Strings — Caça Custom", "privado",
-    "Patterns enterprise do 171 ScreenS pegam cheat privado que VT dá clean. XOR, auth custom, nomes de operação — atualiza semanal ou perde pro dev privado.",
+    "Patterns enterprise do Deep Screen Share pegam cheat privado que VT dá clean. XOR, auth custom, nomes de operação — atualiza semanal ou perde pro dev privado.",
     [
       {
         kind: "intro",

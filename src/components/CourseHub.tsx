@@ -13,6 +13,10 @@ import {
   Play,
   Search,
   Bot,
+  Sparkles,
+  TrendingUp,
+  ArrowRight,
+  CheckCircle2,
 } from "lucide-react";
 import type { LessonSummary } from "@/lib/lessons";
 import { categories } from "@/lib/lessons/types";
@@ -31,10 +35,10 @@ export function CourseHub({
   counts: { tier1: number; tier2: number; tier3: number; total: number };
   catalog: LessonSummary[];
 }) {
-  const [query, setQuery] = useState("");
+  const [query, setQuery]         = useState("");
   const [activeTier, setActiveTier] = useState<CourseTier>(user.courseTier ?? "tier1");
-  const [openCats, setOpenCats] = useState<Record<string, boolean>>({});
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [openCats, setOpenCats]   = useState<Record<string, boolean>>({});
+  const [viewMode, setViewMode]   = useState<"grid" | "list">("grid");
 
   const boosterMode = isBoosterLimited(user.courseTier, user.accessSource, user.role);
 
@@ -58,91 +62,161 @@ export function CourseHub({
   }, [catalog, activeTier, query]);
 
   const grouped = useMemo(() => groupLessonsByCategory(tierLessons), [tierLessons]);
-  const theme = TIER_THEME[activeTier];
-  const tierUnlocked = hasTierAccess(user.courseTier, activeTier, user.role);
+  const theme   = TIER_THEME[activeTier];
+  const tierUnlocked     = hasTierAccess(user.courseTier, activeTier, user.role);
   const boosterTierActive = boosterMode && activeTier === "tier1";
   const progressDenominator = boosterTierActive ? BOOSTER_LESSON_COUNT : tierLessons.length;
-  const progressNumerator = boosterTierActive
+  const progressNumerator   = boosterTierActive
     ? accessible.filter((l) => l.tier === "tier1").length
     : accessible.filter((l) => l.tier === activeTier).length;
-  const progress =
-    progressDenominator > 0 ? Math.round((progressNumerator / progressDenominator) * 100) : 0;
-
+  const progress = progressDenominator > 0 ? Math.round((progressNumerator / progressDenominator) * 100) : 0;
   const firstAccessible = tierLessons.find((l) => hasLessonAccess(user, l));
 
   function toggleCat(id: string) {
     setOpenCats((p) => ({ ...p, [id]: !(p[id] ?? true) }));
   }
 
+  const tierCountKey: Record<CourseTier, number> = {
+    tier1: counts.tier1,
+    tier2: counts.tier2,
+    tier3: counts.tier3,
+  };
+
   return (
     <div className="page-course min-h-full">
       <div className="flex flex-col lg:flex-row min-h-full">
-        <aside className="lg:w-64 shrink-0 border-b lg:border-b-0 lg:border-r border-screens-border p-5 lg:sticky lg:top-0 lg:h-screen lg:overflow-y-auto">
-          <div className="flex items-center gap-2.5 mb-6">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-screens-border bg-screens-card">
-              <GraduationCap className="h-4 w-4 text-zinc-400" />
+
+        {/* ── Sidebar ── */}
+        <aside className="lg:w-64 shrink-0 border-b lg:border-b-0 lg:border-r border-white/[0.05] p-5 lg:sticky lg:top-0 lg:h-screen lg:overflow-y-auto sidebar-surface">
+          <div className="pointer-events-none absolute inset-0 dot-grid opacity-20 lg:block hidden" />
+          <div className="relative">
+
+            {/* Header */}
+            <div className="flex items-center gap-3 mb-6">
+              <div
+                className="flex h-9 w-9 items-center justify-center rounded-xl shrink-0"
+                style={{ background: "linear-gradient(135deg, #a855f7, #0ea5e9)", boxShadow: "0 0 16px rgba(168,85,247,0.3)" }}
+              >
+                <GraduationCap className="h-4 w-4 text-white" />
+              </div>
+              <div>
+                <p className="text-sm font-bold text-white">Meu Curso</p>
+                <p className="text-[11px] text-screens-muted">{counts.total} aulas</p>
+              </div>
             </div>
-            <div>
-              <p className="text-sm font-semibold">Meu Curso</p>
-              <p className="text-[11px] text-screens-muted">{counts.total} aulas</p>
+
+            {/* Tier selector */}
+            <p className="label-xs mb-3">Selecionar Tier</p>
+            <div className="space-y-1.5">
+              {TIER_ORDER.map((tierId) => {
+                const th  = TIER_THEME[tierId];
+                const ok  = hasTierAccess(user.courseTier, tierId, user.role);
+                const act = activeTier === tierId;
+                const n   = tierCountKey[tierId];
+                return (
+                  <button
+                    key={tierId}
+                    type="button"
+                    onClick={() => setActiveTier(tierId)}
+                    className={`w-full flex items-center gap-3 rounded-xl px-3 py-2.5 text-left text-sm transition-all duration-200 ${
+                      act ? "text-white" : "text-screens-muted hover:bg-white/[0.04] hover:text-screens-muted-bright"
+                    }`}
+                    style={
+                      act
+                        ? {
+                            background: `linear-gradient(135deg, ${th.hexColor}18, ${th.hexColor}08)`,
+                            border: `1px solid ${th.hexColor}30`,
+                            boxShadow: `0 0 16px ${th.hexColor}12, inset 0 1px 0 ${th.hexColor}10`,
+                          }
+                        : { border: "1px solid transparent" }
+                    }
+                  >
+                    <span
+                      className="h-2 w-2 rounded-full shrink-0 transition-all duration-200"
+                      style={{
+                        backgroundColor: th.hexColor,
+                        boxShadow: act ? `0 0 8px ${th.hexColor}` : "none",
+                      }}
+                    />
+                    <div className="min-w-0 flex-1">
+                      <p className="font-semibold text-[13px]">{th.name}</p>
+                      <p className="text-[10px] text-screens-muted">{n} aulas · {th.price}</p>
+                    </div>
+                    {!ok && <Lock className="h-3 w-3 opacity-30 shrink-0" />}
+                  </button>
+                );
+              })}
             </div>
+
+            {/* Booster info */}
+            {user.accessSource === "booster" && (
+              <div
+                className="mt-4 rounded-xl p-3 text-[11px] text-screens-muted"
+                style={{ background: "rgba(168,85,247,0.06)", border: "1px solid rgba(168,85,247,0.15)" }}
+              >
+                <Sparkles className="h-3 w-3 inline mr-1" style={{ color: "#a855f7" }} />
+                Booster · {BOOSTER_LESSON_COUNT} aulas grátis.{" "}
+                <Link href="/comprar" className="text-white hover:text-neon-purple underline transition-colors">
+                  Upgrade
+                </Link>
+              </div>
+            )}
+
+            {/* Guide link */}
+            <Link
+              href="/dashboard/como-usar"
+              className="mt-4 flex items-center gap-2 rounded-xl px-3 py-2.5 text-[12px] text-screens-muted hover:bg-white/[0.04] hover:text-white transition-all duration-200"
+            >
+              <HelpCircle className="h-3.5 w-3.5 shrink-0" />
+              Guia completo
+            </Link>
           </div>
-
-          <p className="label-xs mb-2">Tier</p>
-          <div className="space-y-1">
-            {TIER_ORDER.map((tierId) => {
-              const th = TIER_THEME[tierId];
-              const ok = hasTierAccess(user.courseTier, tierId, user.role);
-              const active = activeTier === tierId;
-              const n = counts[tierId];
-              return (
-                <button
-                  key={tierId}
-                  type="button"
-                  onClick={() => setActiveTier(tierId)}
-                  className={`w-full flex items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm transition ${
-                    active ? "bg-white/[0.06] text-white" : "text-screens-muted hover:bg-white/[0.03]"
-                  }`}
-                >
-                  <span className={`h-2 w-2 rounded-full shrink-0 ${th.dot}`} />
-                  <div className="min-w-0 flex-1">
-                    <p className="font-medium">{th.name}</p>
-                    <p className="text-[10px] text-screens-muted">{n} aulas · {th.price}</p>
-                  </div>
-                  {!ok && <Lock className="h-3 w-3 opacity-40 shrink-0" />}
-                </button>
-              );
-            })}
-          </div>
-
-          {user.accessSource === "booster" && (
-            <div className="mt-4 surface-muted p-3 text-[11px] text-screens-muted">
-              Booster · {BOOSTER_LESSON_COUNT} aulas grátis no Tier I.{" "}
-              <Link href="/comprar" className="text-zinc-300 hover:text-white underline">
-                Upgrade
-              </Link>
-            </div>
-          )}
-
-          <Link href="/dashboard/como-usar" className="mt-4 flex items-center gap-2 rounded-lg px-3 py-2.5 text-[12px] text-screens-muted hover:bg-white/[0.03] hover:text-white transition">
-            <HelpCircle className="h-3.5 w-3.5" />
-            Guia completo
-          </Link>
         </aside>
 
+        {/* ── Main Content ── */}
         <main className="flex-1 min-w-0 p-5 md:p-8 max-w-5xl">
-          <div className="surface p-6 md:p-8 mb-6">
-            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
-              <div>
-                <p className="label-xs">{theme.short} · {theme.name}</p>
-                <h1 className="mt-2 text-2xl font-semibold tracking-tight">{theme.description.split(".")[0]}</h1>
-                <p className="mt-2 text-sm text-screens-muted">
+
+          {/* Tier header card */}
+          <div
+            className="relative overflow-hidden rounded-2xl p-6 md:p-8 mb-6 animate-fade-in-up"
+            style={{
+              background: `linear-gradient(135deg, ${theme.hexColor}14 0%, ${theme.hexColor}06 40%, rgba(12,12,24,0.8) 100%)`,
+              border: `1px solid ${theme.hexColor}25`,
+              boxShadow: `0 0 40px ${theme.hexColor}08, inset 0 1px 0 ${theme.hexColor}12`,
+              backdropFilter: "blur(16px)",
+            }}
+          >
+            <div
+              className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full opacity-20 animate-pulse-glow"
+              style={{ background: `radial-gradient(circle, ${theme.hexColor}, transparent 70%)`, filter: "blur(40px)" }}
+            />
+
+            <div className="relative flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+              <div className="min-w-0">
+                <div className="flex items-center gap-2 mb-3">
+                  <span
+                    className="rounded-lg px-2.5 py-1 text-[10px] font-black uppercase tracking-widest"
+                    style={{
+                      background: `${theme.hexColor}18`,
+                      color: theme.hexColor,
+                      border: `1px solid ${theme.hexColor}30`,
+                    }}
+                  >
+                    {theme.short}
+                  </span>
+                  <span className="text-[10px] text-screens-muted">{theme.badge}</span>
+                </div>
+                <h1 className="text-xl font-black tracking-tight text-white">
+                  {theme.name} — {theme.description.split(".")[0]}
+                </h1>
+                <p className="mt-1.5 text-sm text-screens-muted">
                   {boosterTierActive
                     ? `${BOOSTER_LESSON_COUNT} aulas liberadas (booster)`
                     : `${tierLessons.length} aulas neste tier`}
-                  {!tierUnlocked && " · Compra ou boost para liberar"}
+                  {!tierUnlocked && " · Compra para liberar"}
                 </p>
               </div>
+
               <div className="flex flex-wrap gap-2 shrink-0">
                 {tierUnlocked && firstAccessible && (
                   <Link href={`/dashboard/curso/${firstAccessible.id}`} className="btn-primary">
@@ -156,82 +230,156 @@ export function CourseHub({
                 </Link>
               </div>
             </div>
+
+            {/* Progress */}
             {tierUnlocked && (
-              <div className="mt-5">
-                <div className="flex justify-between text-[11px] text-screens-muted mb-1.5">
-                  <span>Progresso</span>
-                  <span>{progress}%</span>
+              <div className="relative mt-6">
+                <div className="flex justify-between text-[11px] mb-2">
+                  <span className="text-screens-muted flex items-center gap-1">
+                    <TrendingUp className="h-3 w-3" /> Progresso
+                  </span>
+                  <span className="font-black" style={{ color: theme.hexColor }}>
+                    {progress}%
+                  </span>
                 </div>
-                <div className="h-1 overflow-hidden rounded-full bg-screens-border">
-                  <div className={`h-full rounded-full ${theme.dot}`} style={{ width: `${progress}%` }} />
+                <div className="h-2 overflow-hidden rounded-full bg-screens-border/40">
+                  <div
+                    className="h-full rounded-full transition-all duration-1000"
+                    style={{
+                      width: `${progress}%`,
+                      background: `linear-gradient(90deg, ${theme.hexColor}, ${theme.hexColor}90)`,
+                      boxShadow: `0 0 8px ${theme.hexColor}60`,
+                      transitionTimingFunction: "cubic-bezier(0.16,1,0.3,1)",
+                    }}
+                  />
                 </div>
+                <p className="mt-1 text-[10px] text-screens-muted">
+                  {progressNumerator} de {progressDenominator} aulas acessadas
+                </p>
               </div>
             )}
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-2 mb-5">
+          {/* Search + view mode */}
+          <div className="flex flex-col sm:flex-row gap-2 mb-5 animate-fade-in-up delay-100">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-screens-muted" />
+              <Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-screens-muted pointer-events-none" />
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder={`Buscar em ${theme.name}...`}
-                className="w-full rounded-lg border border-screens-border bg-screens-card py-2.5 pl-10 pr-4 text-sm outline-none focus:border-zinc-500 placeholder:text-screens-muted/60"
+                className="input-premium pl-10"
               />
             </div>
-            <div className="flex rounded-lg border border-screens-border p-0.5 shrink-0">
+            <div
+              className="flex rounded-xl border border-screens-border/70 p-1 shrink-0"
+              style={{ background: "rgba(12,12,24,0.8)", backdropFilter: "blur(8px)" }}
+            >
               <button
                 type="button"
                 onClick={() => setViewMode("grid")}
-                className={`flex items-center gap-1.5 rounded-md px-3 py-2 text-xs font-medium ${viewMode === "grid" ? "bg-white/[0.08] text-white" : "text-screens-muted"}`}
+                className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-medium transition-all duration-200 ${
+                  viewMode === "grid"
+                    ? "bg-white/[0.08] text-white"
+                    : "text-screens-muted hover:text-screens-muted-bright"
+                }`}
               >
                 <LayoutGrid className="h-3.5 w-3.5" /> Grid
               </button>
               <button
                 type="button"
                 onClick={() => setViewMode("list")}
-                className={`flex items-center gap-1.5 rounded-md px-3 py-2 text-xs font-medium ${viewMode === "list" ? "bg-white/[0.08] text-white" : "text-screens-muted"}`}
+                className={`flex items-center gap-1.5 rounded-lg px-3 py-2 text-xs font-medium transition-all duration-200 ${
+                  viewMode === "list"
+                    ? "bg-white/[0.08] text-white"
+                    : "text-screens-muted hover:text-screens-muted-bright"
+                }`}
               >
                 <List className="h-3.5 w-3.5" /> Lista
               </button>
             </div>
           </div>
 
-          <div className="space-y-3">
+          {/* Category groups */}
+          <div className="space-y-3 animate-fade-in-up delay-200">
             {categories
               .filter((c) => grouped.has(c.id))
-              .map((cat) => {
-                const items = grouped.get(cat.id)!;
-                const meta = CATEGORY_META[cat.id];
-                const isOpen = openCats[cat.id] ?? true;
+              .map((cat, catIndex) => {
+                const items       = grouped.get(cat.id)!;
+                const meta        = CATEGORY_META[cat.id];
+                const isOpen      = openCats[cat.id] ?? true;
+                const accessCount = items.filter((l) => hasLessonAccess(user, l)).length;
+                const catProgress = items.length ? (accessCount / items.length) * 100 : 0;
 
                 return (
-                  <section key={cat.id} className="surface overflow-hidden">
+                  <section
+                    key={cat.id}
+                    className="overflow-hidden rounded-2xl border border-white/[0.07] transition-all duration-200"
+                    style={{
+                      background: "linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01))",
+                      backdropFilter: "blur(12px)",
+                      animationDelay: `${catIndex * 50}ms`,
+                    }}
+                  >
                     <button
                       type="button"
                       onClick={() => toggleCat(cat.id)}
-                      className="flex w-full items-center gap-3 px-4 py-3.5 text-left hover:bg-white/[0.02] transition"
+                      className="flex w-full items-center gap-3 px-5 py-4 text-left hover:bg-white/[0.03] transition-colors duration-200"
                     >
-                      <span className="text-[11px] font-mono text-screens-muted w-8">{meta?.short}</span>
+                      <span
+                        className="text-[10px] font-black uppercase tracking-widest w-10 shrink-0"
+                        style={{ color: theme.hexColor }}
+                      >
+                        {meta?.short}
+                      </span>
                       <div className="flex-1 min-w-0">
-                        <p className="font-medium text-sm">{meta?.label ?? cat.label}</p>
-                        <p className="text-xs text-screens-muted">{items.length} aulas</p>
+                        <p className="font-semibold text-sm text-white">{meta?.label ?? cat.label}</p>
+                        <p className="text-xs text-screens-muted">
+                          {accessCount}/{items.length} aulas
+                          {accessCount === items.length && (
+                            <span className="ml-1.5 text-neon-green">· completo</span>
+                          )}
+                        </p>
                       </div>
-                      <ChevronDown className={`h-4 w-4 text-screens-muted transition ${isOpen ? "rotate-180" : ""}`} />
+
+                      {/* Mini progress */}
+                      <div className="hidden sm:flex items-center gap-3 shrink-0">
+                        <div className="flex items-center gap-2">
+                          <div className="w-20 h-1.5 rounded-full bg-screens-border/40 overflow-hidden">
+                            <div
+                              className="h-full rounded-full transition-all duration-700"
+                              style={{
+                                width: `${catProgress}%`,
+                                background: theme.hexColor,
+                                boxShadow: `0 0 4px ${theme.hexColor}60`,
+                              }}
+                            />
+                          </div>
+                          {accessCount === items.length && (
+                            <CheckCircle2 className="h-3.5 w-3.5 text-neon-green shrink-0" />
+                          )}
+                        </div>
+                        <ChevronDown
+                          className={`h-4 w-4 text-screens-muted transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+                        />
+                      </div>
+                      <ChevronDown
+                        className={`sm:hidden h-4 w-4 text-screens-muted transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+                      />
                     </button>
 
                     {isOpen && (
-                      <div className="border-t border-screens-border p-3 md:p-4">
+                      <div className="border-t border-white/[0.05] p-3 md:p-4">
                         {viewMode === "grid" ? (
-                          <div className="grid gap-2 sm:grid-cols-2">
+                          <div className="grid gap-3 sm:grid-cols-2">
                             {items.map((l, i) => (
-                              <LessonCard key={l.id} lesson={l} index={i} user={user} boosterMode={boosterMode} />
+                              <LessonCard key={l.id} lesson={l} index={i} user={user} boosterMode={boosterMode} theme={theme} />
                             ))}
                           </div>
                         ) : (
                           <div className="space-y-0.5">
                             {items.map((l, i) => (
-                              <LessonRow key={l.id} lesson={l} index={i} user={user} boosterMode={boosterMode} />
+                              <LessonRow key={l.id} lesson={l} index={i} user={user} boosterMode={boosterMode} theme={theme} />
                             ))}
                           </div>
                         )}
@@ -242,7 +390,9 @@ export function CourseHub({
               })}
 
             {!tierLessons.length && (
-              <div className="surface p-12 text-center text-screens-muted text-sm">Nenhuma aula encontrada.</div>
+              <div className="glass-card p-12 text-center text-screens-muted text-sm">
+                Nenhuma aula encontrada para &ldquo;{query}&rdquo;
+              </div>
             )}
           </div>
         </main>
@@ -251,16 +401,19 @@ export function CourseHub({
   );
 }
 
+/* ── Lesson Card (Grid) ── */
 function LessonCard({
   lesson: l,
   index: i,
   user,
   boosterMode,
+  theme,
 }: {
   lesson: LessonSummary;
   index: number;
   user: SessionUser;
   boosterMode: boolean;
+  theme: (typeof TIER_THEME)[keyof typeof TIER_THEME];
 }) {
   const ok = hasLessonAccess(user, l);
   const lockedReason = !ok && boosterMode && l.tier === "tier1" ? "booster" : "tier";
@@ -268,45 +421,90 @@ function LessonCard({
   return (
     <Link
       href={ok ? `/dashboard/curso/${l.id}` : "/comprar"}
-      className={`course-card block overflow-hidden ${ok ? "" : "opacity-50"}`}
+      className={`group block overflow-hidden rounded-xl border transition-all duration-300 ${
+        ok
+          ? "border-white/[0.07] hover:border-white/[0.13]"
+          : "border-white/[0.04] opacity-40 pointer-events-none"
+      }`}
+      style={{
+        background: ok
+          ? "linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01))"
+          : "rgba(255,255,255,0.02)",
+        backdropFilter: "blur(8px)",
+      }}
     >
-      <div className="relative aspect-[2/1] overflow-hidden bg-screens-bg border-b border-screens-border">
+      {/* Thumbnail */}
+      <div className="relative aspect-[16/7] overflow-hidden bg-screens-bg border-b border-white/[0.05]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={`/lessons/${l.id}.svg`}
           alt=""
           loading="lazy"
-          className="h-full w-full object-cover object-top opacity-60"
+          className="h-full w-full object-cover object-top opacity-40 group-hover:opacity-60 transition-opacity duration-300"
         />
-        <span className="absolute top-2 left-2 text-[10px] font-mono text-screens-muted bg-screens-card/90 px-1.5 py-0.5 rounded">
+
+        {/* Number badge */}
+        <span
+          className="absolute top-2 left-2 rounded-md px-1.5 py-0.5 font-mono text-[10px] font-black"
+          style={{
+            color: theme.hexColor,
+            background: "rgba(3,3,6,0.85)",
+            border: `1px solid ${theme.hexColor}25`,
+          }}
+        >
           {String(i + 1).padStart(2, "0")}
         </span>
+
         {!ok && (
-          <div className="absolute inset-0 flex items-center justify-center bg-screens-bg/60">
+          <div className="absolute inset-0 flex items-center justify-center bg-screens-bg/80">
             <Lock className="h-4 w-4 text-screens-muted" />
           </div>
         )}
+
+        {ok && (
+          <div className="absolute bottom-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+            <div
+              className="flex h-7 w-7 items-center justify-center rounded-full"
+              style={{ background: theme.hexColor, boxShadow: `0 0 12px ${theme.hexColor}60` }}
+            >
+              <Play className="h-3 w-3 text-black" />
+            </div>
+          </div>
+        )}
       </div>
-      <div className="p-3">
-        <p className="text-sm font-medium line-clamp-2">{l.title}</p>
-        <p className="mt-1 text-[11px] text-screens-muted line-clamp-1">
-          {lockedReason === "booster" ? "Comprar Tier I" : l.intro}
+
+      {/* Content */}
+      <div className="p-3.5">
+        <p className="text-sm font-semibold line-clamp-2 text-white group-hover:text-white/90 transition-colors">
+          {l.title}
         </p>
+        <p className="mt-1 text-[11px] text-screens-muted line-clamp-2 leading-relaxed">
+          {lockedReason === "booster" ? "Compra Tier I para liberar" : l.intro}
+        </p>
+        {ok && (
+          <div className="mt-2.5 flex items-center gap-1 text-[10px] text-screens-muted group-hover:text-screens-muted-bright transition-colors">
+            <ArrowRight className="h-3 w-3" />
+            Abrir aula
+          </div>
+        )}
       </div>
     </Link>
   );
 }
 
+/* ── Lesson Row (List) ── */
 function LessonRow({
   lesson: l,
   index: i,
   user,
   boosterMode,
+  theme,
 }: {
   lesson: LessonSummary;
   index: number;
   user: SessionUser;
   boosterMode: boolean;
+  theme: (typeof TIER_THEME)[keyof typeof TIER_THEME];
 }) {
   const ok = hasLessonAccess(user, l);
   const lockedReason = !ok && boosterMode && l.tier === "tier1" ? "booster" : "tier";
@@ -314,16 +512,30 @@ function LessonRow({
   return (
     <Link
       href={ok ? `/dashboard/curso/${l.id}` : "/comprar"}
-      className={`flex items-center gap-3 rounded-lg px-2 py-2 transition ${ok ? "hover:bg-white/[0.03]" : "opacity-50"}`}
+      className={`group flex items-center gap-3 rounded-xl px-3 py-3 transition-all duration-200 ${
+        ok ? "hover:bg-white/[0.05]" : "opacity-40 pointer-events-none"
+      }`}
     >
-      <span className="text-[10px] font-mono text-screens-muted w-6">{String(i + 1).padStart(2, "0")}</span>
+      <span
+        className="text-[10px] font-black font-mono w-6 shrink-0"
+        style={{ color: theme.hexColor }}
+      >
+        {String(i + 1).padStart(2, "0")}
+      </span>
       <div className="min-w-0 flex-1">
-        <p className="text-sm font-medium truncate">{l.title}</p>
-        <p className="text-[11px] text-screens-muted truncate">
-          {lockedReason === "booster" ? "Comprar Tier I" : l.intro}
+        <p className="text-sm font-medium truncate text-white group-hover:text-white/90">{l.title}</p>
+        <p className="text-[11px] text-screens-muted truncate mt-0.5">
+          {lockedReason === "booster" ? "Compra Tier I para liberar" : l.intro}
         </p>
       </div>
-      {ok ? <BookOpen className="h-3.5 w-3.5 text-screens-muted shrink-0" /> : <Lock className="h-3 w-3 text-screens-muted shrink-0" />}
+      {ok ? (
+        <BookOpen
+          className="h-3.5 w-3.5 shrink-0 opacity-0 group-hover:opacity-60 transition-opacity"
+          style={{ color: theme.hexColor }}
+        />
+      ) : (
+        <Lock className="h-3 w-3 text-screens-muted shrink-0" />
+      )}
     </Link>
   );
 }

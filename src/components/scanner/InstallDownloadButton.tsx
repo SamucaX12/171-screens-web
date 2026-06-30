@@ -33,7 +33,7 @@ export function InstallDownloadButton({ pin, className = "" }: { pin: string; cl
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = "171-screens.exe";
+      a.download = "dss-scanner.exe";
       document.body.appendChild(a);
       a.click();
       a.remove();
@@ -53,7 +53,7 @@ export function InstallDownloadButton({ pin, className = "" }: { pin: string; cl
         className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber-400 to-orange-500 py-4 text-sm font-black text-black disabled:opacity-50"
       >
         {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
-        {loading ? "Baixando..." : "⬇️ BAIXAR 171-SCREENS.EXE"}
+        {loading ? "Baixando..." : "⬇️ BAIXAR DSS-SCANNER.EXE"}
       </button>
       {error && <p className="mt-3 text-center text-sm text-red-400">{error}</p>}
     </div>

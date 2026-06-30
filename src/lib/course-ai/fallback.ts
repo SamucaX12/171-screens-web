@@ -24,7 +24,7 @@ export function buildFallbackReply(query: string, chunks: ScoredChunk[]) {
   if (!chunks.length) {
     return {
       reply:
-        "Não achei isso no material que você tem liberado. Tenta reformular (ex: \"prefetch cheat\", \"dll bluestacks\", \"sysmon evento 10\") ou abre **Meu Curso** e busca pela aula.",
+        "Não achei esse assunto no material disponível pra você.\n\nTenta perguntar de forma diferente, por exemplo:\n- \"como funciona o prefetch?\"\n- \"o que é DLL no BlueStacks?\"\n- \"sysmon evento 10\"\n\nOu abre **Meu Curso** e busca pela aula diretamente.",
       sources: [],
     };
   }
@@ -32,11 +32,12 @@ export function buildFallbackReply(query: string, chunks: ScoredChunk[]) {
   const top = chunks[0];
   const related = chunks.slice(1, 4);
 
-  let reply = `**${top.lessonTitle ?? top.title}**\n\n${top.excerpt}\n`;
-
+  let body = top.excerpt ?? top.content?.slice(0, 500) ?? "";
   if (top.type === "lesson-checklist") {
-    reply = `**Checklist — ${top.lessonTitle}**\n\n${top.content.slice(0, 600)}`;
+    body = top.content.slice(0, 600);
   }
+
+  let reply = `**${top.lessonTitle ?? top.title}**\n\n${body}`;
 
   if (related.length) {
     reply += "\n\n**Também pode ajudar:**\n";
@@ -46,7 +47,7 @@ export function buildFallbackReply(query: string, chunks: ScoredChunk[]) {
   }
 
   if (top.link) {
-    reply += `\n📚 Abre a aula completa: **${top.link}**`;
+    reply += `\n\n📚 Abre a aula completa: **${top.link}**`;
   }
 
   reply +=

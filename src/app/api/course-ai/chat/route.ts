@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth";
-import { buildSystemPrompt } from "@/lib/course-ai/prompt";
+import { buildSystemPrompt, type AIMode } from "@/lib/course-ai/prompt";
 import { searchCourseKnowledge } from "@/lib/course-ai/search";
 import { buildFallbackReply } from "@/lib/course-ai/fallback";
 import { chatCompletion, hasLlmConfigured } from "@/lib/course-ai/llm";
@@ -13,6 +13,7 @@ export async function POST(req: NextRequest) {
   const message = String(body.message ?? "").trim();
   const lessonId = body.lessonId ? String(body.lessonId) : undefined;
   const history = Array.isArray(body.history) ? body.history : [];
+  const aiMode = (["professor", "screenshare", "resenha"].includes(body.mode) ? body.mode : "professor") as AIMode;
 
   if (!message || message.length > 2000) {
     return NextResponse.json({ error: "mensagem inválida" }, { status: 400 });
@@ -30,7 +31,7 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const system = buildSystemPrompt(session, chunks, lessonId);
+    const system = buildSystemPrompt(session, chunks, lessonId, aiMode);
     const recent = history
       .slice(-6)
       .filter((m: { role?: string; content?: string }) => m.role && m.content)

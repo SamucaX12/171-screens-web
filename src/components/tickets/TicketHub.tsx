@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -282,7 +282,7 @@ export function TicketThread({ ticketId }: { ticketId: string }) {
 
         {ticket.discordChannelId && (
           <a
-            href="https://discord.gg/35Aw934hNh"
+            href="https://discord.gg/CXkyv3QF9X"
             target="_blank"
             rel="noopener noreferrer"
             className="mt-4 inline-flex items-center gap-1.5 text-xs text-[#5865F2] hover:underline"

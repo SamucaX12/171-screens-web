@@ -20,13 +20,13 @@ export default async function BoosterCursoPage() {
       <section className="relative overflow-hidden rounded-3xl border border-fuchsia-500/25 bg-gradient-to-br from-fuchsia-500/10 via-screens-card to-screens-bg p-8 md:p-10 scan-grid">
         <div className="pointer-events-none absolute -right-20 -top-20 h-56 w-56 rounded-full bg-fuchsia-500/20 blur-3xl" />
         <div className="relative">
-          <div className="inline-flex items-center gap-2 rounded-full border border-fuchsia-500/30 bg-fuchsia-500/10 px-4 py-1.5 text-xs font-bold text-fuchsia-300">
+          <div className="inline-flex items-center gap-2 rounded-full border border-fuchsia-500/30 bg-fuchsia-500/10 px-4 py-1.5 text-xs font-bold text-teal-300">
             <Sparkles className="h-3.5 w-3.5" />
             Curso Booster
           </div>
           <h1 className="mt-4 text-3xl font-black tracking-tight">Degustação Tier I</h1>
           <p className="mt-3 text-screens-muted max-w-xl">
-            Deu <strong className="text-fuchsia-300">boost</strong> no servidor 171 ScreenS? Ganha{" "}
+            Deu <strong className="text-teal-300">boost</strong> no servidor Deep Screen Share? Ganha{" "}
             <strong className="text-emerald-400">{BOOSTER_LESSON_COUNT} aulas grátis</strong> — prefetch, temp, DIE,
             fluxo e veredito básico.
           </p>
@@ -90,7 +90,7 @@ export default async function BoosterCursoPage() {
                     href={`/dashboard/curso/${l.id}`}
                     className="group flex items-center gap-4 rounded-2xl border border-screens-border/70 bg-screens-card/40 p-4 hover:border-fuchsia-500/30 transition"
                   >
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-fuchsia-500/15 text-sm font-black text-fuchsia-300">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-fuchsia-500/15 text-sm font-black text-teal-300">
                       {i + 1}
                     </span>
                     <div className="min-w-0 flex-1">

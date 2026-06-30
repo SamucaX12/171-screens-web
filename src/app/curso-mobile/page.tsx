@@ -4,9 +4,9 @@ import MobileCourseSection from "@/components/MobileCourseSection";
 import { DISCORD_URL } from "@/lib/course-data";
 
 export const metadata = {
-  title: "Curso Mobile — 171 ScreenS",
+  title: "Curso Mobile — Deep Screen Share",
   description:
-    "iOS, Android, IA Mobile e Scan Mobile via passador web. Ecossistema mobile do Curso Emu by Samuca.",
+    "iOS, Android, IA Mobile e Scan Mobile via passador web. Ecossistema mobile do Curso Deep.",
 };
 
 export default function CursoMobilePage() {
@@ -21,7 +21,7 @@ export default function CursoMobilePage() {
               <Crosshair className="h-4 w-4 text-fuchsia-300" />
             </div>
             <div>
-              <p className="text-sm font-semibold">171 ScreenS</p>
+              <p className="text-sm font-semibold">Deep Screen Share</p>
               <p className="text-[10px] text-screens-muted">Curso Mobile</p>
             </div>
           </Link>

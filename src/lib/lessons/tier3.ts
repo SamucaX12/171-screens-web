@@ -21,7 +21,7 @@ export const tier3Lessons: Lesson[] = [
       {
         kind: "modulo",
         heading: "📚 MÓDULO 1 — Por que o scan não pega",
-        body: "171 ScreenS varre o PC alvo. DMA não executa nada no alvo — só lê memória.\n\n• Prefetch: CLEAN\n• Sysmon Event 1: nada de cheat\n• Journal: zero\n\nO rastro tá no HARDWARE e no COMPORTAMENTO. Tier I e II não bastam aqui — bem-vindo ao clube privado.",
+        body: "Deep Screen Share varre o PC alvo. DMA não executa nada no alvo — só lê memória.\n\n• Prefetch: CLEAN\n• Sysmon Event 1: nada de cheat\n• Journal: zero\n\nO rastro tá no HARDWARE e no COMPORTAMENTO. Tier I e II não bastam aqui — bem-vindo ao clube privado.",
         example: "Scan retornou 100% clean, mas o cara flicka 180° em 40ms sem nenhum processo suspeito. Irmão, desde quando o Windows lê memória sozinho? Me mostra a mesa aí.",
       },
       {
@@ -32,7 +32,7 @@ export const tier3Lessons: Lesson[] = [
       },
       {
         kind: "modulo",
-        heading: "📚 MÓDULO 2 — Área DMA no 171 ScreenS",
+        heading: "📚 MÓDULO 2 — Área DMA no Deep Screen Share",
         body: "Painel enterprise tem área DMA/USB dedicada. Correlaciona com:\n\n• Lista de hardware PCIe\n• Dispositivos USB serial\n• Flags de anomalia de input\n\nNão leia isolado — DMA + comportamento + contexto da mesa = veredito.",
       },
       {
@@ -47,7 +47,7 @@ export const tier3Lessons: Lesson[] = [
         body: "Scan clean + sinais hardware + gameplay suspeito = NÃO é CLEAN.\n\n• Documenta área DMA do scanner\n• Pede foto/vídeo da mesa se regra permitir\n• Escala pro grupo privado se não domina\n• Veredito: SUSPEITO DMA ou BAN conforme regra servidor\n\nTier III existe porque disco mente. Hardware não.",
       },
     ],
-    ["Área DMA no 171 ScreenS", "Listar PCIe desconhecidos", "Correlacionar gameplay + scan clean", "Checar rede LAN", "Perguntar setup mesa", "Escalar se necessário"]),
+    ["Área DMA no Deep Screen Share", "Listar PCIe desconhecidos", "Correlacionar gameplay + scan clean", "Checar rede LAN", "Perguntar setup mesa", "Escalar se necessário"]),
   L("dma-usb-hardware", "DMA & USB Programável", "privado",
     "Arduino no USB não é projeto de escola — é colorbot, input automation e relay de aim. O xiter comprou kit pronto e acha que VID/PID mente.",
     [
@@ -59,7 +59,7 @@ export const tier3Lessons: Lesson[] = [
       {
         kind: "modulo",
         heading: "📚 MÓDULO 1 — USB History",
-        body: "No 171 ScreenS, área USB lista histórico de dispositivos conectados.\n\nRed flags:\n• VID/PID de Arduino (2341, 1B4F, 16C0)\n• Serial genérico ou vazio\n• Conectado durante ranked/SS\n• Dispositivo desconectado segundos antes da telagem",
+        body: "No Deep Screen Share, área USB lista histórico de dispositivos conectados.\n\nRed flags:\n• VID/PID de Arduino (2341, 1B4F, 16C0)\n• Serial genérico ou vazio\n• Conectado durante ranked/SS\n• Dispositivo desconectado segundos antes da telagem",
         example: "USB History: Arduino Leonardo — conectado 14:28, desconectado 14:29\nScan pedido 14:30. Que coincidência, hein? Plugou, jogou, tirou na hora da SS?",
       },
       {
@@ -166,7 +166,7 @@ export const tier3Lessons: Lesson[] = [
       {
         kind: "tecnica",
         heading: "🕵️ Combo Logs + conexão + netstat",
-        body: "Workflow:\n\n1. Sysmon Event 3 filtrado (localhost + LAN)\n2. netstat -ano | findstr LISTENING\n3. Área REMOTE 171 ScreenS\n4. Cruza PID → processo → timeline\n\nRemote bypass sem correlacionar = telagem pela metade.",
+        body: "Workflow:\n\n1. Sysmon Event 3 filtrado (localhost + LAN)\n2. netstat -ano | findstr LISTENING\n3. Área REMOTE Deep Screen Share\n4. Cruza PID → processo → timeline\n\nRemote bypass sem correlacionar = telagem pela metade.",
         example: "netstat: TCP 0.0.0.0:7070 LISTENING — PID desconhecido\nEvent 3: conexão LAN 192.168.1.50\n→ Segunda máquina na rede controlando. Me explica a torre do lado.",
       },
       {
@@ -224,13 +224,13 @@ export const tier3Lessons: Lesson[] = [
       {
         kind: "modulo",
         heading: "📚 MÓDULO 1 — Abordagem combo",
-        body: "Ordem de caça:\n\n1. Scan 171 ScreenS completo (todas áreas)\n2. Timeline unificada (Prefetch + Journal + Sysmon)\n3. Dump memória se scan suspeito mas disco limpo\n4. Strings custom enterprise (patterns XOR, auth privado)\n5. Re-scan com patterns atualizados\n6. Veredito com 2+ evidências independentes",
+        body: "Ordem de caça:\n\n1. Scan Deep Screen Share completo (todas áreas)\n2. Timeline unificada (Prefetch + Journal + Sysmon)\n3. Dump memória se scan suspeito mas disco limpo\n4. Strings custom enterprise (patterns XOR, auth privado)\n5. Re-scan com patterns atualizados\n6. Veredito com 2+ evidências independentes",
         example: "Pin #8842: scan clean\nDump HD-Player: XOR decode → 'solvynx_auth_v3'\nVeredito: BAN privado — prova em memória, disco limpo de propósito.",
       },
       {
         kind: "tecnica",
         heading: "🕵️ Strings custom enterprise",
-        body: "171 ScreenS enterprise aceita patterns custom da operação.\n\nAtualiza conforme meta:\n• Nomes de cheat privado da season\n• XOR keys conhecidas\n• URLs de auth custom\n• Stubs de loader não listados\n\nPattern 'solvynx' pegou loader que VT dava 0/72.",
+        body: "Deep Screen Share enterprise aceita patterns custom da operação.\n\nAtualiza conforme meta:\n• Nomes de cheat privado da season\n• XOR keys conhecidas\n• URLs de auth custom\n• Stubs de loader não listados\n\nPattern 'solvynx' pegou loader que VT dava 0/72.",
       },
       {
         kind: "tecnica",
@@ -323,7 +323,7 @@ export const tier3Lessons: Lesson[] = [
       {
         kind: "tecnica",
         heading: "🕵️ AMSI bypass — scan ainda pega",
-        body: "Xiter tenta bypass AMSI com ofuscação/reflection.\n\n171 ScreenS scan memória pode achar strings mesmo com AMSI bypass.\n\n4104 + scan strings = combo mortal.",
+        body: "Xiter tenta bypass AMSI com ofuscação/reflection.\n\nDeep Screen Share scan memória pode achar strings mesmo com AMSI bypass.\n\n4104 + scan strings = combo mortal.",
       },
       {
         kind: "tecnica",
@@ -400,7 +400,7 @@ export const tier3Lessons: Lesson[] = [
       {
         kind: "modulo",
         heading: "📚 MÓDULO 1 — Preparar pin",
-        body: "Antes da call:\n\n1. Scan 171 ScreenS completo\n2. Timeline unificada\n3. Veredito draft (CLEAN/SUSPEITO/BAN + evidências)\n4. Dúvidas anotadas\n\nPin incompleto = não participa da correção.",
+        body: "Antes da call:\n\n1. Scan Deep Screen Share completo\n2. Timeline unificada\n3. Veredito draft (CLEAN/SUSPEITO/BAN + evidências)\n4. Dúvidas anotadas\n\nPin incompleto = não participa da correção.",
         example: "Lab #12: pin DMA suspeito\nAluno: CLEAN (só olhou scan)\nCorreção: scan clean em DMA = RED FLAG, pedir hardware check\n→ Aluno nunca mais dá CLEAN em scan limpo + gameplay suspeito.",
       },
       {
@@ -415,13 +415,13 @@ export const tier3Lessons: Lesson[] = [
       },
     ],
     ["Preparar pin completo", "Defender veredito na call", "Anotar correções Samuca", "Revisar gravação", "Aplicar no próximo pin", "Formato evidência numerada"]),
-  L("scanner-privado-internals", "171 ScreenS — Internals Private", "privado",
+  L("scanner-privado-internals", "Deep Screen Share — Internals Private", "privado",
     "Extrair o MÁXIMO do scanner enterprise. Áreas REMOTE, DMA, USB, enterprise strings — cada flag explicada com critério de ban do servidor. Não ler result superficialmente.",
     [
       {
         kind: "intro",
         heading: "Scanner enterprise ≠ scan básico",
-        body: "171 ScreenS enterprise tem áreas que scan free não tem:\n\n• REMOTE (sessões ativas, histórico)\n• DMA/USB (hardware anômalo)\n• Enterprise strings (patterns custom)\n• UEFI critical\n• Hidden bypass\n\nLer só 'CLEAN/DIRTY' = telagem amadora.",
+        body: "Deep Screen Share enterprise tem áreas que scan free não tem:\n\n• REMOTE (sessões ativas, histórico)\n• DMA/USB (hardware anômalo)\n• Enterprise strings (patterns custom)\n• UEFI critical\n• Hidden bypass\n\nLer só 'CLEAN/DIRTY' = telagem amadora.",
       },
       {
         kind: "modulo",

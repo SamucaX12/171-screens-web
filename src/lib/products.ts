@@ -1,4 +1,4 @@
-export const DISCORD_URL = "https://discord.gg/35Aw934hNh";
+﻿export const DISCORD_URL = "https://discord.gg/CXkyv3QF9X";
 
 export const upcomingBots = [
   { name: "Bot de Filas SS", desc: "Fila automática de screen share no Discord" },
@@ -57,7 +57,7 @@ export const mobileCourseProduct: ProductItem = {
   price: 80,
   badge: "Mobile Pack",
   description:
-    "iOS + Android + IA Mobile + Scan Mobile via passador web. Complemento perfeito pro Curso Emu.",
+    "iOS + Android + IA Mobile + Scan Mobile via passador web. Complemento perfeito pro Curso Deep.",
   features: [
     "Todos os módulos mobile inclusos",
     "Scan Mobile via passador web",

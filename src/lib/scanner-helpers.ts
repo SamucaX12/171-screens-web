@@ -12,7 +12,7 @@ import {
 } from "./scanner-types";
 
 const DEFAULT_CONFIG: GlobalConfigDoc = {
-  scannerName: "171 ScreenS",
+  scannerName: "DSS Scanner",
   primaryColor: "#7dd3fc",
   spinnerColor1: "#bae6fd",
   spinnerColor2: "#7dd3fc",
@@ -76,7 +76,7 @@ export async function getGlobalConfig(enterpriseId?: string | null): Promise<Glo
       return {
         ...DEFAULT_CONFIG,
         ...ent.config,
-        scannerName: ent.config.scannerName || ent.name || "171 ScreenS",
+        scannerName: ent.config.scannerName || ent.name || "DSS Scanner",
         customPatterns: ent.config.customPatterns ?? [],
       };
     }

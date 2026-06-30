@@ -58,7 +58,7 @@ export const tier1Lessons: Lesson[] = [
       {
         kind: "veredito",
         heading: "📚 MÓDULO 4 — O Gran Finale",
-        body: "Depois de achar incompatibilidade de horário, executável disfarçado ou pasta suspeita:\n\n• Não aceita \"é script de otimizar ping do meu primo\"\n• Documenta com print datado\n• Cruza com 171 ScreenS + Journal se tiver\n• Veredito na call: evidência + horário + artefato\n\nStatus: Graduado em Humilhação de Xiter. Pode puxar a próxima tela.",
+        body: "Depois de achar incompatibilidade de horário, executável disfarçado ou pasta suspeita:\n\n• Não aceita \"é script de otimizar ping do meu primo\"\n• Documenta com print datado\n• Cruza com Deep Screen Share + Journal se tiver\n• Veredito na call: evidência + horário + artefato\n\nStatus: Graduado em Humilhação de Xiter. Pode puxar a próxima tela.",
       },
     ],
     [
@@ -95,7 +95,7 @@ export const tier1Lessons: Lesson[] = [
       {
         kind: "tecnica",
         heading: "🕵️ 1. App Fantasma com Tráfego",
-        body: "Red flags clássicas:\n• .exe com nome genérico (Host.exe, Service.exe, RuntimeBroker_fake)\n• Executável em Temp/Downloads consumindo dezenas de MB\n• App que o user \"nunca viu\" com tráfego constante\n\nCruza o nome com Prefetch e scan 171 ScreenS.",
+        body: "Red flags clássicas:\n• .exe com nome genérico (Host.exe, Service.exe, RuntimeBroker_fake)\n• Executável em Temp/Downloads consumindo dezenas de MB\n• App que o user \"nunca viu\" com tráfego constante\n\nCruza o nome com Prefetch e scan Deep Screen Share.",
         example: "Mano, esse Loader_v2.exe de 45MB nos últimos 7 dias... tu tava baixando wallpaper ou validando key de cheat? Porque RuntimeBroker legítimo não mora em Temp.",
       },
       {
@@ -146,7 +146,7 @@ export const tier1Lessons: Lesson[] = [
       {
         kind: "tecnica",
         heading: "❌ 2. Tampering — Defender OFF",
-        body: "Sinais de bypass:\n• Proteção em tempo real desativada\n• Serviço WinDefend parado\n• Tamper Protection off sem motivo\n\n171 ScreenS já lista isso no painel. Pergunta na call — resposta \"sempre foi assim\" = mentira.",
+        body: "Sinais de bypass:\n• Proteção em tempo real desativada\n• Serviço WinDefend parado\n• Tamper Protection off sem motivo\n\nDeep Screen Share já lista isso no painel. Pergunta na call — resposta \"sempre foi assim\" = mentira.",
         example: "Defender off, Tamper Protection off, serviço parado... PC de vitrine ou tu desligou pra rodar xit em paz?",
       },
       {
@@ -164,7 +164,7 @@ export const tier1Lessons: Lesson[] = [
       "Abrir Histórico de proteção",
       "Procurar detecções restauradas pelo usuário",
       "Listar exclusões de pastas",
-      "Verificar Defender ativo (171 ScreenS)",
+      "Verificar Defender ativo (Deep Screen Share)",
       "Print datado de cada achado",
       "Cruzar detecção com Prefetch do mesmo .exe",
     ]),
@@ -174,12 +174,12 @@ export const tier1Lessons: Lesson[] = [
       {
         kind: "intro",
         heading: "O que é USN Journal?",
-        body: "Update Sequence Number — log nativo do NTFS que registra CREATE, DELETE, RENAME, MODIFY em arquivos e pastas.\n\nQuem limpa evidência antes da SS deixa spike de deletes aqui. Ferramentas: MFTECmd, JournalTrace, ou área USN do 171 ScreenS.",
+        body: "Update Sequence Number — log nativo do NTFS que registra CREATE, DELETE, RENAME, MODIFY em arquivos e pastas.\n\nQuem limpa evidência antes da SS deixa spike de deletes aqui. Ferramentas: MFTECmd, JournalTrace, ou área USN do Deep Screen Share.",
       },
       {
         kind: "modulo",
         heading: "📚 MÓDULO 1 — Exportando o Journal",
-        body: "Se tiver 171 ScreenS com USN: exporta do período do ban (24-48h antes).\n\nSem ferramenta: pede pro user NÃO mexer e usa o que o scan/export trouxer.\n\nFiltra por: DELETE, RENAME, paths em Prefetch\\Temp\\Logs.",
+        body: "Se tiver Deep Screen Share com USN: exporta do período do ban (24-48h antes).\n\nSem ferramenta: pede pro user NÃO mexer e usa o que o scan/export trouxer.\n\nFiltra por: DELETE, RENAME, paths em Prefetch\\Temp\\Logs.",
       },
       {
         kind: "tecnica",
@@ -267,7 +267,7 @@ export const tier1Lessons: Lesson[] = [
       {
         kind: "modulo",
         heading: "📚 MÓDULO 1 — Sinais na Call",
-        body: "Observa durante a SS:\n• Demora pra abrir pastas/prefetch\n• Emulador lento ou crashando\n• Explorer.exe com CPU alta no Task Manager\n• Boot lento (pergunta quanto tempo demora)\n\n171 ScreenS lista serviços off — usa como mapa.",
+        body: "Observa durante a SS:\n• Demora pra abrir pastas/prefetch\n• Emulador lento ou crashando\n• Explorer.exe com CPU alta no Task Manager\n• Boot lento (pergunta quanto tempo demora)\n\nDeep Screen Share lista serviços off — usa como mapa.",
       },
       {
         kind: "tecnica",
@@ -293,7 +293,7 @@ export const tier1Lessons: Lesson[] = [
       },
     ],
     [
-      "Checar serviços no painel 171 ScreenS",
+      "Checar serviços no painel Deep Screen Share",
       "Perguntar sobre lentidão/boot na call",
       "System Informer → Drivers não assinados",
       "Correlacionar serviços off com Prefetch vazio",
@@ -462,7 +462,7 @@ export const tier1Lessons: Lesson[] = [
       {
         kind: "zuera",
         heading: "❌ 3. Sysmon Não Instalado?",
-        body: "Se Sysmon não estiver instalado, Event 5 não existe.\n\nUsa Prefetch, BAM, journal como fallback.\n\n171 ScreenS ou pergunta se servidor competitive exige Sysmon.",
+        body: "Se Sysmon não estiver instalado, Event 5 não existe.\n\nUsa Prefetch, BAM, journal como fallback.\n\nDeep Screen Share ou pergunta se servidor competitive exige Sysmon.",
       },
       {
         kind: "veredito",
@@ -612,8 +612,8 @@ export const tier1Lessons: Lesson[] = [
   L("fluxo-completo", "Fluxo Completo — Do Zero ao Veredito", "analise",
     "Se você não sabe por onde começar, os caras te perguntam 50 coisas. Segue essa ordem SEMPRE e para de passar vergonha na SS.",
     [
-      { kind: "intro", heading: "A ordem sagrada", body: "Telador amador pula etapa e toma exposed na call. Telador pro segue roteiro:\n\n1) Pin 171 ScreenS\n2) Prefetch + Temp + Recent\n3) Journal/USN se tiver\n4) Event Viewer / Sysmon\n5) DIE + SHA em .exe suspeito\n6) Veredito com print" },
-      { kind: "modulo", heading: "📚 PASSO 1 — Scanner primeiro", body: "Gera pin, manda rodar o 171 ScreenS ANTES de fuçar manual.\n\nO scan já puxa serviços off, defender, strings, detecções. Usa isso como mapa — não ignora." },
+      { kind: "intro", heading: "A ordem sagrada", body: "Telador amador pula etapa e toma exposed na call. Telador pro segue roteiro:\n\n1) Pin Deep Screen Share\n2) Prefetch + Temp + Recent\n3) Journal/USN se tiver\n4) Event Viewer / Sysmon\n5) DIE + SHA em .exe suspeito\n6) Veredito com print" },
+      { kind: "modulo", heading: "📚 PASSO 1 — Scanner primeiro", body: "Gera pin, manda rodar o Deep Screen Share ANTES de fuçar manual.\n\nO scan já puxa serviços off, defender, strings, detecções. Usa isso como mapa — não ignora." },
       { kind: "modulo", heading: "📚 PASSO 2 — Artefatos Windows", body: "Prefetch (Win+R prefetch), Temp (%temp%), Recent (shell:recent).\n\nSão os 3 que o xiter mais esquece. 10 minutos aqui resolve 70% das SS básicas." },
       { kind: "modulo", heading: "📚 PASSO 3 — Logs e cruzamento", body: "Event Viewer (1102 = log limpo), Sysmon 8/10 se instalado.\n\nCruza horário: loader cmd/ps → abriu jogo → scan. Timeline é tua melhor amiga." },
       { kind: "modulo", heading: "📚 PASSO 4 — Validar binário", body: "Achou .exe? DIE + certutil -hashfile + assinatura.\n\nNão condena só por VT. Contexto + local + horário." },
@@ -626,18 +626,18 @@ export const tier1Lessons: Lesson[] = [
       {
         kind: "intro",
         heading: "O que é auth online?",
-        body: "Loaders modernos validam key em servidor: KeyAuth, LicenseAuth, FluxAuth, painéis custom.\n\nDeixa URLs em Prefetch, tráfego em Uso de Dados, strings no 171 ScreenS.\n\nAuth confirmado + execução = BAN na maioria dos casos.",
+        body: "Loaders modernos validam key em servidor: KeyAuth, LicenseAuth, FluxAuth, painéis custom.\n\nDeixa URLs em Prefetch, tráfego em Uso de Dados, strings no Deep Screen Share.\n\nAuth confirmado + execução = BAN na maioria dos casos.",
       },
       {
         kind: "modulo",
         heading: "📚 MÓDULO 1 — Onde Procurar",
-        body: "171 ScreenS: strings licenseauth, keyauth, api.*.cloud\nUso de Dados: loader.exe com MB alto\nPrefetch: .pf do loader com hash de Temp/Downloads\nAppData: config.json com URL de auth",
+        body: "Deep Screen Share: strings licenseauth, keyauth, api.*.cloud\nUso de Dados: loader.exe com MB alto\nPrefetch: .pf do loader com hash de Temp/Downloads\nAppData: config.json com URL de auth",
       },
       {
         kind: "tecnica",
         heading: "🕵️ 1. Strings no Scan",
         body: "Scan puxa strings de processos e arquivos.\n\nURL de auth + .exe suspeito executado = combo letal.\n\nCruza com horário do ban.",
-        example: "171 ScreenS achou licenseauth.cloud, loader.exe 12MB no Uso de Dados, Prefetch confirma execução. Auth confirmado, mano.",
+        example: "Deep Screen Share achou licenseauth.cloud, loader.exe 12MB no Uso de Dados, Prefetch confirma execução. Auth confirmado, mano.",
       },
       {
         kind: "tecnica",
@@ -656,7 +656,7 @@ export const tier1Lessons: Lesson[] = [
       },
     ],
     [
-      "Checar strings auth no 171 ScreenS",
+      "Checar strings auth no Deep Screen Share",
       "Uso de Dados do loader",
       "Prefetch do mesmo .exe",
       "Timeline auth → abertura emulador",
@@ -712,7 +712,7 @@ export const tier1Lessons: Lesson[] = [
       {
         kind: "modulo",
         heading: "📚 MÓDULO 1 — Contar .pf",
-        body: "Win+R → prefetch → conta arquivos .pf.\n\nPergunta: usa PC todo dia? Há quanto tempo?\n\nCruza com SysMain status no 171 ScreenS.",
+        body: "Win+R → prefetch → conta arquivos .pf.\n\nPergunta: usa PC todo dia? Há quanto tempo?\n\nCruza com SysMain status no Deep Screen Share.",
       },
       {
         kind: "tecnica",
@@ -733,7 +733,7 @@ export const tier1Lessons: Lesson[] = [
     ],
     [
       "Contar arquivos .pf na Prefetch",
-      "Verificar SysMain no 171 ScreenS",
+      "Verificar SysMain no Deep Screen Share",
       "Exportar journal — deletes em Prefetch?",
       "Perguntar uso diário do PC na call",
       "Print Prefetch + status SysMain",
@@ -826,7 +826,7 @@ export const tier1Lessons: Lesson[] = [
       {
         kind: "modulo",
         heading: "📚 MÓDULO 1 — Exportar BAM",
-        body: "Ferramentas parse BAM ou export manual do registry.\n\n171 ScreenS pode incluir. Cruza SID do user com entradas.",
+        body: "Ferramentas parse BAM ou export manual do registry.\n\nDeep Screen Share pode incluir. Cruza SID do user com entradas.",
       },
       {
         kind: "tecnica",
@@ -913,7 +913,7 @@ export const tier1Lessons: Lesson[] = [
       {
         kind: "tecnica",
         heading: "🛠️ 2. Strings + SHA",
-        body: "171 ScreenS strings + SHA de .dll na pasta.",
+        body: "Deep Screen Share strings + SHA de .dll na pasta.",
       },
       {
         kind: "veredito",
@@ -925,7 +925,7 @@ export const tier1Lessons: Lesson[] = [
       "Win+R %appdata% e %localappdata%",
       "Pastas nome random recentes",
       "Abrir .json/.cfg — URLs auth",
-      "Strings no 171 ScreenS",
+      "Strings no Deep Screen Share",
       "SHA de .dll na pasta",
       "Print caminho completo",
     ]),
@@ -935,12 +935,12 @@ export const tier1Lessons: Lesson[] = [
       {
         kind: "intro",
         heading: "Tampering em combo",
-        body: "Um serviço off pode ser acidente. Três críticos off juntos = bypass.\n\n171 ScreenS lista status. Pergunta na call.",
+        body: "Um serviço off pode ser acidente. Três críticos off juntos = bypass.\n\nDeep Screen Share lista status. Pergunta na call.",
       },
       {
         kind: "modulo",
         heading: "📚 MÓDULO 1 — Painel Serviços",
-        body: "Scan 171 ScreenS → serviços.\n\nSysMain, EventLog, WinDefend, WSearch.\n\nAnota quais off e desde quando se souber.",
+        body: "Scan Deep Screen Share → serviços.\n\nSysMain, EventLog, WinDefend, WSearch.\n\nAnota quais off e desde quando se souber.",
       },
       {
         kind: "tecnica",
@@ -955,7 +955,7 @@ export const tier1Lessons: Lesson[] = [
       },
     ],
     [
-      "Checar serviços no 171 ScreenS",
+      "Checar serviços no Deep Screen Share",
       "Contar quantos críticos off",
       "Perguntar motivo na call",
       "Correlacionar Prefetch/journal",

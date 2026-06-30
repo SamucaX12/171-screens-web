@@ -1,7 +1,7 @@
 import { ComoUsarGuide } from "@/components/ComoUsarGuide";
 
 export const metadata = {
-  title: "Como Usar · 171 ScreenS",
+  title: "Como Usar · Deep Screen Share",
   description: "Guia passo a passo: login, curso, aulas e download do app scanner",
 };
 

@@ -5,7 +5,7 @@ import { MobileScanClient } from "@/components/scanner/MobileScanClient";
 import Link from "next/link";
 import { Apple, Lock } from "lucide-react";
 
-export const metadata = { title: "Scan iOS · 171 ScreenS" };
+export const metadata = { title: "Scan iOS · Deep Screen Share" };
 
 export default async function ScanIOSPage() {
   const session = await getSession();

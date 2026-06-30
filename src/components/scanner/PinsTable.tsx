@@ -98,7 +98,7 @@ export function PinsTable({ initialPins }: { initialPins: PinDoc[] }) {
         <div className="relative flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
           <div>
             <div className="inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-[11px] font-bold text-amber-300 uppercase tracking-wider">
-              <Zap className="h-3 w-3" /> 171 ScreenS Scanner
+              <Zap className="h-3 w-3" /> DSS Scanner
             </div>
             <h1 className="mt-4 text-3xl font-black tracking-tight">Pins</h1>
             <p className="mt-2 text-sm text-screens-muted max-w-md">

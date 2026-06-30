@@ -16,7 +16,7 @@ export async function POST() {
   const roleIds = await fetchMemberRolesBot(session.id);
   if (!roleIds) {
     return NextResponse.json(
-      { error: "sync_failed", message: "Não foi possível ler teus cargos. Entra no servidor 171 ScreenS." },
+      { error: "sync_failed", message: "Não foi possível ler teus cargos. Entra no servidor Deep Screen Share no Discord." },
       { status: 502 }
     );
   }

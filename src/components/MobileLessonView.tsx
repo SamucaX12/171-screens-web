@@ -22,6 +22,7 @@ import {
 import { hasMobileLessonAccess } from "@/lib/mobile-access";
 import type { SessionUser } from "@/lib/types";
 import { LessonBody } from "@/components/LessonBody";
+import { ContentProtection } from "@/components/ContentProtection";
 
 // ── Video embed ───────────────────────────────────────────────────────────────
 function VideoEmbed({ url }: { url: string }) {
@@ -32,10 +33,10 @@ function VideoEmbed({ url }: { url: string }) {
         <div className="overflow-hidden rounded-xl border border-fuchsia-500/20">
           <iframe
             className="aspect-video w-full"
-            src={`https://www.youtube.com/embed/${id}?rel=0`}
+            src={`https://www.youtube.com/embed/${id}?rel=0&modestbranding=1`}
             title="Vídeo da aula"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
+            allow="accelerometer; autoplay; encrypted-media; gyroscope"
+            sandbox="allow-scripts allow-same-origin allow-presentation"
           />
         </div>
       );
@@ -43,7 +44,14 @@ function VideoEmbed({ url }: { url: string }) {
   }
   return (
     <div className="overflow-hidden rounded-xl border border-fuchsia-500/20">
-      <video controls className="w-full" src={url} preload="metadata">
+      <video
+        controls
+        controlsList="nodownload noremoteplayback"
+        disablePictureInPicture
+        className="w-full"
+        src={url}
+        preload="metadata"
+      >
         Seu navegador não suporta vídeo.
       </video>
     </div>
@@ -108,6 +116,7 @@ export function MobileLessonView({
   }
 
   return (
+    <ContentProtection username={user.username} email={user.email}>
     <div className="dash-invaded min-h-full flex flex-col xl:flex-row">
       <div className="pointer-events-none fixed inset-0 cyber-grid opacity-15" />
 
@@ -388,5 +397,6 @@ export function MobileLessonView({
         </div>
       </article>
     </div>
+    </ContentProtection>
   );
 }

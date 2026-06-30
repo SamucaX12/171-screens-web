@@ -30,7 +30,7 @@ export const iosExtraLessons: MobileLesson[] = [
       {
         kind: "modulo",
         heading: "📚 Glossário iOS — Rede e Interceptação",
-        body: "• Proxy HTTP/HTTPS — intermediário de rede que intercepta tráfego\n• Charles Proxy — ferramenta popular de intercept em Mac/PC\n• SSL Kill Switch — tweak que desabilita verificação SSL pro iOS\n• PAC File — Proxy Auto-Configuration; script que redireciona tráfego automaticamente\n• VPN Profile — perfil de rede instalado nos Ajustes que encaminha tráfego\n• CA Certificate — certificado raiz que permite SSL intercept sem erro\n• DNS over HTTPS (DoH) — DNS criptografado; pode ocultar tráfego suspeito\n• Passador — serviço de replay de pacotes (específico do contexto 171 ScreenS)",
+        body: "• Proxy HTTP/HTTPS — intermediário de rede que intercepta tráfego\n• Charles Proxy — ferramenta popular de intercept em Mac/PC\n• SSL Kill Switch — tweak que desabilita verificação SSL pro iOS\n• PAC File — Proxy Auto-Configuration; script que redireciona tráfego automaticamente\n• VPN Profile — perfil de rede instalado nos Ajustes que encaminha tráfego\n• CA Certificate — certificado raiz que permite SSL intercept sem erro\n• DNS over HTTPS (DoH) — DNS criptografado; pode ocultar tráfego suspeito\n• Passador — serviço de replay de pacotes (específico do contexto Deep Screen Share)",
       },
       {
         kind: "tecnica",
@@ -87,7 +87,7 @@ export const iosExtraLessons: MobileLesson[] = [
         kind: "tecnica",
         heading: "🕵️ Técnica 4 — Análise de comportamento de tráfego",
         body: "Com acesso ao roteador ou via app de monitoramento de rede no iOS:\n\n1. App 'Network Analyzer' → verifica conexões ativas durante jogo\n2. DNS queries suspeitas durante a partida: IPs que não são da Garena\n3. Upload anormal durante ranked: pode ser stream de video do cheat (esp. remote)\n4. Latência spike regular com padrão = replay de pacotes (passador)\n\nEndpoints legítimos do Free Fire: garena.com, garena.global, freefireind.com\nQualquer outro IP com tráfego pesado durante ranked = suspeito",
-        example: "DNS log do roteador mostrava 'relay.171screens.net' sendo consultado 40x durante o ranked. Passador web ativo confirmado sem precisar ver o iPhone.",
+        example: "DNS log do roteador mostrava 'relay.deepscreenshare.net' sendo consultado 40x durante o ranked. Passador web ativo confirmado sem precisar ver o iPhone.",
       },
       {
         kind: "veredito",
@@ -480,7 +480,7 @@ export const iosExtraLessons: MobileLesson[] = [
       {
         kind: "tecnica",
         heading: "🕵️ Cruzar domínios com horário da partida",
-        body: "O relatório mostra horário de acesso a cada domínio.\n\nSe você sabe o horário exato da partida suspeita:\n1. Abre o relatório e filtra pelo horário\n2. Verifica quais domínios o Free Fire contactou naquele horário\n3. Domínio de passador (ex: 171screens.net ou IP local) = passador ativo confirmado\n4. Domínio de terceiro desconhecido = possível cheat com C&C server\n\nAlém disso:\n• Outros apps contatando domínios suspeitos no mesmo horário\n• TeamViewer contatando seus servidores durante o ranked = controle remoto confirmado",
+        body: "O relatório mostra horário de acesso a cada domínio.\n\nSe você sabe o horário exato da partida suspeita:\n1. Abre o relatório e filtra pelo horário\n2. Verifica quais domínios o Free Fire contactou naquele horário\n3. Domínio de passador (ex: deepscreenshare.net ou IP local) = passador ativo confirmado\n4. Domínio de terceiro desconhecido = possível cheat com C&C server\n\nAlém disso:\n• Outros apps contatando domínios suspeitos no mesmo horário\n• TeamViewer contatando seus servidores durante o ranked = controle remoto confirmado",
         example: "Relatório mostrou que no horário da partida, o app 'System Service' (renomeado TeamViewer) contatou 'relay.teamviewer.com' 47 vezes. Controle remoto via TeamViewer confirmado pelo relatório do sistema.",
       },
       {
@@ -511,12 +511,12 @@ export const iosExtraLessons: MobileLesson[] = [
       {
         kind: "intro",
         heading: "Por que verificar o Safari",
-        body: "O cheater usa o Safari para:\n• Baixar IPAs modificados (via link direto)\n• Acessar o passador web 171 ScreenS ou similares\n• Baixar scripts de automação\n• Instalar perfis de configuração via link\n\nAo verificar o Safari você encontra:\n• Histórico de navegação\n• Downloads na pasta Downloads\n• Cookies e dados de sites de cheat",
+        body: "O cheater usa o Safari para:\n• Baixar IPAs modificados (via link direto)\n• Acessar o passador web Deep Screen Share ou similares\n• Baixar scripts de automação\n• Instalar perfis de configuração via link\n\nAo verificar o Safari você encontra:\n• Histórico de navegação\n• Downloads na pasta Downloads\n• Cookies e dados de sites de cheat",
       },
       {
         kind: "modulo",
         heading: "📚 Verificar histórico do Safari",
-        body: "1. Abre o Safari\n2. Toca no ícone do livro (Histórico)\n3. Seleciona 'Histórico'\n4. Percorre o histórico completo — não deixa pular\n\nO que procurar:\n• Sites de cheat: iphonewired, tweakbox, altstore, esign\n• Passador web: qualquer URL com proxy, 171screens, passador\n• Download de IPAs: links terminando em .ipa\n• Sites de repositórios de tweak: repo.hackyouriphone.org, build.frida.re\n\n5. Verifica também Safari → Favoritos → Downloads (arquivos baixados)",
+        body: "1. Abre o Safari\n2. Toca no ícone do livro (Histórico)\n3. Seleciona 'Histórico'\n4. Percorre o histórico completo — não deixa pular\n\nO que procurar:\n• Sites de cheat: iphonewired, tweakbox, altstore, esign\n• Passador web: qualquer URL com proxy, deepscreenshare, passador\n• Download de IPAs: links terminando em .ipa\n• Sites de repositórios de tweak: repo.hackyouriphone.org, build.frida.re\n\n5. Verifica também Safari → Favoritos → Downloads (arquivos baixados)",
       },
       {
         kind: "modulo",

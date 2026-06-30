@@ -86,7 +86,7 @@ export default function ComprarPage() {
 
       <h2 className="mt-16 text-lg font-semibold flex items-center gap-2">
         <Scan className="h-5 w-5 text-amber-400" />
-        171 ScreenS — Scanner
+        Deep Screen Share — Scanner
       </h2>
       <p className="text-sm text-screens-muted mt-1">Produtos do scanner — separados do curso.</p>
 
