@@ -30,7 +30,6 @@ import {
   Trophy,
   Hash,
   ChevronDown,
-  Crosshair,
 } from "lucide-react";
 import { SessionUser } from "@/lib/types";
 import { UserProfileCard } from "@/components/UserProfileCard";
@@ -42,8 +41,11 @@ import {
   canAccessStrings,
   canAccessGui,
 } from "@/lib/scanner-access";
+import { BrandLogo } from "@/components/BrandLogo";
+import { siteConfig } from "@/lib/site-config";
 
 const PARTNER_ORGS = [
+  { name: "171 ScreenS", color: "#22d3ee" },
   { name: "alfa",     color: "#f59e0b" },
   { name: "helipa",   color: "#3b82f6" },
   { name: "tokio",    color: "#ef4444" },
@@ -58,7 +60,7 @@ const mainNav = [
   { href: "/dashboard",             label: "Início",       icon: LayoutDashboard },
   { href: "/dashboard/como-usar",   label: "Como Usar",    icon: HelpCircle },
   { href: "/dashboard/curso",       label: "Meu Curso",    icon: GraduationCap },
-  { href: "/dashboard/curso/tutor", label: "Tutor IA",     icon: Bot, badge: "3 modos", badgeColor: "#00ff88" },
+  { href: "/dashboard/curso/tutor", label: "Tutor IA",     icon: Bot, badge: "3 modos", badgeColor: siteConfig.colors.primary },
   { href: "/dashboard/curso/booster", label: "Booster",    icon: Sparkles },
   { href: "/dashboard/curso-mobile",  label: "Curso Mobile", icon: Smartphone },
   { href: "/dashboard/tickets",     label: "Tickets",      icon: Headphones },
@@ -74,9 +76,9 @@ const scannerNav = [
 ];
 
 const botNav = [
-  { href: "/dashboard/bots/tickets", label: "Ticket Bot",  icon: Ticket, color: "#00ff88" },
+  { href: "/dashboard/bots/tickets", label: "Ticket Bot",  icon: Ticket, color: siteConfig.colors.primary },
   { href: "/dashboard/bots/ranking", label: "Ranking Bot", icon: Trophy, color: "#fbbf24" },
-  { href: "/dashboard/bots/screens", label: "Bot SS",      icon: Hash,   color: "#00ffc8" },
+  { href: "/dashboard/bots/screens", label: "Bot SS",      icon: Hash,   color: siteConfig.colors.primarySoft },
 ];
 
 export function DashboardShell({
@@ -123,26 +125,14 @@ export function DashboardShell({
 
   useEffect(() => { setMobileOpen(false); }, [pathname]);
 
+  const brandPrimary = siteConfig.colors.primary;
+
   const sidebarContent = (
     <div className="flex flex-col h-full">
       {/* ── Logo ── */}
       <div className="px-4 pt-5 pb-4 border-b border-white/[0.05]">
-        <Link
-          href="/dashboard"
-          className="flex items-center gap-3 group"
-          onClick={() => setMobileOpen(false)}
-        >
-          <div className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-xl overflow-hidden">
-            <div className="absolute inset-0" style={{ background: "linear-gradient(135deg, #00ff88, #00ffc8)" }} />
-            <div className="absolute inset-[1px] rounded-[10px] bg-screens-bg/80 backdrop-blur-sm" />
-            <Crosshair className="relative h-4 w-4 text-white" style={{ filter: "drop-shadow(0 0 6px rgba(0,255,136,0.8))" }} />
-          </div>
-          <div>
-            <p className="text-sm font-black leading-tight tracking-tight text-white">
-              Deep Screen <span style={{ color: "#00ff88" }}>Share</span>
-            </p>
-            <p className="text-[10px] text-screens-muted">Plataforma Premium</p>
-          </div>
+        <Link href="/dashboard" className="group block" onClick={() => setMobileOpen(false)}>
+          <BrandLogo />
         </Link>
       </div>
 
@@ -162,7 +152,7 @@ export function DashboardShell({
               >
                 <item.icon
                   className="h-4 w-4 shrink-0"
-                  style={active ? { color: "#00ff88", filter: "drop-shadow(0 0 6px rgba(0,255,136,0.5))" } : { opacity: 0.5 }}
+                  style={active ? { color: brandPrimary, filter: `drop-shadow(0 0 6px ${brandPrimary}80)` } : { opacity: 0.5 }}
                 />
                 <span className="flex-1 truncate">{item.label}</span>
                 {"badge" in item && item.badge && (
@@ -254,7 +244,7 @@ export function DashboardShell({
                   >
                     <item.icon
                       className="h-4 w-4 shrink-0"
-                      style={active ? { color: "#00ff88", filter: "drop-shadow(0 0 5px rgba(0,255,136,0.5))" } : { opacity: 0.5 }}
+                      style={active ? { color: brandPrimary, filter: `drop-shadow(0 0 5px ${brandPrimary}80)` } : { opacity: 0.5 }}
                     />
                     {item.label}
                   </Link>
@@ -326,7 +316,7 @@ export function DashboardShell({
         {/* Discord */}
         <div className="pt-2">
           <a
-            href="https://discord.gg/CXkyv3QF9X"
+            href={siteConfig.discord.inviteUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="nav-item justify-between"
@@ -375,18 +365,19 @@ export function DashboardShell({
   );
 
   return (
-    <div className="flex min-h-screen bg-screens-bg">
-      {/* Ambient background glow */}
-      <div className="pointer-events-none fixed inset-0 overflow-hidden">
-        <div
-          className="absolute -top-32 -left-32 h-96 w-96 rounded-full opacity-[0.05]"
-          style={{ background: "radial-gradient(circle, #00ff88, transparent 70%)", filter: "blur(60px)" }}
-        />
-        <div
-          className="absolute top-1/2 -right-32 h-80 w-80 rounded-full opacity-[0.03]"
-          style={{ background: "radial-gradient(circle, #00ffc8, transparent 70%)", filter: "blur(60px)" }}
-        />
-      </div>
+    <div className={`flex min-h-screen bg-screens-bg ${siteConfig.ui.dashboardClass}`}>
+      {siteConfig.ui.style === "matrix" && (
+        <div className="pointer-events-none fixed inset-0 overflow-hidden">
+          <div
+            className="absolute -top-32 -left-32 h-96 w-96 rounded-full opacity-[0.05]"
+            style={{ background: `radial-gradient(circle, ${brandPrimary}, transparent 70%)`, filter: "blur(60px)" }}
+          />
+          <div
+            className="absolute top-1/2 -right-32 h-80 w-80 rounded-full opacity-[0.03]"
+            style={{ background: `radial-gradient(circle, ${siteConfig.colors.primarySoft}, transparent 70%)`, filter: "blur(60px)" }}
+          />
+        </div>
+      )}
 
       {/* Desktop sidebar */}
       <aside className="hidden md:flex relative z-10 w-[232px] shrink-0 flex-col border-r border-white/[0.05] sidebar-surface">

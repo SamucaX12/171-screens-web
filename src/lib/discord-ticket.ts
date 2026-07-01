@@ -1,5 +1,6 @@
 import type { TicketType } from "./ticket-types";
 import { TICKET_TYPES } from "./ticket-types";
+import { siteConfig } from "./site-config";
 
 /** Cria canal de ticket no Discord (se bot + categoria configurados) */
 export async function createDiscordTicketChannel(opts: {
@@ -78,7 +79,7 @@ export async function createDiscordTicketChannel(opts: {
           color: 0x5865f2,
           title: `Ticket #${opts.ticketNumber} · ${TICKET_TYPES[opts.type].label}`,
           description: `**${opts.subject}**\n\n${opts.body.slice(0, 1500)}${pinLine}`,
-          footer: { text: "Aberto pelo site Deep Screen Share" },
+          footer: { text: `Aberto pelo site ${siteConfig.scannerName}` },
         },
       ],
     }),

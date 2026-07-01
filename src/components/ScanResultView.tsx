@@ -1,6 +1,4 @@
-"use client";
-
-import { useState } from "react";
+import { siteConfig } from "@/lib/site-config";
 import Link from "next/link";
 import {
   Shield,
@@ -492,7 +490,7 @@ export function ScanResultView({
                     {/* Corner watermark */}
                     <div className="absolute bottom-3 right-3 rounded-lg border border-cyan-500/30 bg-screens-bg/80 backdrop-blur-sm px-3 py-1.5">
                       <p className="font-mono text-[9px] text-cyan-400/80 font-bold tracking-wider">
-                        Deep Screen Share · {pinCode ?? "SCAN"}
+                        {siteConfig.scannerName} · {pinCode ?? "SCAN"}
                       </p>
                     </div>
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { siteConfig } from "@/lib/site-config";
 
 interface ContentProtectionProps {
   children: React.ReactNode;
@@ -49,7 +50,7 @@ export function ContentProtection({ children, username, email }: ContentProtecti
 
   const displayName  = username || "usuário";
   const displayEmail = email ? ` · ${email.slice(0, 4)}***` : "";
-  const wm           = `${displayName}${displayEmail} · DEEP SCREEN SHARE`;
+  const wm           = `${displayName}${displayEmail} · ${siteConfig.ui.watermark}`;
 
   return (
     <div style={{ position: "relative" }}>

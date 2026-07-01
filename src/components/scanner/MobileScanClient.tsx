@@ -15,10 +15,11 @@ import {
   XCircle,
 } from "lucide-react";
 import type { MobileDetectionResult, MobileScanPlatform } from "@/lib/mobile-scan-types";
+import { siteConfig } from "@/lib/site-config";
 
-const PROXY_HOST = "scan.deepscreenshare.com.br";
-const PROXY_PORT_IOS = 8080;
-const PROXY_PORT_ANDROID = 8443;
+const PROXY_HOST = siteConfig.proxyHost;
+const PROXY_PORT_IOS = siteConfig.proxyPortIos;
+const PROXY_PORT_ANDROID = siteConfig.proxyPortAndroid;
 
 type Props = { platform: MobileScanPlatform };
 

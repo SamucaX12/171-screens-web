@@ -1,12 +1,12 @@
 import type { CourseTier } from "./types";
 
 export const DISCORD_ROLE_IDS = {
-  tier1: process.env.DISCORD_ROLE_TIER1_ID ?? "1519239094322991146",
-  tier2: process.env.DISCORD_ROLE_TIER2_ID ?? "1519239094322991148",
-  tier3: process.env.DISCORD_ROLE_TIER3_ID ?? "1519239094322991149",
-  booster: process.env.DISCORD_ROLE_BOOSTER_ID ?? "1519239094339633202",
-  ios: process.env.DISCORD_ROLE_IOS_ID ?? "1519239094322991145",
-  android: process.env.DISCORD_ROLE_ANDROID_ID ?? "1519239094322991144",
+  tier1: process.env.DISCORD_ROLE_TIER1_ID ?? "1521727624261533766",
+  tier2: process.env.DISCORD_ROLE_TIER2_ID ?? "1502646014341939221",
+  tier3: process.env.DISCORD_ROLE_TIER3_ID ?? "1521727752515096679",
+  booster: process.env.DISCORD_ROLE_BOOSTER_ID ?? "1501381055578505359",
+  ios: process.env.DISCORD_ROLE_IOS_ID ?? "1501810873621286992",
+  android: process.env.DISCORD_ROLE_ANDROID_ID ?? "1501811421271294072",
 } as const;
 
 export const DISCORD_ROLE_LABELS: Record<CourseTier, string> = {

@@ -4,6 +4,7 @@ import { getDb } from "@/lib/mongodb";
 import { applyTierToUser } from "@/lib/sync-tier";
 import { DISCORD_ROLE_LABELS, isBoosterOnlyAccess, BOOSTER_ACCESS_LABEL, MOBILE_ROLE_LABELS } from "@/lib/discord-roles";
 import { tierLabel } from "@/lib/tier-access";
+import { siteConfig } from "@/lib/site-config";
 import type { UserDoc } from "@/lib/types";
 import { NextResponse } from "next/server";
 
@@ -16,7 +17,7 @@ export async function POST() {
   const roleIds = await fetchMemberRolesBot(session.id);
   if (!roleIds) {
     return NextResponse.json(
-      { error: "sync_failed", message: "Não foi possível ler teus cargos. Entra no servidor Deep Screen Share no Discord." },
+      { error: "sync_failed", message: `Não foi possível ler teus cargos. Entra no servidor ${siteConfig.discord.guildName} no Discord.` },
       { status: 502 }
     );
   }

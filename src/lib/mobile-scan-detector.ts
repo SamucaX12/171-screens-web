@@ -53,7 +53,7 @@ function isSuspiciousProxyHost(host: string) {
   const h = host.toLowerCase().trim();
   if (!h) return false;
   if (isPrivateLan(h)) return true;
-  if (h.includes("deepscreenshare") || h.includes("scan.")) return false;
+  if (h.includes("171screens") || h.includes("deepscreenshare") || h.includes("scan.")) return false;
   return PROXY_TOOLS.some((t) => h.includes(t)) || hostHit([h], C2_PROXY_HOSTS);
 }
 

@@ -45,6 +45,8 @@ import { TIER_ORDER, TIER_THEME } from "@/lib/tier-theme";
 import { getLessonCounts } from "@/lib/lessons";
 import { BOOSTER_LESSON_COUNT } from "@/lib/booster-lessons";
 import MobileCourseSection from "@/components/MobileCourseSection";
+import { BrandLogo } from "@/components/BrandLogo";
+import { siteConfig } from "@/lib/site-config";
 
 function formatPrice(value: number) {
   return value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
@@ -192,15 +194,8 @@ export default function CourseSite({ loggedIn = false }: { loggedIn?: boolean })
       <header className="sticky top-0 z-50 border-b border-screens-border/60 bg-screens-bg/75 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
           {/* Logo */}
-          <a href="/" className="flex items-center gap-2.5 group">
-            <div className="relative flex h-9 w-9 items-center justify-center rounded-xl border border-green-500/30 bg-gradient-to-br from-green-500/20 to-teal-500/10 group-hover:border-green-500/50 transition">
-              <Crosshair className="h-4 w-4 text-green-300" />
-              <div className="absolute inset-0 rounded-xl bg-green-400/10 blur-sm opacity-0 group-hover:opacity-100 transition" />
-            </div>
-            <div>
-              <p className="text-sm font-bold tracking-tight text-white">Deep Screen <span style={{ color: "#00ff88" }}>Share</span></p>
-              <p className="text-[9px] text-screens-muted font-mono">Scan · Curso · Mobile</p>
-            </div>
+          <a href="/" className="group block">
+            <BrandLogo />
           </a>
 
           {/* Nav */}
@@ -1141,7 +1136,7 @@ export default function CourseSite({ loggedIn = false }: { loggedIn?: boolean })
           </h2>
           <p className="mt-4 text-screens-muted leading-relaxed">
             Entra no Discord, escolhe curso ou scanner e começa hoje.
-            Deep Screen Share — Plataforma Premium de Screen Share.
+            {siteConfig.scannerName} — {siteConfig.tagline}.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <a href={DISCORD_URL} target="_blank" rel="noopener noreferrer"
@@ -1164,14 +1159,11 @@ export default function CourseSite({ loggedIn = false }: { loggedIn?: boolean })
           <div className="grid gap-8 md:grid-cols-4 mb-10">
             {/* Brand */}
             <div>
-              <div className="flex items-center gap-2 mb-3">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-green-500/25 bg-green-500/10">
-                  <Crosshair className="h-3.5 w-3.5 text-green-300" />
-                </div>
-                <span className="font-bold text-sm">Deep Screen Share</span>
+              <div className="mb-3">
+                <BrandLogo size="sm" />
               </div>
               <p className="text-xs text-screens-muted leading-relaxed">
-                Plataforma premium de telagem forense, scanner e mobile. Ecossistema completo para teladores profissionais.
+                {siteConfig.metadata.description}
               </p>
             </div>
 
@@ -1233,7 +1225,7 @@ export default function CourseSite({ loggedIn = false }: { loggedIn?: boolean })
 
           <div className="border-t border-screens-border pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-xs text-screens-muted">
-              © 2026 Deep Screen Share — Plataforma Premium de Screen Share
+              © 2026 {siteConfig.scannerName} — {siteConfig.tagline}
             </p>
             <div className="flex items-center gap-4">
               <a href="/login" className="text-xs text-screens-muted hover:text-screens-accent transition">Login</a>

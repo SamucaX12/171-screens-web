@@ -1,5 +1,6 @@
 import { getScannerDb } from "./scanner-db";
 import { findAccountByEmail, ensureScannerUserProfile } from "./user-lookup";
+import { siteConfig } from "./site-config";
 import {
   CustomPattern,
   EnterpriseDoc,
@@ -12,11 +13,11 @@ import {
 } from "./scanner-types";
 
 const DEFAULT_CONFIG: GlobalConfigDoc = {
-  scannerName: "DSS Scanner",
-  primaryColor: "#7dd3fc",
-  spinnerColor1: "#bae6fd",
-  spinnerColor2: "#7dd3fc",
-  spinnerColor3: "#38bdf8",
+  scannerName: siteConfig.scannerName,
+  primaryColor: siteConfig.scanner.primaryColor,
+  spinnerColor1: siteConfig.scanner.spinnerColor1,
+  spinnerColor2: siteConfig.scanner.spinnerColor2,
+  spinnerColor3: siteConfig.scanner.spinnerColor3,
   loadingPhrases: ["Analisando artefatos...", "Verificando bypass...", "Cruzando evidências..."],
   customPatterns: [],
   publicStrings: [],
